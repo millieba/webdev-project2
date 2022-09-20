@@ -2,7 +2,7 @@
 function SendLink() {
   return (
     <div>
-hei
+      *Her legges inn info*
     </div>
   );
 }

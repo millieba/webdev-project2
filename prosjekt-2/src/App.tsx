@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import SendLink from './SendLink';
+import SendLink from './components/SendLink';
 
 function App() {
   return (
