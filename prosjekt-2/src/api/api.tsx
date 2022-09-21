@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { accessTokenState, gitlabRepoState } from "../states/states";
+import { useCallback, useEffect, useState } from "react";
 
-function Connect() {
+interface Props {
+    accessToken: string;
+    gitlabRepoLink: string;
+}
 
-    const accessToken = useRecoilValue(accessTokenState);
-    const gitlabRepoLink = useRecoilValue(gitlabRepoState);
-    const token = accessToken;  // Paste your gitlab token here
+function Connect({accessToken, gitlabRepoLink}: Props) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [resultData, setResult] = useState([])
@@ -17,7 +16,7 @@ function Connect() {
             {
                 method: 'GET',
                 headers: {
-                    'PRIVATE-TOKEN': token
+                    'PRIVATE-TOKEN': accessToken
                 }
 
             })
@@ -35,11 +34,11 @@ function Connect() {
                     console.log(error);
                 })
     }
-
+    
     useEffect(() => {
         getRepo()
-
-    }, [token]);
+        // eslint-disable-line react-hooks/exhaustive-deps
+    }, [accessToken]);
 
 
     if (error) {
