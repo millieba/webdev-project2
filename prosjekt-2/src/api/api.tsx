@@ -32,7 +32,7 @@ function Connect({ accessToken, gitlabRepoLink }: Props) {
                 // denne trigges av feil (men ikke tomt) api-kall
                 (error) => {
                     setIsLoaded(true);
-                    setError(error.blob());
+                    setError(error);
                     console.log(error);
                 })
             // dette er ikke bra men siden crasher ikke hvis denne er med
