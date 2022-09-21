@@ -3,11 +3,17 @@ import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import { useRecoilState } from 'recoil';
 import { gitlabRepoState, accessTokenState } from '../states/states';
+import { useState } from 'react';
 
 function SendLink() {
 
+  // To avoid sending new variables all the time to the API
+  const [tempAccessToken, setTempAccessToken] = useState("0");
+  const [tempGitlabRepoLink, setTempGitlabRepoLink] = useState("0");
+
+  // Variables being "sent" to the API
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
-  const [gitLabRepoLink, setGitLabRepoLink] = useRecoilState(gitlabRepoState);
+  const [gitlabRepoLink, setGitlabRepoLink] = useRecoilState(gitlabRepoState);
 
   return (
     // To adjust the colors on the MUI-components, use theme in index.tsx
@@ -19,7 +25,7 @@ function SendLink() {
             label="GitLab repo" 
             size="small"
             onChange={(e) => {
-              setGitLabRepoLink(e.target.value);
+              setTempGitlabRepoLink(e.target.value);
             }}
             sx={{ mt: "15px" }} />
           <br />
@@ -29,7 +35,7 @@ function SendLink() {
             label="Access token" 
             size="small" 
             onChange={(e) => {
-              setAccessToken(e.target.value);
+              setTempAccessToken(e.target.value);
             }}
             sx={{ mt: "15px" }} />
           <br />
@@ -37,8 +43,10 @@ function SendLink() {
             id="access-token" 
             variant="contained" 
             onClick={() => {
-              console.log(gitLabRepoLink);
+              setAccessToken(tempAccessToken);
+              setGitlabRepoLink(tempGitlabRepoLink);
               console.log(accessToken);
+              console.log(gitlabRepoLink);
             }}
             sx={{ mt: "15px" }}>
             Submit

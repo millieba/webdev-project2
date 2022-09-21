@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { accessTokenState, gitlabRepoState } from "../states/states";
 
 function Connect() {
-    const token = 'xxx';  // Paste your gitlab token here
+
+    const accessToken = useRecoilValue(accessTokenState);
+    const gitlabRepoLink = useRecoilValue(gitlabRepoState);
+    const token = accessToken;  // Paste your gitlab token here
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [resultData, setResult] = useState([])
 
     // getRepo is based on the example in React's Ajax documentation https://reactjs.org/docs/faq-ajax.html
     const getRepo = () => {
-        fetch("https://gitlab.stud.idi.ntnu.no/api/v4/projects/17534/repository/commits",
+        fetch(gitlabRepoLink,
             {
                 method: 'GET',
                 headers: {
