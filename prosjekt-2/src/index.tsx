@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { RecoilRoot } from 'recoil';
 
 // Theme for the MUI-components (does ONLY work on MUI-components)
 const theme = createTheme({
@@ -25,7 +26,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
+    <RecoilRoot>
     <App />
+    </RecoilRoot>
     </ThemeProvider>
   </React.StrictMode>
 );
