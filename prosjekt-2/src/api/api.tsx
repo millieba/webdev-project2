@@ -5,13 +5,13 @@ interface Props {
     gitlabRepoLink: string;
 }
 
-function Connect({accessToken, gitlabRepoLink}: Props) {
+function Connect({ accessToken, gitlabRepoLink }: Props) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [resultData, setResult] = useState([])
+    const [resultData, setResult] = useState<any[]>([])
 
-    // getRepo is based on the example in React's Ajax documentation https://reactjs.org/docs/faq-ajax.html
-    const getRepo = () => {
+    // based on the example in React's Ajax documentation https://reactjs.org/docs/faq-ajax.html
+    useEffect(() => {
         fetch(gitlabRepoLink,
             {
                 method: 'GET',
@@ -24,29 +24,37 @@ function Connect({accessToken, gitlabRepoLink}: Props) {
             .then(
                 (result) => {
                     setIsLoaded(true);
-                    setResult(result);
+                    (!Array.isArray(result)) ? setResult([result]) : setResult(result);
+                    //setResult(initArray => [...initArray, result]);
+                    //console.log(typeof resultData);
                     console.log(result);
                 },
-                // litt usikker på hva som skal til for å trigge denne atm 
+                // denne trigges av feil (men ikke tomt) api-kall
                 (error) => {
                     setIsLoaded(true);
-                    setError(error);
+                    setError(error.blob());
                     console.log(error);
                 })
-    }
-    
-    useEffect(() => {
-        getRepo()
-        // eslint-disable-line react-hooks/exhaustive-deps
-    }, [accessToken]);
+            // dette er ikke bra men siden crasher ikke hvis denne er med
+            .catch(() => console.log("Felt for repo er tomt"))
+    }, [accessToken, gitlabRepoLink])
 
 
     if (error) {
         return <div>Error: {error}</div>;
-    } else if (!isLoaded) {
+    }
+    else if (!isLoaded) {
         return <div>Loading...</div>;
-    } else {
-        return <p>{JSON.stringify(resultData)}</p>;
+    }
+    else {
+        return (<ul style={{ listStyleType: "none" }}>
+            {resultData.map((result, i) => (
+                <li key={i}>
+                    {result.message}
+                </li>
+            ))}
+        </ul>
+        );
     }
 }
 export default Connect;
