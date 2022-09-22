@@ -5,13 +5,22 @@ import { useState } from 'react';
 import Connect from '../api/api';
 
 function SendLink() {
+
+  const [disableButton, setDisableButton] = useState(true);
+
   // To avoid sending new variables all the time to the API useeffect dependencies
-  const [tempAccessToken, setTempAccessToken] = useState("0");
-  const [tempGitlabRepoLink, setTempGitlabRepoLink] = useState("https://gitlab.stud.idi.ntnu.no/api/v4/projects/");
+  const [tempAccessToken, setTempAccessToken] = useState<string>();
+  const [tempProjectId, setTempProjectId] = useState<string>();
 
   // The variables we pass as props to the API <Connect />
-  const [accessToken, setAccessToken] = useState("0");
-  const [gitlabRepoLink, setGitlabRepoLink] = useState("https://gitlab.stud.idi.ntnu.no/api/v4/projects/");
+  const [accessToken, setAccessToken] = useState<string>();
+  const [projectId, setProjectId] = useState<string>();
+
+  const isFormValid = () => {
+    if (!tempAccessToken && !tempProjectId) {
+      setDisableButton(false);
+    }
+  }
 
   return (
     // To adjust the colors on the MUI-components, use theme in index.tsx
@@ -20,10 +29,11 @@ function SendLink() {
           <TextField 
             id="send-link-field" 
             variant='outlined' 
-            label="GitLab repo" 
+            label="GitLab repo project id" 
             size="small"
             onChange={(e) => {
-              setTempGitlabRepoLink(e.target.value);
+              setTempProjectId(e.target.value);
+              isFormValid();
             }}
             sx={{ mt: "15px" }} />
           <br />
@@ -34,21 +44,25 @@ function SendLink() {
             size="small" 
             onChange={(e) => {
               setTempAccessToken(e.target.value);
+              isFormValid();
             }}
             sx={{ mt: "15px" }} />
           <br />
           <Button 
             id="access-token" 
-            variant="contained" 
+            variant="contained"
             onClick={() => {
               setAccessToken(tempAccessToken);
-              setGitlabRepoLink(tempGitlabRepoLink);
+              setProjectId(tempProjectId);
             }}
+            disabled={disableButton}
             sx={{ mt: "15px" }}>
             Submit
           </Button>
         </Box>
-        <Connect accessToken={accessToken} gitlabRepoLink={gitlabRepoLink} />
+        {accessToken !== undefined && projectId !== undefined ?
+        <Connect accessToken={accessToken} projectId={projectId}/> :
+        <></> }
       </div>
   );
 }

@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 
 interface Props {
     accessToken: string;
-    gitlabRepoLink: string;
+    projectId: string;
 }
 
-function Connect({ accessToken, gitlabRepoLink }: Props) {
+function Connect({ accessToken, projectId }: Props) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [resultData, setResult] = useState<any[]>([])
 
+    const gitlabRepoLink = "https://gitlab.stud.idi.ntnu.no/api/v4/projects/" + projectId + "/repository/commits"
+    
     // based on the example in React's Ajax documentation https://reactjs.org/docs/faq-ajax.html
     useEffect(() => {
         fetch(gitlabRepoLink,
