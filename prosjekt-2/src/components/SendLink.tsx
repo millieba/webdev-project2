@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Connect from '../api/api';
 
 function SendLink() {
@@ -16,11 +16,14 @@ function SendLink() {
   const [accessToken, setAccessToken] = useState<string>();
   const [projectId, setProjectId] = useState<string>();
 
-  const isFormValid = () => {
-    if (!tempAccessToken && !tempProjectId) {
+  useEffect(() => {
+    if (tempAccessToken && tempProjectId) {
       setDisableButton(false);
+    } else {
+      setDisableButton(true);
     }
-  }
+  }, [tempAccessToken, tempProjectId]);
+
 
   return (
     // To adjust the colors on the MUI-components, use theme in index.tsx
@@ -33,7 +36,6 @@ function SendLink() {
             size="small"
             onChange={(e) => {
               setTempProjectId(e.target.value);
-              isFormValid();
             }}
             sx={{ mt: "15px" }} />
           <br />
@@ -44,7 +46,6 @@ function SendLink() {
             size="small" 
             onChange={(e) => {
               setTempAccessToken(e.target.value);
-              isFormValid();
             }}
             sx={{ mt: "15px" }} />
           <br />
