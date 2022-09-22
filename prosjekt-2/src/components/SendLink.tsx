@@ -4,7 +4,12 @@ import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Connect from '../api/api';
 
-function SendLink() {
+interface Props {
+  userPick: string;
+  displayValue: string;
+}
+
+function SendLink({userPick, displayValue}: Props) {
 
   const [disableButton, setDisableButton] = useState(true);
 
@@ -62,8 +67,10 @@ function SendLink() {
           </Button>
         </Box>
         {accessToken !== undefined && projectId !== undefined ?
-        <Connect accessToken={accessToken} projectId={projectId}/> :
+        <Connect accessToken={accessToken} projectId={projectId} userPick={userPick} displayValue={displayValue} /> :
         <></> }
+
+        <p>{userPick}</p>
       </div>
   );
 }

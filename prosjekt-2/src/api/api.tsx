@@ -3,14 +3,16 @@ import { useEffect, useState } from "react";
 interface Props {
     accessToken: string;
     projectId: string;
+    userPick: string;
+    displayValue: string;
 }
 
-function Connect({ accessToken, projectId }: Props) {
+function Connect({ accessToken, projectId, userPick, displayValue }: Props) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [resultData, setResult] = useState<any[]>([])
 
-    const gitlabRepoLink = "https://gitlab.stud.idi.ntnu.no/api/v4/projects/" + projectId + "/repository/commits"
+    const gitlabRepoLink = "https://gitlab.stud.idi.ntnu.no/api/v4/projects/" + projectId + userPick;
     
     // based on the example in React's Ajax documentation https://reactjs.org/docs/faq-ajax.html
     useEffect(() => {
@@ -38,7 +40,6 @@ function Connect({ accessToken, projectId }: Props) {
                 })
     }, [accessToken, gitlabRepoLink])
 
-
     if (error) {
         return <div>Error: {error}</div>;
     }
@@ -49,7 +50,9 @@ function Connect({ accessToken, projectId }: Props) {
         return (<ul style={{ listStyleType: "none" }}>
             {resultData.map((result, i) => (
                 <li key={i}>
-                    {result.message}
+                    {/* {result."message"} */}
+                    {/* {result}.{displayValue */}
+                    {result[displayValue]}
                 </li>
             ))}
         </ul>
