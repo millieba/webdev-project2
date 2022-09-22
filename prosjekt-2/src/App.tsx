@@ -4,8 +4,7 @@ import SendLink from './components/SendLink';
 function App() {
   return (
     <div className="App">
-      
-  <SendLink />
+    <SendLink />
     </div>
   );
 }
