@@ -31,14 +31,11 @@ function Connect({ accessToken, projectId }: Props) {
                     //console.log(typeof resultData);
                     console.log(result);
                 },
-                // denne trigges av feil (men ikke tomt) api-kall
                 (error) => {
                     setIsLoaded(true);
                     setError(error);
                     console.log(error);
                 })
-            // dette er ikke bra men siden crasher ikke hvis denne er med
-            .catch(() => console.log("Felt for repo er tomt"))
     }, [accessToken, gitlabRepoLink])
 
 
