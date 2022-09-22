@@ -6,7 +6,7 @@ function UserPick() {
     // initialisert med issues, kan endre senere
     const [userRequest, setUserRequest] = useState<string>("/issues");
     const [displayValue, setDisplayValue] = useState<string>("description");
-    const [header, setHeader] = useState<string>("Issue descriptions");
+    const [header, setHeader] = useState<string>("Issue");
 
     return (
         // To adjust the colors on the MUI-components, use theme in index.tsx
@@ -17,7 +17,7 @@ function UserPick() {
                     onClick={() => {
                         setUserRequest("/repository/commits");
                         setDisplayValue("message");
-                        setHeader("Commit " + displayValue + "s");
+                        setHeader("Commit")
                     }}
                     sx={{ ml: "15px" }}>
                     Commits 
@@ -26,7 +26,7 @@ function UserPick() {
                 onClick={() => {
                     setUserRequest("/issues");
                     setDisplayValue("description");
-                    setHeader("Issue " + displayValue + "s");
+                    setHeader("Issue");
                 }}
                 sx={{ ml: "15px" }}>
                     Issues

@@ -50,7 +50,7 @@ function Connect({ accessToken, projectId, userPick, displayValue, header }: Pro
     else {
         return (
             <div>
-                <h3>{header}</h3>
+                <h3>{header} {displayValue}s</h3>
                 <ul style={{ listStyleType: "none" }}>
                     {resultData.map((result, i) => (
                         <li key={i}>
