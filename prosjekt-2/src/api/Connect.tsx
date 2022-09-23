@@ -25,18 +25,27 @@ function Connect({ accessToken, projectId, userPick, displayValue, header }: Pro
         axios.get(gitlabRepoLink, config)
             .then(
                 (result) => {
+                    console.log(result);
                     let data = result.data;
                     setIsLoaded(true);
                     setResult(data);
-                    console.log(data);
                 })
             .catch((error) => {
                 console.log(error);
                 setIsLoaded(true);
                 setError(error.response.data.message);
-                //setError(error.message);
             })
     }, [accessToken, gitlabRepoLink])
+
+    function getDisplayProperties (displayValue: string, userPick: string, res: any){
+        if (userPick === "/issues" && displayValue === "assignee name") {
+            return res?.assignee?.name;
+        }
+        else {
+            console.log(displayValue);
+            return res?.[displayValue];
+        }
+    }
 
     if (error) {
         return (
@@ -48,13 +57,16 @@ function Connect({ accessToken, projectId, userPick, displayValue, header }: Pro
         return <div>Loading...</div>;
     }
     else {
+
+
         return (
             <div>
                 <h3>{header} {displayValue}s</h3>
                 <ul style={{ listStyleType: "none" }}>
                     {resultData.map((result, i) => (
                         <li key={i}>
-                            {result[displayValue]}
+                            {/* {result?.[displayValue]?.["name"] !== null || undefined ? result?.[displayValue]?.["name"] : "Issue without an assignee"} */}
+                            {getDisplayProperties(displayValue, userPick, result)}
                         </li>
                     ))}
                 </ul>
