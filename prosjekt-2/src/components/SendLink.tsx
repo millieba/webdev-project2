@@ -5,6 +5,7 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import Modal from '@mui/material/Modal';
 import ProjectIdImage from '../images/project-id.png';
 import CloseIcon from '@mui/icons-material/Close';
+import Connect from '../api/Connect';
 
 interface Props {
   userPick: string;
@@ -24,7 +25,7 @@ const styleModal = {
   p: 4,
   overflow: 'auto',
 };
-import Connect from '../api/Connect';
+
 
 
 
@@ -84,7 +85,9 @@ function SendLink({ userPick, displayValue, header }: Props) {
                 </InputAdornment>
               ),
             }}/>
+
           <br />
+
           <TextField 
             id="access-token-field" 
             variant='outlined' 
@@ -94,7 +97,9 @@ function SendLink({ userPick, displayValue, header }: Props) {
               setTempAccessToken(e.target.value);
             }}
             sx={{ mt: "15px", width: "250px" }} />
+
           <br />
+
           <Button 
             id="access-token" 
             variant="contained"
@@ -106,12 +111,13 @@ function SendLink({ userPick, displayValue, header }: Props) {
             sx={{ mt: "15px" }}>
             Submit
           </Button>
+          
         </Box>
 
         {accessToken !== undefined && projectId !== undefined && validateInputFields(accessToken, projectId) ?
         <Connect accessToken={accessToken} projectId={projectId} userPick={userPick} displayValue={displayValue} header={header} /> :
         <></>}
-        
+
         <Modal
           open={open}
           onClose={handleClose}>
@@ -123,10 +129,7 @@ function SendLink({ userPick, displayValue, header }: Props) {
               <p>Your project's id can be found by going to the homepage of your Gitlab repository. In the picture below an example is highlighted with yellow.</p>
               <Box component='img' src={ProjectIdImage} id="projectIdImage" sx={{ maxHeight: "100%", maxWidth: "100%" }} />
             </Box>
-
         </Modal>
-
-
       </div>
 
   );
