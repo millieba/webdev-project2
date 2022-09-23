@@ -38,11 +38,13 @@ function Connect({ accessToken, projectId, userPick, displayValue, header }: Pro
     }, [accessToken, gitlabRepoLink])
 
     function getDisplayProperties (displayValue: string, userPick: string, res: any){
+        // to make the code more general and reusable we could have displayvalue on the format 
+        // property1.property2, split the string on "." and assign the two properties to variables, e.g. p1 and p2
+        // then return res?.[p1]?.[p2]. That way the wanted displayValues can be passed in one prop, then assessed here
         if (userPick === "/issues" && displayValue === "assignee name") {
             return res?.assignee?.name;
         }
         else {
-            console.log(displayValue);
             return res?.[displayValue];
         }
     }
@@ -65,7 +67,6 @@ function Connect({ accessToken, projectId, userPick, displayValue, header }: Pro
                 <ul style={{ listStyleType: "none" }}>
                     {resultData.map((result, i) => (
                         <li key={i}>
-                            {/* {result?.[displayValue]?.["name"] !== null || undefined ? result?.[displayValue]?.["name"] : "Issue without an assignee"} */}
                             {getDisplayProperties(displayValue, userPick, result)}
                         </li>
                     ))}
