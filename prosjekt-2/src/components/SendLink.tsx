@@ -1,11 +1,16 @@
 import TextField from '@mui/material/TextField';
 import { Button, IconButton, InputAdornment, Box } from '@mui/material';
 import { useEffect, useState } from 'react';
-import Connect from '../api/api';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import Modal from '@mui/material/Modal';
 import ProjectIdImage from '../images/project-id.png';
 import CloseIcon from '@mui/icons-material/Close';
+
+interface Props {
+  userPick: string;
+  displayValue: string;
+  header: string;
+}
 
 const styleModal = {
   top: '50%',
@@ -19,8 +24,11 @@ const styleModal = {
   p: 4,
   overflow: 'auto',
 };
+import Connect from '../api/Connect';
 
-function SendLink() {
+
+
+function SendLink({ userPick, displayValue, header }: Props) {
 
   const [disableButton, setDisableButton] = useState(true);
   const [open, setOpen] = useState(false);
@@ -37,13 +45,21 @@ function SendLink() {
   const [projectId, setProjectId] = useState<string>();
 
   useEffect(() => {
-    if (tempAccessToken && tempProjectId) {
+    if (tempAccessToken && tempProjectId && validateInputFields(tempAccessToken,tempProjectId)) {
       setDisableButton(false);
     } else {
       setDisableButton(true);
     }
   }, [tempAccessToken, tempProjectId]);
 
+  function validateInputFields(accessToken: string, projectId: string) {
+    if (projectId == null || !projectId.match(/\d+/))
+      return false;
+    if (accessToken == null || !accessToken.match(/[\w-+~.=/]+/))
+      return false;
+
+    return true;
+  }
 
   return (
     // To adjust the colors on the MUI-components, use theme in index.tsx
@@ -91,9 +107,11 @@ function SendLink() {
             Submit
           </Button>
         </Box>
-        {accessToken !== undefined && projectId !== undefined ?
-        <Connect accessToken={accessToken} projectId={projectId}/> :
-        <></> }
+
+        {accessToken !== undefined && projectId !== undefined && validateInputFields(accessToken, projectId) ?
+        <Connect accessToken={accessToken} projectId={projectId} userPick={userPick} displayValue={displayValue} header={header} /> :
+        <></>}
+        
         <Modal
           open={open}
           onClose={handleClose}>
@@ -110,6 +128,7 @@ function SendLink() {
 
 
       </div>
+
   );
 }
 
