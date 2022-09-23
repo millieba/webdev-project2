@@ -5,14 +5,17 @@ import Connect from '../api/api';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import Modal from '@mui/material/Modal';
 import ProjectIdImage from '../images/project-id.png';
+import CloseIcon from '@mui/icons-material/Close';
 
 const styleModal = {
-  top: '30%',
+  top: '50%',
   left: '50%',
-  width: '40%',
+  width: '50vw',
+  height: 'auto',
   position: 'absolute',
   transform: 'translate(-50%, -50%)',
   backgroundColor: '#ffffff',
+  boxShadow: 20,
   p: 4,
   overflow: 'auto',
 };
@@ -91,14 +94,16 @@ function SendLink() {
         {accessToken !== undefined && projectId !== undefined ?
         <Connect accessToken={accessToken} projectId={projectId}/> :
         <></> }
-
         <Modal
           open={open}
           onClose={handleClose}>
             <Box sx={styleModal}>
+            <Box display="flex" justifyContent="flex-end" alignItems="flex-end">
+              <IconButton onClick={handleClose}><CloseIcon /></IconButton>
+            </Box>
               <h2>What is Gitlab repository project-id?</h2>
               <p>Your project's id can be found by going to the homepage of your Gitlab repository. In the picture below an example is highlighted with yellow.</p>
-              <img src={ProjectIdImage}/>
+              <Box component='img' src={ProjectIdImage} id="projectIdImage" sx={{ maxHeight: "100%", maxWidth: "100%" }} />
             </Box>
 
         </Modal>
