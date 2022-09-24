@@ -3,19 +3,21 @@ import { useState } from "react";
 import SendLink from "./SendLink";
 
 function UserPick() {
-
-    const [userRequest, setUserRequest] = useState<string>("");
-    const [displayValue, setDisplayValue] = useState<string>("");
+    // initialisert med issues, kan endre senere
+    const [userRequest, setUserRequest] = useState<string>("/issues");
+    const [displayValue, setDisplayValue] = useState<string>("description");
+    const [header, setHeader] = useState<string>("Issue");
 
     return (
         // To adjust the colors on the MUI-components, use theme in index.tsx
         <>
-            <SendLink userPick={userRequest} displayValue={displayValue} />
+            <SendLink userPick={userRequest} displayValue={displayValue} header={header} />
             <Box sx={{ m: "15px" }}>
                 <Button variant="outlined" 
                     onClick={() => {
                         setUserRequest("/repository/commits");
                         setDisplayValue("message");
+                        setHeader("Commit")
                     }}
                     sx={{ ml: "15px" }}>
                     Commits 
@@ -24,6 +26,7 @@ function UserPick() {
                 onClick={() => {
                     setUserRequest("/issues");
                     setDisplayValue("description");
+                    setHeader("Issue");
                 }}
                 sx={{ ml: "15px" }}>
                     Issues
