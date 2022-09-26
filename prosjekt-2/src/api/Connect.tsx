@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+
 interface Props {
     accessToken: string;
     projectId: string;
@@ -14,7 +15,7 @@ function Connect({ accessToken, projectId, userPick, displayValue, header }: Pro
     const [isLoaded, setIsLoaded] = useState(false);
     const [resultData, setResult] = useState([])
 
-    const gitlabRepoLink = "https://gitlab.stud.idi.ntnu.no/api/v4/projects/" + projectId + userPick;
+    const gitlabRepoLink = "https://gitlab.stud.idi.ntnu.no/api/v4/projects/" + projectId + userPick + "?pagination=keyset&per_page=1000";
 
     useEffect(() => {
         setError(null);
@@ -77,6 +78,7 @@ function Connect({ accessToken, projectId, userPick, displayValue, header }: Pro
                         </li>
                     ))}
                     </ul>
+                    {/* <Issues accessToken={accessToken} projectId={projectId}/> */}
             </div>
         );
     }
