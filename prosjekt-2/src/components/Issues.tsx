@@ -10,7 +10,7 @@ function Issues({ accessToken, projectId }: Props) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [responseData, setResponseData] = useState([]);
-    const [cleanResults, setResults] = useState([]);
+    let cleanedResults: { title: string; description: string; assignees: string; state: string; createdAt: string; }[] = [];
 
     const gitlabRepoLink = "https://gitlab.stud.idi.ntnu.no/api/v4/projects/" + projectId + "/issues" + "?pagination=keyset&per_page=1000";
 
@@ -18,7 +18,7 @@ function Issues({ accessToken, projectId }: Props) {
         setError(null);
         setIsLoaded(false);
         const config = {
-            headers: { 
+            headers: {
                 'PRIVATE-TOKEN': accessToken
             }
         };
@@ -37,21 +37,24 @@ function Issues({ accessToken, projectId }: Props) {
             })
     }, [accessToken, gitlabRepoLink])
 
-    function getDisplayProperties(displayValue: string, userPick: string, res: any) {
-        let chosenDisplayValue = displayValue.split(".");
-        if (chosenDisplayValue.length > 1) {
-            return res?.[chosenDisplayValue[0]]?.[chosenDisplayValue[1]];
-        }
 
-        return res?.[displayValue];
-    }
-
-    function cleanUpResponse (res: Array<Object>) {
+    function cleanUpResponse(res: Array<any>) {
         res.map((result, i) => {
-            console.log(result);
-            //setResults.push(object);
-    })
-        return res;
+            let title = result?.title;
+            let description = result?.description === null ? "" : result?.description;
+            let createdAt = new Date(result?.created_at);
+            let state = result?.state;
+
+            let assigneeArr = result?.assignees;
+            let assigneeNames = new Array<String>();
+            assigneeArr.length === 0 ? assigneeNames.push("Issue is not assigned to anyone") : (assigneeArr.map((assignee: any, i: number) => {
+                assigneeNames.push(assignee?.name);
+            }))
+
+
+            let issueObj = { title: title, description: description.replace(/[\r\n]+/g, ""), createdAt: createdAt.toDateString(), assignees: assigneeNames.toString(), state: state };
+            cleanedResults.push(issueObj);
+        })
     }
 
     if (error) {
@@ -69,16 +72,17 @@ function Issues({ accessToken, projectId }: Props) {
         return (
             <div>
                 <h3>Issues</h3>
-                {/* REMOVE THIS COMMENT BEFORE DELIVERY: Could also use the useState in UserPick but I think this solution makes it more readable */}
-                {/* {displayValue !== "" ? `${header} ${displayValue.replace(/[._]/g, " ")}s` : "Choose one of the following buttons" }</h3> */}
-                {/* <ul style={{ listStyleType: "none" }}>
-                    {resultData.map((result, i) => (
+                <ul style={{ listStyleType: "none" }}>
+                    {cleanedResults.map((result, i) => (
                         <li key={i}>
-
-                            {getDisplayProperties(displayValue, userPick, result)}
+                            Title: {result.title} ///
+                            Description: {result.description} ///
+                            Assigneed to: {result.assignees} ///
+                            State: {result.state} ///
+                            Created at: {result.createdAt}<br /><br />
                         </li>
                     ))}
-                </ul> */}
+                </ul>
             </div>
         );
     }

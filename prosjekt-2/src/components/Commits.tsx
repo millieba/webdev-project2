@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-// Title
-// Message
-// Committer name
-// Committed date
-
 interface Props {
     accessToken: string;
     projectId: string;
@@ -15,7 +10,7 @@ function Commits({ accessToken, projectId }: Props) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [responseData, setResponseData] = useState([]);
-    let cleanedResultls: { committer: any; committedDate: any; commitMessage: any; }[] = [];
+    let cleanedResultls: { committer: string; committedDate: string; commitMessage: string; }[] = [];
 
     const gitlabRepoLink = "https://gitlab.stud.idi.ntnu.no/api/v4/projects/" + projectId + "/repository/commits" + "?pagination=keyset&per_page=1000";
 
@@ -23,7 +18,7 @@ function Commits({ accessToken, projectId }: Props) {
         setError(null);
         setIsLoaded(false);
         const config = {
-            headers: { 
+            headers: {
                 'PRIVATE-TOKEN': accessToken
             }
         };
@@ -42,14 +37,13 @@ function Commits({ accessToken, projectId }: Props) {
             })
     }, [accessToken, gitlabRepoLink])
 
-    function cleanUpResponse (res: Array<any>) {
+    function cleanUpResponse(res: Array<any>) {
         res.map((result, i) => {
             let committer = result?.committer_name;
-            let committedDate = result?.committed_date;
-            let commitMessage= result?.title;
-            cleanedResultls.push({committer: committer, committedDate: committedDate, commitMessage: commitMessage});            
-    })
-        return res;
+            let committedDate = new Date(result?.committed_date);
+            let commitMessage = result?.title;
+            cleanedResultls.push({ committer: committer, committedDate: committedDate.toDateString(), commitMessage: commitMessage });
+        })
     }
 
     if (error) {
@@ -68,14 +62,14 @@ function Commits({ accessToken, projectId }: Props) {
             <div>
                 <h3>Commits</h3>
                 {cleanedResultls.map((result, i) => (
-                        <div key={i}>
-                            {result.committer}; -
-                            {result.committedDate}; -
-                            {result.commitMessage};
-                            <br/>
-                            <br/>
-                        </div>
-                    ))}
+                    <div key={i}>
+                        Committer: {result.committer} ///
+                        Date committed: {result.committedDate} ///
+                        Message: {result.commitMessage}
+                        <br />
+                        <br />
+                    </div>
+                ))}
             </div>
         );
     }
