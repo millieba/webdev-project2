@@ -13,7 +13,7 @@ const darkTheme = {
 
 //Remember to add reference from previous project! 
 
-export const ThemeContext = createContext(null); 
+export const ThemeContext = createContext();   
 
 export const ThemeProvider = ({children}) => {
     const [isDarkTheme, setIsDarkTheme] = useState(false); 
