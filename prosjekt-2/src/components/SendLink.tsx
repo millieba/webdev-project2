@@ -7,12 +7,6 @@ import ProjectIdImage from '../images/project-id.png';
 import CloseIcon from '@mui/icons-material/Close';
 import Connect from '../api/Connect';
 
-interface Props {
-  userPick: string;
-  displayValue: string;
-  header: string;
-}
-
 const styleModal = {
   top: '50%',
   left: '50%',
@@ -29,7 +23,7 @@ const styleModal = {
 
 
 
-function SendLink({ userPick, displayValue, header }: Props) {
+function SendLink() {
 
   const [disableButton, setDisableButton] = useState(true);
   const [open, setOpen] = useState(false);
@@ -46,7 +40,7 @@ function SendLink({ userPick, displayValue, header }: Props) {
   const [projectId, setProjectId] = useState<string>();
 
   useEffect(() => {
-    if (tempAccessToken && tempProjectId && validateInputFields(tempAccessToken,tempProjectId)) {
+    if (tempAccessToken && tempProjectId && validateInputFields(tempAccessToken, tempProjectId)) {
       setDisableButton(false);
     } else {
       setDisableButton(true);
@@ -64,73 +58,73 @@ function SendLink({ userPick, displayValue, header }: Props) {
 
   return (
     // To adjust the colors on the MUI-components, use theme in index.tsx
-      <div>
-        <Box>
-          <TextField 
-            id="send-link-field" 
-            variant='outlined' 
-            label="GitLab repo project id" 
-            size="small"
-            onChange={(e) => {
-              setTempProjectId(e.target.value);
-            }}
-            sx={{ mt: "15px", width: "250px" }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position='end'>
-                  <IconButton
-                    onClick={handleOpen}>
-                    <HelpOutlineIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}/>
+    <div>
+      <Box>
+        <TextField
+          id="send-link-field"
+          variant='outlined'
+          label="GitLab repo project id"
+          size="small"
+          onChange={(e) => {
+            setTempProjectId(e.target.value);
+          }}
+          sx={{ mt: "15px", width: "250px" }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position='end'>
+                <IconButton
+                  onClick={handleOpen}>
+                  <HelpOutlineIcon />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }} />
 
-          <br />
+        <br />
 
-          <TextField 
-            id="access-token-field" 
-            variant='outlined' 
-            label="Access token" 
-            size="small" 
-            onChange={(e) => {
-              setTempAccessToken(e.target.value);
-            }}
-            sx={{ mt: "15px", width: "250px" }} />
+        <TextField
+          id="access-token-field"
+          variant='outlined'
+          label="Access token"
+          size="small"
+          onChange={(e) => {
+            setTempAccessToken(e.target.value);
+          }}
+          sx={{ mt: "15px", width: "250px" }} />
 
-          <br />
+        <br />
 
-          <Button 
-            id="access-token" 
-            variant="contained"
-            onClick={() => {
-              setAccessToken(tempAccessToken);
-              setProjectId(tempProjectId);
-            }}
-            disabled={disableButton}
-            sx={{ mt: "15px" }}>
-            Submit
-          </Button>
-          
-        </Box>
+        <Button
+          id="access-token"
+          variant="contained"
+          onClick={() => {
+            setAccessToken(tempAccessToken);
+            setProjectId(tempProjectId);
+          }}
+          disabled={disableButton}
+          sx={{ mt: "15px" }}>
+          Submit
+        </Button>
 
-        {accessToken !== undefined && projectId !== undefined && validateInputFields(accessToken, projectId) ?
-        <Connect accessToken={accessToken} projectId={projectId} userPick={userPick} displayValue={displayValue} header={header} /> :
+      </Box>
+
+      {accessToken !== undefined && projectId !== undefined && validateInputFields(accessToken, projectId) ?
+        <Connect accessToken={accessToken} projectId={projectId} /> :
         <></>}
 
-        <Modal
-          open={open}
-          onClose={handleClose}>
-            <Box sx={styleModal}>
-            <Box display="flex" justifyContent="flex-end" alignItems="flex-end">
-              <IconButton onClick={handleClose}><CloseIcon /></IconButton>
-            </Box>
-              <h2>What is Gitlab repository project-id?</h2>
-              <p>Your project's id can be found by going to the homepage of your Gitlab repository. In the picture below an example is highlighted with yellow.</p>
-              <Box component='img' src={ProjectIdImage} id="projectIdImage" sx={{ maxHeight: "100%", maxWidth: "100%" }} />
-            </Box>
-        </Modal>
-      </div>
+      <Modal
+        open={open}
+        onClose={handleClose}>
+        <Box sx={styleModal}>
+          <Box display="flex" justifyContent="flex-end" alignItems="flex-end">
+            <IconButton onClick={handleClose}><CloseIcon /></IconButton>
+          </Box>
+          <h2>What is Gitlab repository project-id?</h2>
+          <p>Your project's id can be found by going to the homepage of your Gitlab repository. In the picture below an example is highlighted with yellow.</p>
+          <Box component='img' src={ProjectIdImage} id="projectIdImage" sx={{ maxHeight: "100%", maxWidth: "100%" }} />
+        </Box>
+      </Modal>
+    </div>
 
   );
 }
