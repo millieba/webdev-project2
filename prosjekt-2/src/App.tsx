@@ -1,10 +1,10 @@
 import './App.css';
-import UserPick from './components/UserPick';
+import SendLink from './components/SendLink';
 
 function App() {
   return (
     <div className="App">
-    <UserPick />
+    <SendLink />
     </div>
   );
 }
