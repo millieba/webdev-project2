@@ -7,12 +7,6 @@ import ProjectIdImage from '../images/project-id.png';
 import CloseIcon from '@mui/icons-material/Close';
 import Connect from '../api/Connect';
 
-interface Props {
-  userPick: string;
-  displayValue: string;
-  header: string;
-}
-
 const styleModal = {
   top: '50%',
   left: '50%',
@@ -29,7 +23,7 @@ const styleModal = {
 
 
 
-function SendLink({ userPick, displayValue, header }: Props) {
+function SendLink() {
 
   const [disableButton, setDisableButton] = useState(true);
   const [open, setOpen] = useState(false);
@@ -115,7 +109,7 @@ function SendLink({ userPick, displayValue, header }: Props) {
         </Box>
 
         {accessToken !== undefined && projectId !== undefined && validateInputFields(accessToken, projectId) ?
-        <Connect accessToken={accessToken} projectId={projectId} userPick={userPick} displayValue={displayValue} header={header} /> :
+        <Connect accessToken={accessToken} projectId={projectId} /> :
         <></>}
 
         <Modal

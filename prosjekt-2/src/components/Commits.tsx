@@ -1,0 +1,84 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+// Title
+// Message
+// Committer name
+// Committed date
+
+interface Props {
+    accessToken: string;
+    projectId: string;
+}
+
+function Commits({ accessToken, projectId }: Props) {
+    const [error, setError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [responseData, setResponseData] = useState([]);
+    let cleanedResultls: { committer: any; committedDate: any; commitMessage: any; }[] = [];
+
+    const gitlabRepoLink = "https://gitlab.stud.idi.ntnu.no/api/v4/projects/" + projectId + "/repository/commits" + "?pagination=keyset&per_page=1000";
+
+    useEffect(() => {
+        setError(null);
+        setIsLoaded(false);
+        const config = {
+            headers: { 
+                'PRIVATE-TOKEN': accessToken
+            }
+        };
+        axios.get(gitlabRepoLink, config)
+            .then(
+                (result) => {
+                    console.log(result);
+                    let data = result.data;
+                    setIsLoaded(true);
+                    setResponseData(data);
+                })
+            .catch((error) => {
+                console.log(error);
+                setIsLoaded(true);
+                setError(error.response.data.message);
+            })
+    }, [accessToken, gitlabRepoLink])
+
+    function cleanUpResponse (res: Array<any>) {
+        res.map((result, i) => {
+            let committer = result?.committer_name;
+            let committedDate = result?.committed_date;
+            let commitMessage= result?.title;
+            cleanedResultls.push({committer: committer, committedDate: committedDate, commitMessage: commitMessage});            
+    })
+        return res;
+    }
+
+    if (error) {
+        return (
+            <div>
+                <h3>An error occured: </h3>{error}
+            </div>);
+    }
+    else if (!isLoaded) {
+        return <div>Loading...</div>;
+    }
+    else {
+        cleanUpResponse(responseData);
+
+        return (
+            <div>
+                <h3>Commits</h3>
+                {cleanedResultls.map((result, i) => (
+                        <div key={i}>
+                            {result.committer}; -
+                            {result.committedDate}; -
+                            {result.commitMessage};
+                            <br/>
+                            <br/>
+                        </div>
+                    ))}
+            </div>
+        );
+    }
+
+}
+export default Commits;
