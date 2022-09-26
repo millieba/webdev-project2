@@ -5,8 +5,8 @@ import SendLink from "./SendLink";
 function UserPick() {
     // initialisert med issues, kan endre senere
     const [userRequest, setUserRequest] = useState<string>("/issues");
-    const [displayValue, setDisplayValue] = useState<string>("description");
-    const [header, setHeader] = useState<string>("Issue");
+    const [displayValue, setDisplayValue] = useState<string>("");
+    const [header, setHeader] = useState<string>("");
 
     return (
         // To adjust the colors on the MUI-components, use theme in index.tsx
@@ -25,7 +25,7 @@ function UserPick() {
                 <Button variant="outlined"
                 onClick={() => {
                     setUserRequest("/issues");
-                    setDisplayValue("description");
+                    setDisplayValue("assignee.name");
                     setHeader("Issue");
                 }}
                 sx={{ ml: "15px" }}>
