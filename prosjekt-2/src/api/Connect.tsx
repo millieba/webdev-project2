@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Issues from "../components/Issues";
 
 
 interface Props {
@@ -78,7 +79,7 @@ function Connect({ accessToken, projectId, userPick, displayValue, header }: Pro
                         </li>
                     ))}
                     </ul>
-                    {/* <Issues accessToken={accessToken} projectId={projectId}/> */}
+                    <Issues accessToken={accessToken} projectId={projectId}/> 
             </div>
         );
     }
