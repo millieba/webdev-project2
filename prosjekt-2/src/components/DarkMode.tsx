@@ -8,7 +8,7 @@ export default function DarkMode() {
 
   return (
     <IconButton className="darkButton" onClick={toggle}>
-      {!isDarkMode ? <Brightness7 /> : <Brightness4 />}
+      {!isDarkMode ? <Brightness4 /> : <Brightness7 />}
     </IconButton>
   );
 }

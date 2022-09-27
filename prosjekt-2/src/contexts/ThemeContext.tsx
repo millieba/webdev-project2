@@ -1,14 +1,14 @@
 import { useState, createContext, ReactNode, useEffect } from "react";
-
+//#4e135a
 export const themes = {
-    light: {
-        backgroundColor: "#8d6b94",
-        color: "black",
-    }, 
     dark: {
         backgroundColor: "#4e135a", 
         color: "white", 
     },
+    light: {
+        backgroundColor: "white",
+        color: "black",
+    }, 
 }
 
 //Solution inspired by a previous project: https://gitlab.stud.idi.ntnu.no/tdt4140-2022/landsby-3/gruppe_38/matnettside/-/blob/main/feedme/src/contexts/theme.js 
@@ -25,6 +25,7 @@ export const ThemeProvider = ({children}: ProviderProps) => {
 
     const toggle = () => {
         localStorage.setItem("isDarkMode", JSON.stringify(!isDarkMode)); 
+        setIsDarkMode(!isDarkMode); 
     }; 
 
     useEffect(() => {
@@ -40,3 +41,5 @@ export const ThemeProvider = ({children}: ProviderProps) => {
     ); 
 
 }
+
+export default ThemeContext; 

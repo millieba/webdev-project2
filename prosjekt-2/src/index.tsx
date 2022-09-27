@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { ThemeProvider } from './contexts/ThemeContext';
+//import { createTheme } from '@mui/material/styles';
 
-// // Theme for the MUI-components (does ONLY work on MUI-components)
+// Theme for the MUI-components (does ONLY work on MUI-components)
 // const theme = createTheme({
 //   palette: {
 //     primary: {
@@ -23,7 +24,6 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-//ADD THEME PROVIDER HERE 
 root.render(
   <React.StrictMode>
     <ThemeProvider>
