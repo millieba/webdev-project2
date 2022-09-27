@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="App"
-    style={{color: theme.color}}>
+    style={{color: theme.textcolor, backgroundColor: theme.backgroundColor}}>
       <DarkMode />
       <SendLink />
       <Issues accessToken={""} projectId={""} />

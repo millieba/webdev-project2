@@ -1,13 +1,17 @@
 import { useState, createContext, ReactNode, useEffect } from "react";
-//#4e135a
+
 export const themes = {
     dark: {
         backgroundColor: "#4e135a", 
-        color: "white", 
+        textcolor: "white", 
+        buttonColor: "#430c69",  
+        darkbutton: "white"
     },
     light: {
         backgroundColor: "white",
-        color: "black",
+        textcolor: "grey",
+        buttonColor: "#8d6b94", 
+        darkbutton: "grey"
     }, 
 }
 
@@ -19,7 +23,7 @@ type ProviderProps = {
     children: ReactNode; 
 }
 
-export const ThemeProvider = ({children}: ProviderProps) => { 
+export const ThemeProvider = ({children}: ProviderProps) => {   //Provides global theme 
     const [isDarkMode, setIsDarkMode] = useState(false); 
     const theme = isDarkMode ? themes.dark : themes.light; 
 
