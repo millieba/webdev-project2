@@ -1,5 +1,4 @@
 import {PieChart, Pie, Cell, Tooltip} from "recharts";
-import { isAssertEntry } from "typescript";
 
 interface Props{
     cleanedResultls: Array<any>
