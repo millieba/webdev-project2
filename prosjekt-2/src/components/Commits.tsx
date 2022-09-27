@@ -63,7 +63,7 @@ function Commits({ accessToken, projectId }: Props) {
         return (
             <div>
                 <h3>Commits</h3>
-                <CommitsCharts cleanResults={cleanResults} />
+                <CommitChart cleanedResultls={cleanedResultls} />
                 {cleanedResultls.map((result, i) => (
                     <div key={i}>
                         Committer: {result.committer} ///
