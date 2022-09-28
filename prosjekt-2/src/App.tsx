@@ -15,9 +15,6 @@ function App() {
     style={{color: theme.textcolor, backgroundColor: theme.backgroundColor}}>
       <DarkMode />
       <SendLink />
-      <Issues accessToken={""} projectId={""} />
-      <DisplayValues userPick={""} />
-      <Commits accessToken={""} projectId={""} />
     </div>
   );
 }
