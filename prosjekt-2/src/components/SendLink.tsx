@@ -50,6 +50,14 @@ function SendLink() {
     }
   }, [tempAccessToken, tempProjectId]);
 
+  function clearStates() {
+    if (accessToken && projectId) {
+      setAccessToken(undefined);
+      setProjectId(undefined);
+    } 
+  }
+
+
   function validateInputFields(accessToken: string, projectId: string) {
     if (projectId == null || !projectId.match(/\d+/))
       return false;
@@ -71,6 +79,7 @@ function SendLink() {
           size="small"
           onChange={(e) => {
             setTempProjectId(e.target.value);
+            clearStates();
           }}
           sx={{ mt: "15px", width: "250px" }}
           InputProps={{
@@ -93,6 +102,7 @@ function SendLink() {
           size="small"
           onChange={(e) => {
             setTempAccessToken(e.target.value);
+            clearStates();
           }}
           sx={{ mt: "15px", width: "250px" }} />
 
