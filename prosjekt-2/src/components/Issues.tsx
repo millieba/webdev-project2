@@ -71,21 +71,10 @@ function Issues({ accessToken, projectId }: Props) {
         cleanUpResponse(responseData);
 
         return (
-            <div>
+            <>
                 <h3>Issues</h3>
                 <IssuesOptions cleanedResults={cleanedResults}/>
-                <ul style={{ listStyleType: "none" }}>
-                    {cleanedResults.map((result, i) => (
-                        <li key={i}>
-                            Title: {result.title} ///
-                            Description: {result.description} ///
-                            Assigneed to: {result.assignees} ///
-                            State: {result.state} ///
-                            Created at: {result.createdAt}<br /><br />
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            </>
         );
     }
 

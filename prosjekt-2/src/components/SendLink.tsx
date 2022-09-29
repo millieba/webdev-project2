@@ -51,9 +51,9 @@ function SendLink() {
   }, [tempAccessToken, tempProjectId]);
 
   function validateInputFields(accessToken: string, projectId: string) {
-    if (projectId == null || !projectId.match(/\d+/))
+    if (projectId === undefined || !projectId.match(/\d+/))
       return false;
-    if (accessToken == null || !accessToken.match(/[\w-+~.=/]+/))
+    if (accessToken === undefined || !accessToken.match(/[\w-+~.=/]+/))
       return false;
 
     return true;
