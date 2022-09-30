@@ -28,7 +28,7 @@ const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
 sessionStorage.setItem("emoji", randomEmoji);
 
 
-function SendLink() {
+function UserInput() {
 
   const [{ theme }] = useContext(ThemeContext)
 
@@ -55,9 +55,9 @@ function SendLink() {
   }, [tempAccessToken, tempProjectId]);
 
   function validateInputFields(accessToken: string, projectId: string) {
-    if (projectId == null || !projectId.match(/\d+/))
+    if (projectId === undefined || !projectId.match(/\d+/))
       return false;
-    if (accessToken == null || !accessToken.match(/[\w-+~.=/]+/))
+    if (accessToken === undefined || !accessToken.match(/[\w-+~.=/]+/))
       return false;
 
     return true;
@@ -142,4 +142,4 @@ function SendLink() {
   );
 }
 
-export default SendLink;
+export default UserInput;

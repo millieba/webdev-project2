@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { useState } from "react";
-import CommitsOptions from './CommitsOptions';
-import CommitsChart from './CommitsChart';
+import CommitsFilter from './CommitsFilter';
+import CommitsChart from '../charts/CommitsChart';
 
 interface Props {
     cleanedResults: Array<any>;
@@ -9,7 +9,7 @@ interface Props {
 
 
 function CommitsViews({ cleanedResults }: Props) {
-    const [view, setView] = useState('');
+    const [view, setView] = useState("list");
 
     return (
         <div>
@@ -23,12 +23,12 @@ function CommitsViews({ cleanedResults }: Props) {
                     setView(e?.target.value);
                 }}
                 >
+                <MenuItem value={"list"}>List view</MenuItem>
                 <MenuItem value={"pie-chart"}>Pie chart</MenuItem>
-                <MenuItem value={"commits"}>Commits</MenuItem>
                 </Select>
             </FormControl>
 
-            {view === "commits" ? <CommitsOptions cleanedResults={cleanedResults} /> : <></>}
+            {view === "list" ? <CommitsFilter cleanedResults={cleanedResults} /> : <></>}
             {view === "pie-chart" ? <CommitsChart cleanedResults={cleanedResults} /> : <></>}
         </div>
     );

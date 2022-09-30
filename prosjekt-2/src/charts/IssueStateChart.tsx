@@ -4,7 +4,7 @@ interface Props{
     cleanedResults: Array<any>
 }
 
-function IssueChart({cleanedResults}:Props){
+function IssueStateChart({cleanedResults}:Props){
 
     const stateCounter = cleanedResults.reduce( (previous, current) => (
          previous[current.state] = (previous[current.state] || 0)+1, previous), {} 
@@ -42,4 +42,4 @@ function IssueChart({cleanedResults}:Props){
      );
 }
   
-export default IssueChart;
+export default IssueStateChart;

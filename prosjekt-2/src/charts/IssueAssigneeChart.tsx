@@ -4,7 +4,7 @@ interface Props{
     cleanedResults: Array<any>
 }
 
-function AssigneeChart({cleanedResults}:Props){
+function IssueAssigneeChart({cleanedResults}:Props){
 
     // using reduce to loop through the array and sum it into object
     const countAssignee = cleanedResults.reduce( (previous, current) => (
@@ -44,4 +44,4 @@ function AssigneeChart({cleanedResults}:Props){
      );
 }
   
-export default AssigneeChart;
+export default IssueAssigneeChart;

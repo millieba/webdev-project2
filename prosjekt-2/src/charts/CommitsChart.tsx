@@ -4,7 +4,7 @@ interface Props{
     cleanedResults: Array<any>
 }
 
-function CommitChart({cleanedResults}:Props){
+function CommitsChart({cleanedResults}:Props){
 
     const nameOccurrences = cleanedResults.reduce( (previous, current) => (
         previous[current.committer] = (previous[current.committer] || 0)+1, previous), {} 
@@ -42,4 +42,4 @@ function CommitChart({cleanedResults}:Props){
      );
 }
   
-export default CommitChart;
+export default CommitsChart;
