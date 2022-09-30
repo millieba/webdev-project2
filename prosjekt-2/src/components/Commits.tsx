@@ -65,7 +65,7 @@ function Commits({ accessToken, projectId }: Props) {
                 <h3>Commits</h3>
                 <CommitChart cleanedResults={cleanedResults} />
                 {cleanedResults.map((result, i) => (
-                    <div key={i}>
+                    <div key={i} id="commit" >
                         Committer: {result.committer} ///
                         Date committed: {result.committedDate} ///
                         Message: {result.commitMessage}
