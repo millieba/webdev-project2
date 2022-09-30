@@ -21,12 +21,16 @@ const styleModal = {
   overflow: 'auto',
 };
 
+const emojis = ["🌹", "🥀", "🌺", "🌸", "🌼", "🌻", "💐", "🏵️", "🌷"];
+const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
 
+// Save random emoji to sessionStorage
+sessionStorage.setItem("emoji", randomEmoji);
 
 
 function SendLink() {
 
-  const [{theme}] = useContext(ThemeContext)
+  const [{ theme }] = useContext(ThemeContext)
 
   const [disableButton, setDisableButton] = useState(true);
   const [open, setOpen] = useState(false);
@@ -62,9 +66,13 @@ function SendLink() {
   return (
     // To adjust the colors on the MUI-components, use theme in index.tsx
     <div>
+      {/* // Get saved data from sessionStorage */}
+      <h3>Nice to meet you! <br></br> Please add a project id and an access token
+        so I can show you some information. {sessionStorage.getItem("emoji")}</h3>
+
       <Box>
         <TextField
-          style={{color: theme.textcolor}}
+          style={{ color: theme.textcolor }}
           id="send-link-field"
           variant='outlined'
           label="GitLab repo project id"
@@ -76,7 +84,7 @@ function SendLink() {
           InputProps={{
             endAdornment: (
               <InputAdornment position='end'>
-                <IconButton style={{color: theme.textcolor}}
+                <IconButton style={{ color: theme.textcolor }}
                   onClick={handleOpen}>
                   <HelpOutlineIcon />
                 </IconButton>
@@ -98,8 +106,8 @@ function SendLink() {
 
         <br />
 
-        <Button 
-          style={{backgroundColor: theme.buttonColor}}
+        <Button
+          style={{ backgroundColor: theme.buttonColor }}
           id="access-token"
           variant="contained"
           onClick={() => {
