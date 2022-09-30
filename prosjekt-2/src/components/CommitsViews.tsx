@@ -2,9 +2,10 @@ import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@m
 import { useState } from "react";
 import CommitsFilter from './CommitsFilter';
 import CommitsChart from '../charts/CommitsChart';
+import { ICommit } from "../api/GetCommits";
 
 interface Props {
-    cleanedResults: Array<any>;
+    cleanedResults: Array<ICommit>;
 }
 
 

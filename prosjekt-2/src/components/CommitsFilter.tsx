@@ -5,12 +5,13 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useState } from 'react';
 import { Checkbox, Grid, ListItemText, OutlinedInput, TextField } from '@mui/material';
 import { Dayjs } from 'dayjs';
+import { ICommit } from '../api/GetCommits';
 // import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 
 interface Props {
-    cleanedResults: Array<any>;
+    cleanedResults: Array<ICommit>;
 }
 
 function CommitsFilter({ cleanedResults }: Props) {
