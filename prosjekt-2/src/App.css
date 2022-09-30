@@ -1,10 +1,7 @@
 .App {
   text-align: center;
-  width: 100%;
-  height: 100%;
 }
 
 .gridViewItem {
-  background-color: #CBBBCE;
   border-radius: 10px;
 }

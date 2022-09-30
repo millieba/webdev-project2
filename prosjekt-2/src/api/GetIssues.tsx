@@ -73,7 +73,6 @@ function GetIssues({ accessToken, projectId }: Props) {
 
         return (
             <>
-                <h3>Issues</h3>
                 <IssuesViews cleanedResults={cleanedResults} />
             </>
         );

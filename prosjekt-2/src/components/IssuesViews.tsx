@@ -1,18 +1,27 @@
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import IssuesFilter from './IssuesFilter';
 import IssuesPieChart from '../charts/IssueStateChart';
 import IssueAssigneeChart from '../charts/IssueAssigneeChart';
+import ThemeContext from "../contexts/ThemeContext";
+import {styleEachView} from "./CommitsViews";
 
 interface Props {
     cleanedResults: Array<any>;
 }
 function IssuesViews({ cleanedResults }: Props) {
+    const [{theme}] = useContext(ThemeContext);
     const [view, setView] = useState("list");
+
+    // Styling of the input
+    const inputStyling = {
+        color: theme.textcolor,
+    }
+
     return (
         <div>
-            <FormControl fullWidth>
-                <InputLabel id="select-views">Select view</InputLabel>
+            <FormControl fullWidth sx={styleEachView}>
+                <InputLabel id="select-views" sx={inputStyling}>Select view</InputLabel>
                 <Select
                     labelId="select-views"
                     value={view}
@@ -20,6 +29,7 @@ function IssuesViews({ cleanedResults }: Props) {
                     onChange={(e) => {
                         setView(e?.target.value);
                     }}
+                    sx={inputStyling}
                 >
                     <MenuItem value={"list"}>List view</MenuItem>
                     <MenuItem value={"charts"}>Charts</MenuItem>

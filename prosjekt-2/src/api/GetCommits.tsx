@@ -59,10 +59,9 @@ function GetCommits({ accessToken, projectId }: Props) {
         cleanUpResponse(responseData);
 
         return (
-            <div>
-                <h3>Commits</h3>
+            <>
                 <CommitsViews cleanedResults={cleanedResults} />
-            </div>
+            </>
         );
     }
 

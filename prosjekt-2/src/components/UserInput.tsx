@@ -8,6 +8,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import Connect from '../api/Connect';
 import ThemeContext from '../contexts/ThemeContext';
 
+
+
 const styleModal = {
   top: '50%',
   left: '50%',
@@ -21,6 +23,8 @@ const styleModal = {
   overflow: 'auto',
 };
 
+
+
 const emojis = ["🌹", "🥀", "🌺", "🌸", "🌼", "🌻", "💐", "🏵️", "🌷"];
 const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
 
@@ -29,9 +33,7 @@ sessionStorage.setItem("emoji", randomEmoji);
 
 
 function UserInput() {
-
-  const [{ theme }] = useContext(ThemeContext)
-
+  const [{ theme }] = useContext(ThemeContext);
   const [disableButton, setDisableButton] = useState(true);
   const [open, setOpen] = useState(false);
 
@@ -45,6 +47,39 @@ function UserInput() {
   // The variables we pass as props to the API <Connect />
   const [accessToken, setAccessToken] = useState<string>();
   const [projectId, setProjectId] = useState<string>();
+
+  // Styles the textfields that take in project id and access token
+  const styleTextField = {
+    mt: "15px", 
+    width: "250px",
+    input: {
+      color: theme.textcolor
+    },
+    "& label": { 
+        color: theme.inputTextColor 
+      }, 
+    "& label.Mui-focused": { 
+        color: theme.inputTextColor
+      },
+    "&:hover label": { 
+        color: theme.inputTextColor
+      },
+    "& .MuiInput-underline:after": {
+        color: theme.inputTextColor
+      },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: theme.inputTextColor
+      },
+      "&:hover fieldset": {
+          borderColor: theme.inputTextColor
+        },
+      "&.Mui-focused fieldset": {
+        borderColor: theme.inputTextColor
+      }
+    }
+
+  }
 
   useEffect(() => {
     if (tempAccessToken && tempProjectId && validateInputFields(tempAccessToken, tempProjectId)) {
@@ -67,12 +102,11 @@ function UserInput() {
     // To adjust the colors on the MUI-components, use theme in index.tsx
     <div>
       {/* // Get saved data from sessionStorage */}
-      <h3>Nice to meet you! <br></br> Please add a project id and an access token
+      <h3 id="headline">Nice to meet you! <br/> Please add a project id and an access token
         so I can show you some information. {sessionStorage.getItem("emoji")}</h3>
 
       <Box>
         <TextField
-          style={{ color: theme.textcolor }}
           id="send-link-field"
           variant='outlined'
           label="GitLab repo project id"
@@ -80,7 +114,7 @@ function UserInput() {
           onChange={(e) => {
             setTempProjectId(e.target.value);
           }}
-          sx={{ mt: "15px", width: "250px" }}
+          sx={styleTextField}
           InputProps={{
             endAdornment: (
               <InputAdornment position='end'>
@@ -89,7 +123,7 @@ function UserInput() {
                   <HelpOutlineIcon />
                 </IconButton>
               </InputAdornment>
-            ),
+            )
           }} />
 
         <br />
@@ -102,7 +136,7 @@ function UserInput() {
           onChange={(e) => {
             setTempAccessToken(e.target.value);
           }}
-          sx={{ mt: "15px", width: "250px" }} />
+          sx={styleTextField} />
 
         <br />
 

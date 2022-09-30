@@ -2,10 +2,10 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useState } from 'react';
-import { Checkbox, Grid, ListItemText, OutlinedInput, TextField } from '@mui/material';
-// import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { useContext, useState } from 'react';
+import { Checkbox, Grid, ListItemText, OutlinedInput } from '@mui/material';
+import ThemeContext from '../contexts/ThemeContext';
+import { styleEachForm } from './IssuesFilter';
 
 
 interface Props {
@@ -13,12 +13,33 @@ interface Props {
 }
 
 function CommitsFilter({ cleanedResults }: Props) {
-    // const [value, setValue] = useState<Dayjs | null>(null);
-    // const [startDate, setStartDate] = useState<Dayjs | null >();
-    // const [endDate, setEndDate] = useState<Dayjs | null>();
+    const [{theme}] = useContext(ThemeContext);
     const [selectedNames, setSelectedNames] = useState<string[]>([]);
-    // let filteredResults: {committerName: string; dateOfCommit: string; commitMessage: string; }[] = [];
     let uniqueNames = new Array<string>();
+
+    const styleEachCommit = {
+        p: '10px', 
+        backgroundColor: theme.boxColor2, 
+        m: '10px', 
+        borderRadius: "10px", 
+        borderWidth: "10px" 
+    }
+
+    // Styles the name filtering
+    const styleEachOption = {
+        color: theme.textcolor,
+        input: {
+            color: theme.textcolor
+        },
+        select : {
+            '&:before': {
+                color: theme.inputTextColor
+            },
+            '&:after': {
+                color: theme.inputTextColor
+            }
+        },
+    }
 
     // handleChange is taken from https://codesandbox.io/s/urnvxd?file=/demo.tsx:1221-1940
     const handleChange = (event: SelectChangeEvent<typeof selectedNames>) => {
@@ -51,31 +72,11 @@ function CommitsFilter({ cleanedResults }: Props) {
         }
     }
 
-
-    // personName.map((committerName) => {
-    //     cleanedResults.map((result) => {
-    //         if (result.committer === committerName) {
-    //             filteredResults.push({ committerName: result.committer, dateOfCommit: result.committedDate, commitMessage: result.commitMessage });
-    //         }
-    //     })
-    // })
-
-    // filteredResults.sort((a, b) => Date.parse(b.dateOfCommit) - Date.parse(a.dateOfCommit));
-
-    // Testing av dato konvertering til dayjs
-    // if (filteredResultsByDate.length > 0) {
-    //     setStartDate(dayjs(filteredResultsByDate[1].dateOfCommit));
-    //     setEndDate(dayjs(filteredResultsByDate[filteredResultsByDate.length-1].dateOfCommit));
-    //     console.log(startDate);
-    //     console.log(endDate);
-    // }
-
-
     return (
         <div>
             {/* Inspiration from https://codesandbox.io/s/urnvxd?file=/demo.tsx:1221-1940 */}
-                <FormControl fullWidth sx={{ mt: "10px" }}>
-                    <InputLabel id="checkbox-dropdown">Select names</InputLabel>
+                <FormControl sx={styleEachForm}>
+                    <InputLabel id="checkbox-dropdown" sx={styleEachOption}>Select names</InputLabel>
                     <Select
                     labelId="checkbox-dropdown"
                     id="select-multiple-dropdown"
@@ -84,6 +85,7 @@ function CommitsFilter({ cleanedResults }: Props) {
                     onChange={handleChange}
                     input={<OutlinedInput label="Select names" />}
                     renderValue={(selected) => selected.join(', ')}
+                    sx={styleEachOption}
                     >
                     {uniqueNames.map((name) => (
                         <MenuItem key={name} value={name}>
@@ -93,25 +95,12 @@ function CommitsFilter({ cleanedResults }: Props) {
                     ))}
                     </Select>
                  </FormControl>
-
-                 {/* Kalender */}
-                {/* <LocalizationProvider dateAdapter={AdapterDayjs} >
-                <DatePicker
-                    label="Start date"
-                    value={value}
-                    onChange={(newValue) => {
-                    setValue(newValue);
-                    }}
-                    renderInput={(params) => <TextField {...params} 
-                    sx={{ m: 1, width: 300 }}/>}
-                />
-                </LocalizationProvider> */}
                
                 {filterOnName(selectedNames).map((res) => (
-                <Grid sx={{ p: '10px', backgroundColor: '#e7e0e9', m: '10px', borderRadius: "10px", borderWidth: "10px" }}>
-                <Grid><b>Committer:</b> {res.committer}</Grid>
-                    <Grid><b>Commit message:</b> {res.commitMessage}</Grid>
-                    <Grid><b>Committed date:</b> {res.committedDate}</Grid>
+                    <Grid sx={styleEachCommit}>
+                        <Grid><b>Committer:</b> {res.committer}</Grid>
+                        <Grid><b>Commit message:</b> {res.commitMessage}</Grid>
+                        <Grid><b>Committed date:</b> {res.committedDate}</Grid>
                     </Grid>
                 ))}
             </div>
