@@ -10,8 +10,8 @@ interface Props {
 }
 
 function IssuesOptions({ cleanedResults }: Props) {
-    const [chosenNames, setNames] = useState<string[]>([]); // Names chosen in dropwdown menu:
-    const [chosenStates, setChosenState] = useState<string[]>([]); // States chosen in dropdown menu:
+    const [chosenNames, setNames] = useState<string[]>([]); // Names chosen in dropwdown menu
+    const [chosenStates, setChosenState] = useState<string[]>([]); // States chosen in dropdown menu
 
     let states = ["opened", "closed"]; // The possible states for the "filter on state" dropwdown menu
 
@@ -32,7 +32,7 @@ function IssuesOptions({ cleanedResults }: Props) {
             typeof value === 'string' ? value.split(",") : value, // On autofill we get a stringified value.
         );
         filterOnChoices(chosenNames, chosenStates);
-    };
+    }
 
     const handleChosenStatesChange = (event: SelectChangeEvent<typeof chosenStates>) => {
         const {
@@ -42,7 +42,7 @@ function IssuesOptions({ cleanedResults }: Props) {
             typeof value === 'string' ? value.split(",") : value, // On autofill we get a stringified value.
         );
         filterOnChoices(chosenNames, chosenStates);
-    };
+    }
 
     function filterOnChoices(chosenNames: Array<string>, chosenStates: Array<string>) {
         if (chosenStates.length === 0 && chosenNames.length === 0) { // If no filters applied

@@ -47,7 +47,7 @@ function Issues({ accessToken, projectId }: Props) {
             let state = result?.state;
 
             let assigneeArr = result?.assignees;
-            let assigneeNames = new Array<String>();
+            let assigneeNames = new Array<string>();
             assigneeArr.length === 0 ? assigneeNames.push("Unassigned") : (assigneeArr.map((assignee: any) => {
                 assigneeNames.push(assignee?.name);
             }))
