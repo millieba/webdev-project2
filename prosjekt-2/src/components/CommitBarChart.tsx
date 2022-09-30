@@ -5,22 +5,26 @@ interface Props{
 }
 
 function CommitsBarChart({cleanedResults}:Props){
-    // cleanedResults.map((result,i) =>{
-    //     let croppedDate = result.committedDate
-    //     croppedDate = croppedDate.slice(0,3);
-    //     console.log(croppedDate);
-    // }
-    // );
+
+    const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    cleanedResults.map((result) =>{
+        const date = new Date (result.committedDate);
+        let day = weekday[date.getDay()];
+        console.log(day);
+    }
+    );
+
 
     // using reduce to loop through the array and sum it into object
     const countDays = cleanedResults.reduce( (previous, current) => (
-        previous[current.committedDate] = (previous[current.committedDate] || 0)+1, previous), {} 
+        previous[current.day] = (previous[current.day] || 0)+1, previous), {} 
     );
     //console.log(countDays)
 
     let commit_day: Array<any> =[]
-    Object.keys(countDays).forEach((committedDate) => commit_day.push(
-        {name:committedDate, amount: countDays[committedDate]})
+    Object.keys(countDays).forEach((day) => commit_day.push(
+        {name:day, amount: countDays[day]})
     );
 
     // const commit_day =[
@@ -28,7 +32,7 @@ function CommitsBarChart({cleanedResults}:Props){
     //     {name: "tue", amount :7}
     // ]
 
-    const colors = ["#FFCCF9", "#B5DEFF", "#CAB8FF", "#FCFFA6", "#C1FFD7", "#FFCBC1", "#AFF8DB"]
+    //const colors = ["#FFCCF9", "#B5DEFF", "#CAB8FF", "#FCFFA6", "#C1FFD7", "#FFCBC1", "#AFF8DB"]
 
     return (
         <div style={{ width: "100%", height: 500}} >
@@ -49,7 +53,7 @@ function CommitsBarChart({cleanedResults}:Props){
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="amount" fill="#8884d8" />
+                <Bar dataKey="amount" fill="#B5DEFF" />
                 </BarChart>
             </ResponsiveContainer>
         </div>
