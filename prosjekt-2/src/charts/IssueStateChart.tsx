@@ -4,20 +4,18 @@ interface Props{
     cleanedResults: Array<any>
 }
 
-function AssigneeChart({cleanedResults}:Props){
+function IssueStateChart({cleanedResults}:Props){
 
-    // using reduce to loop through the array and sum it into object
-    const countAssignee = cleanedResults.reduce( (previous, current) => (
-        previous[current.assignees] = (previous[current.assignees] || 0)+1, previous), {} 
-    );
+    const stateCounter = cleanedResults.reduce( (previous, current) => (
+         previous[current.state] = (previous[current.state] || 0)+1, previous), {} 
+     );
 
-    let assigned: Array<any> =[]
-    Object.keys(countAssignee).forEach((assignee) => assigned.push(
-        {name:assignee, value: countAssignee[assignee]})
-    );
+     let state_data: Array<any> =[]
+     Object.keys(stateCounter).forEach((state) => state_data.push(
+         {name:state, value: stateCounter[state]})
+     );
 
-
-    const colors = ["#FFCCF9", "#B5DEFF", "#CAB8FF", "#FCFFA6", "#C1FFD7", "#FFCBC1", "#AFF8DB"]
+    const colors = [ "#B5DEFF", "#CAB8FF", "#FCFFA6", "#C1FFD7"]
 
     return (
         <div style={{ width: "100%", height: 500}} >
@@ -26,13 +24,13 @@ function AssigneeChart({cleanedResults}:Props){
                     <Pie
                         dataKey="value"
                         isAnimationActive={true}
-                        data={assigned}
+                        data={state_data}
                         label
                         cx="50%"
                         cy="50%"
                         outerRadius={"60%"}
                         >
-                        {assigned.map((entry, index) => (
+                        {state_data.map((entry, index) => (
                             <Cell 
                                 key={`cell-${index}`} 
                                 fill={colors[index % colors.length]}   
@@ -46,4 +44,4 @@ function AssigneeChart({cleanedResults}:Props){
      );
 }
   
-export default AssigneeChart;
+export default IssueStateChart;

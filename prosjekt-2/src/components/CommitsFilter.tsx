@@ -13,9 +13,7 @@ interface Props {
     cleanedResults: Array<any>;
 }
 
-
-
-function CommitsOptions({ cleanedResults }: Props) {
+function CommitsFilter({ cleanedResults }: Props) {
     // const [value, setValue] = useState<Dayjs | null>(null);
     // const [startDate, setStartDate] = useState<Dayjs | null >();
     // const [endDate, setEndDate] = useState<Dayjs | null>();
@@ -121,4 +119,4 @@ function CommitsOptions({ cleanedResults }: Props) {
     );
 }
 
-export default CommitsOptions;
+export default CommitsFilter;
