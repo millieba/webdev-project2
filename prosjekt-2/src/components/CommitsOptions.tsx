@@ -2,8 +2,12 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useEffect, useState } from 'react';
-import { Checkbox, Grid, ListItemText, OutlinedInput } from '@mui/material';
+import { useState } from 'react';
+import { Checkbox, Grid, ListItemText, OutlinedInput, TextField } from '@mui/material';
+import { Dayjs } from 'dayjs';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
 
 interface Props {
     cleanedResults: Array<any>;
@@ -12,7 +16,9 @@ interface Props {
 
 
 function CommitsOptions({ cleanedResults }: Props) {
-
+    const [value, setValue] = useState<Dayjs | null>(null);
+    // const [startDate, setStartDate] = useState<Dayjs | null >();
+    // const [endDate, setEndDate] = useState<Dayjs | null>();
     const [personName, setPersonName] = useState<string[]>([]);
     let filteredResults: {committerName: string; dateOfCommit: string; commitMessage: string; }[] = [];
     
@@ -37,9 +43,6 @@ function CommitsOptions({ cleanedResults }: Props) {
         }
     });
 
-    console.log(names);
-    console.log(personName);
-
     personName.map((committerName, j) => {
         cleanedResults.map((result, i) => {
             if (result.committer === committerName) {
@@ -51,9 +54,14 @@ function CommitsOptions({ cleanedResults }: Props) {
         })
     })
 
-    let filteredResultsByDate = filteredResults.sort((a, b) => Date.parse(b.dateOfCommit) - Date.parse(a.dateOfCommit));
+    filteredResults.sort((a, b) => Date.parse(b.dateOfCommit) - Date.parse(a.dateOfCommit));
 
-    console.log(filteredResultsByDate);
+    // if (filteredResultsByDate.length > 0) {
+    //     setStartDate(dayjs(filteredResultsByDate[1].dateOfCommit));
+    //     setEndDate(dayjs(filteredResultsByDate[filteredResultsByDate.length-1].dateOfCommit));
+    //     console.log(startDate);
+    //     console.log(endDate);
+    // }
 
 
     return (
@@ -77,10 +85,21 @@ function CommitsOptions({ cleanedResults }: Props) {
                         </MenuItem>
                     ))}
                     </Select>
-                </FormControl>
+                 </FormControl>
 
-
-                {filteredResultsByDate.map((res, i) => (
+                <LocalizationProvider dateAdapter={AdapterDayjs} >
+                <DatePicker
+                    label="Start date"
+                    value={value}
+                    onChange={(newValue) => {
+                    setValue(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} 
+                    sx={{ m: 1, width: 300 }}/>}
+                />
+                </LocalizationProvider>
+               
+                {filteredResults.map((res, i) => (
                 <Grid key={i} container direction="column" justifyContent="flex-start" alignItems="center" sx={{ m: '5px', backgroundColor: '#9dbbae', borderRadius: "10px", p: "5px" }}>
                     <Grid><b>Committer:</b> {res.committerName}</Grid>
                     <Grid><b>Commit message:</b> {res.commitMessage}</Grid>

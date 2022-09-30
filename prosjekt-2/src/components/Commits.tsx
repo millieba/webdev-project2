@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import CommitsOptions from './CommitsOptions';
+// import CommitsOptions from './CommitsOptions';
+import CommitsViews from './CommitsViews';
 
 interface Props {
     accessToken: string;
@@ -62,7 +63,8 @@ function Commits({ accessToken, projectId }: Props) {
         return (
             <div>
                 <h3>Commits</h3>
-                <CommitsOptions cleanedResults={cleanedResults}/>
+                {/* <CommitsOptions cleanedResults={cleanedResults}/> */}
+                <CommitsViews cleanedResults={cleanedResults} />
             </div>
         );
     }
