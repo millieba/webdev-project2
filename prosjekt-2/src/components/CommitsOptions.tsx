@@ -4,7 +4,6 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useState } from 'react';
 import { Checkbox, Grid, ListItemText, OutlinedInput, TextField } from '@mui/material';
-import { Dayjs } from 'dayjs';
 // import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
@@ -77,7 +76,7 @@ function CommitsOptions({ cleanedResults }: Props) {
     return (
         <div>
             {/* Inspiration from https://codesandbox.io/s/urnvxd?file=/demo.tsx:1221-1940 */}
-                <FormControl sx={{ m: 1, width: 300 }}>
+                <FormControl fullWidth sx={{ mt: "10px" }}>
                     <InputLabel id="checkbox-dropdown">Select names</InputLabel>
                     <Select
                     labelId="checkbox-dropdown"
@@ -110,12 +109,12 @@ function CommitsOptions({ cleanedResults }: Props) {
                 />
                 </LocalizationProvider> */}
                
-                {filterOnName(selectedNames).map((res, i) => (
-                <Grid key={i} container direction="column" justifyContent="flex-start" alignItems="center" sx={{ m: '5px', backgroundColor: '#9dbbae', borderRadius: "10px", p: "5px" }}>
-                    <Grid><b>Committer:</b> {res.committer}</Grid>
+                {filterOnName(selectedNames).map((res) => (
+                <Grid sx={{ p: '10px', backgroundColor: '#e7e0e9', m: '10px', borderRadius: "10px", borderWidth: "10px" }}>
+                <Grid><b>Committer:</b> {res.committer}</Grid>
                     <Grid><b>Commit message:</b> {res.commitMessage}</Grid>
                     <Grid><b>Committed date:</b> {res.committedDate}</Grid>
-                </Grid>
+                    </Grid>
                 ))}
             </div>
     );

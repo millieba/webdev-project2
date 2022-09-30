@@ -38,7 +38,7 @@ function Commits({ accessToken, projectId }: Props) {
     }, [accessToken, gitlabRepoLink])
 
     function cleanUpResponse(res: Array<any>) {
-        res.map((result, i) => {
+        res.map((result) => {
             let committer = result?.committer_name;
             let committedDate = new Date(result?.committed_date);
             let commitMessage = result?.title;
@@ -61,7 +61,6 @@ function Commits({ accessToken, projectId }: Props) {
         return (
             <div>
                 <h3>Commits</h3>
-                {/* <CommitsOptions cleanedResults={cleanedResults}/> */}
                 <CommitsViews cleanedResults={cleanedResults} />
             </div>
         );

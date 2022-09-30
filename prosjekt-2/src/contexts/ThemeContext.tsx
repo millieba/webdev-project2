@@ -8,8 +8,9 @@ export const themes = {
         darkbutton: "white"
     },
     light: {
-        backgroundColor: "white",
-        textcolor: "grey",
+        backgroundColor: "#ffffff",
+        color: "#fcf7ff",
+        textcolor: "black",
         buttonColor: "#8d6b94", 
         darkbutton: "grey"
     }, 
