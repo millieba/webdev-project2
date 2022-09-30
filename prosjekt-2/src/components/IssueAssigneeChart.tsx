@@ -4,18 +4,20 @@ interface Props{
     cleanedResults: Array<any>
 }
 
-function CommitChart({cleanedResults}:Props){
+function AssigneeChart({cleanedResults}:Props){
 
-    const nameOccurrences = cleanedResults.reduce( (previous, current) => (
-        previous[current.committer] = (previous[current.committer] || 0)+1, previous), {} 
+    // using reduce to loop through the array and sum it into object
+    const countAssignee = cleanedResults.reduce( (previous, current) => (
+        previous[current.assignees] = (previous[current.assignees] || 0)+1, previous), {} 
     );
 
-    let commit_data: Array<any> =[]
-    Object.keys(nameOccurrences).forEach((committer) => commit_data.push(
-        {name:committer, value: nameOccurrences[committer]})
+    let assigned: Array<any> =[]
+    Object.keys(countAssignee).forEach((assignee) => assigned.push(
+        {name:assignee, value: countAssignee[assignee]})
     );
 
-    const colors = ["#b593bc", "#ab89b2", "#a17fa8", "#8d6b94", "#83618a", "#795780", "#6f4d76"]
+
+    const colors = ["#FFCCF9", "#B5DEFF", "#CAB8FF", "#FCFFA6", "#C1FFD7", "#FFCBC1", "#AFF8DB"]
 
     return (
         <div style={{ width: "100%", height: 500}} >
@@ -24,13 +26,13 @@ function CommitChart({cleanedResults}:Props){
                     <Pie
                         dataKey="value"
                         isAnimationActive={true}
-                        data={commit_data}
+                        data={assigned}
                         label
                         cx="50%"
                         cy="50%"
                         outerRadius={"60%"}
                         >
-                        {commit_data.map((entry, index) => (
+                        {assigned.map((entry, index) => (
                             <Cell 
                                 key={`cell-${index}`} 
                                 fill={colors[index % colors.length]}   
@@ -44,4 +46,4 @@ function CommitChart({cleanedResults}:Props){
      );
 }
   
-export default CommitChart;
+export default AssigneeChart;
