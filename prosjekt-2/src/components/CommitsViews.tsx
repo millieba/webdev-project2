@@ -3,9 +3,10 @@ import { useContext, useState } from "react";
 import CommitsFilter from './CommitsFilter';
 import CommitsChart from '../charts/CommitsChart';
 import ThemeContext from "../contexts/ThemeContext";
+import { ICommit } from "../api/GetCommits";
 
 interface Props {
-    cleanedResults: Array<any>;
+    cleanedResults: Array<ICommit>;
 }
 
 export const styleEachView = {

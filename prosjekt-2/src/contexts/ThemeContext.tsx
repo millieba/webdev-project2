@@ -10,7 +10,7 @@ export const themes = {
         buttonColor: "#58517B",  
         darkbutton: "white",
         boxColor: '#241b2f',
-        boxColor2: '#58517B',
+        boxColor2: '#463465',
         inputTextColor: "#58517B",
     },
     light: {

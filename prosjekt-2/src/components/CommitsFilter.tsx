@@ -6,10 +6,11 @@ import { useContext, useState } from 'react';
 import { Checkbox, Grid, ListItemText, OutlinedInput } from '@mui/material';
 import ThemeContext from '../contexts/ThemeContext';
 import { styleEachForm } from './IssuesFilter';
+import { ICommit } from '../api/GetCommits';
 
 
 interface Props {
-    cleanedResults: Array<any>;
+    cleanedResults: Array<ICommit>;
 }
 
 function CommitsFilter({ cleanedResults }: Props) {

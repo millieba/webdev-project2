@@ -5,9 +5,10 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useContext, useState } from 'react';
 import { Checkbox, Grid, ListItemText, OutlinedInput } from '@mui/material';
 import ThemeContext from '../contexts/ThemeContext';
+import { IIssue } from '../api/GetIssues';
 
 interface Props {
-    cleanedResults: Array<any>;
+    cleanedResults: Array<IIssue>;
 }
 
 // Styles the size of the input filter forms
@@ -50,7 +51,7 @@ function IssuesFilter({ cleanedResults }: Props) {
     let states = ["Open", "Closed"]; // The possible states for the "filter on state" dropwdown menu
 
     let names = new Array<string>(); // Array for all unique names (assignee names) 
-    cleanedResults.map((result, i) => {
+    cleanedResults.map((result) => {
         if (!names.includes(result.assignees)) { // Put only unique names in names array to avoid displaying duplicate names in dropdown
             names.push(result.assignees);
         }
