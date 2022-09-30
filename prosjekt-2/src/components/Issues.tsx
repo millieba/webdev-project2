@@ -42,9 +42,9 @@ function Issues({ accessToken, projectId }: Props) {
     function cleanUpResponse(res: Array<any>) {
         res.map((result, i) => {
             let title = result?.title;
-            let description = result?.description === null ? "" : result?.description;
+            let description = result?.description === null || result?.description === "" ? "No description" : result?.description;
             let createdAt = new Date(result?.created_at);
-            let state = result?.state;
+            let state = result?.state === "opened" ? "open" : "closed"; // prettier formatting
 
             let assigneeArr = result?.assignees;
             let assigneeNames = new Array<string>();
@@ -53,7 +53,8 @@ function Issues({ accessToken, projectId }: Props) {
             }))
 
 
-            let issueObj = { title: title, description: description.replace(/[\r\n]+/g, ""), createdAt: createdAt.toDateString(), assignees: assigneeNames.toString(), state: state };
+            let issueObj = { title: title, description: description.replace(/[\r\n]+/g, ""), createdAt: createdAt.toDateString(), 
+            assignees: assigneeNames.toString(), state: (state[0].toUpperCase()+state.slice(1)) };
             cleanedResults.push(issueObj);
         })
     }

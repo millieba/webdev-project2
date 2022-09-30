@@ -13,7 +13,7 @@ function IssuesOptions({ cleanedResults }: Props) {
     const [chosenNames, setNames] = useState<string[]>([]); // Names chosen in dropwdown menu
     const [chosenStates, setChosenState] = useState<string[]>([]); // States chosen in dropdown menu
 
-    let states = ["opened", "closed"]; // The possible states for the "filter on state" dropwdown menu
+    let states = ["Open", "Closed"]; // The possible states for the "filter on state" dropwdown menu
 
     let names = new Array<string>(); // Array for all unique names (assignee names) 
     cleanedResults.map((result, i) => {
