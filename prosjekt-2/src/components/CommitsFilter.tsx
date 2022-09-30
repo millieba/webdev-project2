@@ -47,8 +47,7 @@ function CommitsFilter({ cleanedResults }: Props) {
         const {
           target: { value },
         } = event;
-        console.log(value);
-        console.log(typeof value);
+      
         setSelectedNames(
           typeof value === 'string' ? value.split(",") : value,
         );
@@ -97,8 +96,8 @@ function CommitsFilter({ cleanedResults }: Props) {
                     </Select>
                  </FormControl>
                
-                {filterOnName(selectedNames).map((res) => (
-                    <Grid sx={styleEachCommit}>
+                {filterOnName(selectedNames).map((res,i) => (
+                    <Grid key={i} sx={styleEachCommit}>
                         <Grid><b>Committer:</b> {res.committer}</Grid>
                         <Grid><b>Commit message:</b> {res.commitMessage}</Grid>
                         <Grid><b>Committed date:</b> {res.committedDate}</Grid>

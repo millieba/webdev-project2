@@ -13,7 +13,6 @@ function IssueAssigneeChart({ cleanedResults }: Props) {
             assigneeCount.push({ name: result.assignees, count: 1 }) // if never counted
             : assigneeCount[assigneeCount.map(a => a.name).indexOf(result.assignees)].count += 1 // if counted previously
     });
-    console.log(assigneeCount);
 
 
     const colors = ["#FFCCF9", "#B5DEFF", "#CAB8FF", "#FCFFA6", "#C1FFD7", "#FFCBC1", "#AFF8DB"]

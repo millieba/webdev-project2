@@ -142,8 +142,8 @@ function IssuesFilter({ cleanedResults }: Props) {
             </FormControl>
 
 
-            {filterOnChoices(chosenNames, chosenStates).map((res) => (
-                <Grid sx={styleEachIssue}>
+            {filterOnChoices(chosenNames, chosenStates).map((res,i) => (
+                <Grid key={i} sx={styleEachIssue}>
                     <Grid><b>Title:</b> {res.title}</Grid>
                     <Grid><b>Description:</b> {res.description}</Grid>
                     <Grid><b>Assigned to:</b> {res.assignees}</Grid>
