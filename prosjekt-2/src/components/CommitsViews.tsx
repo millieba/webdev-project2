@@ -9,7 +9,7 @@ interface Props {
 
 
 function CommitsViews({ cleanedResults }: Props) {
-    const [view, setView] = useState('');
+    const [view, setView] = useState("list");
 
     return (
         <div>
@@ -23,12 +23,12 @@ function CommitsViews({ cleanedResults }: Props) {
                     setView(e?.target.value);
                 }}
                 >
+                <MenuItem value={"list"}>List view</MenuItem>
                 <MenuItem value={"pie-chart"}>Pie chart</MenuItem>
-                <MenuItem value={"commits"}>Commits</MenuItem>
                 </Select>
             </FormControl>
 
-            {view === "commits" ? <CommitsOptions cleanedResults={cleanedResults} /> : <></>}
+            {view === "list" ? <CommitsOptions cleanedResults={cleanedResults} /> : <></>}
             {view === "pie-chart" ? <CommitsChart cleanedResults={cleanedResults} /> : <></>}
         </div>
     );
