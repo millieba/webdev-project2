@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import CommitChart from "./CommitsChart";
-
-
+import CommitsViews from './CommitsViews';
 interface Props {
     accessToken: string;
     projectId: string;
@@ -63,16 +61,8 @@ function Commits({ accessToken, projectId }: Props) {
         return (
             <div>
                 <h3>Commits</h3>
-                <CommitChart cleanedResults={cleanedResults} />
-                {cleanedResults.map((result, i) => (
-                    <div key={i}>
-                        Committer: {result.committer} ///
-                        Date committed: {result.committedDate} ///
-                        Message: {result.commitMessage}
-                        <br />
-                        <br />
-                    </div>
-                ))}
+                {/* <CommitsOptions cleanedResults={cleanedResults}/> */}
+                <CommitsViews cleanedResults={cleanedResults} />
             </div>
         );
     }
