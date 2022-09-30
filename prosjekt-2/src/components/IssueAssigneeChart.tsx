@@ -5,14 +5,11 @@ interface Props{
 }
 
 function AssigneeChart({cleanedResults}:Props){
-    cleanedResults.map((result, i) => (
-        console.log(result.assignees)));
 
     // using reduce to loop through the array and sum it into object
     const countAssignee = cleanedResults.reduce( (previous, current) => (
         previous[current.assignees] = (previous[current.assignees] || 0)+1, previous), {} 
     );
-    console.log(countAssignee)
 
     let assigned: Array<any> =[]
     Object.keys(countAssignee).forEach((assignee) => assigned.push(
