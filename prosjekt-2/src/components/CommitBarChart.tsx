@@ -10,21 +10,20 @@ function CommitsBarChart({cleanedResults}:Props){
 
     cleanedResults.map((result) =>{
         const date = new Date (result.committedDate);
-        let day = weekday[date.getDay()];
-        console.log(day);
+        let new_day = weekday[date.getDay()];
+        console.log(new_day);
     }
     );
 
-
     // using reduce to loop through the array and sum it into object
     const countDays = cleanedResults.reduce( (previous, current) => (
-        previous[current.day] = (previous[current.day] || 0)+1, previous), {} 
+        previous[current.new_day] = (previous[current.new_day] || 0)+1, previous), {} 
     );
-    //console.log(countDays)
+    console.log(countDays)
 
     let commit_day: Array<any> =[]
-    Object.keys(countDays).forEach((day) => commit_day.push(
-        {name:day, amount: countDays[day]})
+    Object.keys(countDays).forEach((days) => commit_day.push(
+        {name:days, amount: countDays[days]})
     );
 
     // const commit_day =[
