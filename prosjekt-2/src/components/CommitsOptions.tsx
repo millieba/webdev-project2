@@ -38,13 +38,14 @@ function CommitsOptions({ cleanedResults }: Props) {
       };
 
    
-
+    // Find all unique members of a repository
     cleanedResults.map((result, i) => {
         if (!uniqueNames.includes(result.committer)) {
             uniqueNames.push(result.committer);
         }
     });
 
+    // Filter based on what user has selected 
     function filterOnName(chosenNames: Array<string>) {
         if (chosenNames.length === 0) {
             return cleanedResults;
