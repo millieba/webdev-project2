@@ -3,9 +3,10 @@ import { useState } from "react";
 import IssuesFilter from './IssuesFilter';
 import IssuesPieChart from '../charts/IssueStateChart';
 import IssueAssigneeChart from '../charts/IssueAssigneeChart';
+import { IIssue } from "../api/GetIssues";
 
 interface Props {
-    cleanedResults: Array<any>;
+    cleanedResults: Array<IIssue>;
 }
 function IssuesViews({ cleanedResults }: Props) {
     const [view, setView] = useState("list");
@@ -33,8 +34,6 @@ function IssuesViews({ cleanedResults }: Props) {
 
                     <h3>Issues per assignee</h3>
                     <IssueAssigneeChart cleanedResults={cleanedResults} />
-
-
                 </>
                 : <></>}
         </div>
