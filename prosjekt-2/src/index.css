@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#headline {
+  padding-left: 2vw;
+  padding-right: 2vw;
+}
+

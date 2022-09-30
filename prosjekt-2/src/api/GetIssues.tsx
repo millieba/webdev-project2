@@ -96,7 +96,6 @@ function GetIssues({ accessToken, projectId }: Props) {
 
         return (
             <>
-                <h3>Issues</h3>
                 {cleanedResults.length === 0
                     ? <h4>Sorry, there are no issues in the repository you requested</h4>
                     : <IssuesViews cleanedResults={cleanedResults} />}
