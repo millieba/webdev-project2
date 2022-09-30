@@ -12,7 +12,7 @@ function Commits({ accessToken, projectId }: Props) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [responseData, setResponseData] = useState([]);
-    let cleanedResultls: { committer: string; committedDate: string; commitMessage: string; }[] = [];
+    let cleanedResults: { committer: string; committedDate: string; commitMessage: string; }[] = [];
 
     const gitlabRepoLink = "https://gitlab.stud.idi.ntnu.no/api/v4/projects/" + projectId + "/repository/commits" + "?pagination=keyset&per_page=1000";
 
@@ -44,7 +44,7 @@ function Commits({ accessToken, projectId }: Props) {
             let committer = result?.committer_name;
             let committedDate = new Date(result?.committed_date);
             let commitMessage = result?.title;
-            cleanedResultls.push({ committer: committer, committedDate: committedDate.toDateString(), commitMessage: commitMessage });
+            cleanedResults.push({ committer: committer, committedDate: committedDate.toDateString(), commitMessage: commitMessage });
         })
     }
 
@@ -63,8 +63,8 @@ function Commits({ accessToken, projectId }: Props) {
         return (
             <div>
                 <h3>Commits</h3>
-                <CommitChart cleanedResultls={cleanedResultls} />
-                {cleanedResultls.map((result, i) => (
+                <CommitChart cleanedResults={cleanedResults} />
+                {cleanedResults.map((result, i) => (
                     <div key={i}>
                         Committer: {result.committer} ///
                         Date committed: {result.committedDate} ///

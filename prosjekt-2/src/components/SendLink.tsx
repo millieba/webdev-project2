@@ -1,11 +1,12 @@
 import TextField from '@mui/material/TextField';
 import { Button, IconButton, InputAdornment, Box } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import Modal from '@mui/material/Modal';
 import ProjectIdImage from '../images/project-id.png';
 import CloseIcon from '@mui/icons-material/Close';
 import Connect from '../api/Connect';
+import ThemeContext from '../contexts/ThemeContext';
 
 const styleModal = {
   top: '50%',
@@ -20,10 +21,16 @@ const styleModal = {
   overflow: 'auto',
 };
 
+const emojis = ["🌹", "🥀", "🌺", "🌸", "🌼", "🌻", "💐", "🏵️", "🌷"];
+const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
 
+// Save random emoji to sessionStorage
+sessionStorage.setItem("emoji", randomEmoji);
 
 
 function SendLink() {
+
+  const [{ theme }] = useContext(ThemeContext)
 
   const [disableButton, setDisableButton] = useState(true);
   const [open, setOpen] = useState(false);
@@ -59,8 +66,13 @@ function SendLink() {
   return (
     // To adjust the colors on the MUI-components, use theme in index.tsx
     <div>
+      {/* // Get saved data from sessionStorage */}
+      <h3>Nice to meet you! <br></br> Please add a project id and an access token
+        so I can show you some information. {sessionStorage.getItem("emoji")}</h3>
+
       <Box>
         <TextField
+          style={{ color: theme.textcolor }}
           id="send-link-field"
           variant='outlined'
           label="GitLab repo project id"
@@ -72,7 +84,7 @@ function SendLink() {
           InputProps={{
             endAdornment: (
               <InputAdornment position='end'>
-                <IconButton
+                <IconButton style={{ color: theme.textcolor }}
                   onClick={handleOpen}>
                   <HelpOutlineIcon />
                 </IconButton>
@@ -95,6 +107,7 @@ function SendLink() {
         <br />
 
         <Button
+          style={{ backgroundColor: theme.buttonColor }}
           id="access-token"
           variant="contained"
           onClick={() => {
@@ -120,7 +133,7 @@ function SendLink() {
             <IconButton onClick={handleClose}><CloseIcon /></IconButton>
           </Box>
           <h2>What is Gitlab repository project-id?</h2>
-          <p>Your project's id can be found by going to the homepage of your Gitlab repository. In the picture below an example is highlighted with yellow.</p>
+          <p>Your project's id can be found by going to the homepage of your Gitlab repository. In the picture below an example is highlighted with lilac.</p>
           <Box component='img' src={ProjectIdImage} id="projectIdImage" sx={{ maxHeight: "100%", maxWidth: "100%" }} />
         </Box>
       </Modal>

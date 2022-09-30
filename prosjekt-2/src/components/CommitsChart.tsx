@@ -1,12 +1,12 @@
 import {ResponsiveContainer, PieChart, Pie, Cell, Tooltip} from "recharts";
 
 interface Props{
-    cleanedResultls: Array<any>
+    cleanedResults: Array<any>
 }
 
-function CommitChart({cleanedResultls}:Props){
+function CommitChart({cleanedResults}:Props){
 
-    const nameOccurrences = cleanedResultls.reduce( (previous, current) => (
+    const nameOccurrences = cleanedResults.reduce( (previous, current) => (
         previous[current.committer] = (previous[current.committer] || 0)+1, previous), {} 
     );
 
