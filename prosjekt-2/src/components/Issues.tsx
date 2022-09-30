@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import AssigneeChart from "./IssueAssigneeChart"
+import IssueChart from "./IssuePieChart";
 
 interface Props {
     accessToken: string;
@@ -47,7 +49,7 @@ function Issues({ accessToken, projectId }: Props) {
 
             let assigneeArr = result?.assignees;
             let assigneeNames = new Array<String>();
-            assigneeArr.length === 0 ? assigneeNames.push("Issue is not assigned to anyone") : (assigneeArr.map((assignee: any, i: number) => {
+            assigneeArr.length === 0 ? assigneeNames.push("Unassigned") : (assigneeArr.map((assignee: any, i: number) => {
                 assigneeNames.push(assignee?.name);
             }))
 
@@ -72,6 +74,8 @@ function Issues({ accessToken, projectId }: Props) {
         return (
             <div>
                 <h3>Issues</h3>
+                <AssigneeChart cleanedResults={cleanedResults}/>
+                <IssueChart cleanedResults={cleanedResults}/>
                 <ul style={{ listStyleType: "none" }}>
                     {cleanedResults.map((result, i) => (
                         <li key={i}>

@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-// import CommitsOptions from './CommitsOptions';
 import CommitsViews from './CommitsViews';
-
 interface Props {
     accessToken: string;
     projectId: string;
