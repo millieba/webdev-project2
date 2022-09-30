@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import CommitChart from "./CommitsChart";
+
 
 interface Props {
     accessToken: string;
@@ -61,6 +63,7 @@ function Commits({ accessToken, projectId }: Props) {
         return (
             <div>
                 <h3>Commits</h3>
+                <CommitChart cleanedResults={cleanedResults} />
                 {cleanedResults.map((result, i) => (
                     <div key={i}>
                         Committer: {result.committer} ///

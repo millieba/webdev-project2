@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import IssueChart from "./IssuePieChart";
 
 interface Props {
     accessToken: string;
@@ -72,6 +73,7 @@ function Issues({ accessToken, projectId }: Props) {
         return (
             <div>
                 <h3>Issues</h3>
+                <IssueChart cleanedResults={cleanedResults}/>
                 <ul style={{ listStyleType: "none" }}>
                     {cleanedResults.map((result, i) => (
                         <li key={i}>
