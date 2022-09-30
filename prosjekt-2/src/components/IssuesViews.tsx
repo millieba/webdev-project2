@@ -1,8 +1,8 @@
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { useState } from "react";
-import IssuesOptions from './IssuesOptions';
-import IssuesPieChart from './IssuePieChart';
-import IssueAssigneeChart from './IssueAssigneeChart';
+import IssuesFilter from './IssuesFilter';
+import IssuesPieChart from '../charts/IssueStateChart';
+import IssueAssigneeChart from '../charts/IssueAssigneeChart';
 
 interface Props {
     cleanedResults: Array<any>;
@@ -25,7 +25,7 @@ function IssuesViews({ cleanedResults }: Props) {
                     <MenuItem value={"charts"}>Charts</MenuItem>
                 </Select>
             </FormControl>
-            {view === "list" ? <IssuesOptions cleanedResults={cleanedResults} /> : <></>}
+            {view === "list" ? <IssuesFilter cleanedResults={cleanedResults} /> : <></>}
             {view === "charts" ?
                 <>
                     <h3>Distribution of issues on state (open/closed)</h3>

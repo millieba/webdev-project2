@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { useState } from "react";
-import CommitsOptions from './CommitsOptions';
-import CommitsChart from './CommitsChart';
+import CommitsFilter from './CommitsFilter';
+import CommitsChart from '../charts/CommitsChart';
 
 interface Props {
     cleanedResults: Array<any>;
@@ -28,7 +28,7 @@ function CommitsViews({ cleanedResults }: Props) {
                 </Select>
             </FormControl>
 
-            {view === "list" ? <CommitsOptions cleanedResults={cleanedResults} /> : <></>}
+            {view === "list" ? <CommitsFilter cleanedResults={cleanedResults} /> : <></>}
             {view === "pie-chart" ? <CommitsChart cleanedResults={cleanedResults} /> : <></>}
         </div>
     );

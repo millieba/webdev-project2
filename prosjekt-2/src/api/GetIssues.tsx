@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import IssuesOptions from "./IssuesViews";
-import IssuesViews from "./IssuesViews";
+import IssuesViews from "../components/IssuesViews";
 
 interface Props {
     accessToken: string;
     projectId: string;
 }
 
-function Issues({ accessToken, projectId }: Props) {
+function GetIssues({ accessToken, projectId }: Props) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [responseData, setResponseData] = useState([]);
@@ -81,4 +80,4 @@ function Issues({ accessToken, projectId }: Props) {
     }
 
 }
-export default Issues;
+export default GetIssues;

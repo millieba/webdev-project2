@@ -9,7 +9,7 @@ interface Props {
     cleanedResults: Array<any>;
 }
 
-function IssuesOptions({ cleanedResults }: Props) {
+function IssuesFilter({ cleanedResults }: Props) {
     const [chosenNames, setNames] = useState<string[]>([]); // Names chosen in dropwdown menu
     const [chosenStates, setChosenState] = useState<string[]>([]); // States chosen in dropdown menu
 
@@ -118,4 +118,4 @@ function IssuesOptions({ cleanedResults }: Props) {
     );
 }
 
-export default IssuesOptions;
+export default IssuesFilter;

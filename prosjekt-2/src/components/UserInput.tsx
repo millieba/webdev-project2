@@ -28,7 +28,7 @@ const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
 sessionStorage.setItem("emoji", randomEmoji);
 
 
-function SendLink() {
+function UserInput() {
 
   const [{ theme }] = useContext(ThemeContext)
 
@@ -142,4 +142,4 @@ function SendLink() {
   );
 }
 
-export default SendLink;
+export default UserInput;

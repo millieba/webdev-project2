@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import CommitsViews from './CommitsViews';
+import CommitsViews from '../components/CommitsViews';
 interface Props {
     accessToken: string;
     projectId: string;
 }
 
-function Commits({ accessToken, projectId }: Props) {
+function GetCommits({ accessToken, projectId }: Props) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [responseData, setResponseData] = useState([]);
@@ -68,4 +68,4 @@ function Commits({ accessToken, projectId }: Props) {
     }
 
 }
-export default Commits;
+export default GetCommits;
