@@ -4,18 +4,18 @@ interface Props{
     cleanedResults: Array<any>
 }
 
-function IssueChart({cleanedResults}:Props){
+function CommitsChart({cleanedResults}:Props){
 
-    const stateCounter = cleanedResults.reduce( (previous, current) => (
-         previous[current.state] = (previous[current.state] || 0)+1, previous), {} 
-     );
+    const nameOccurrences = cleanedResults.reduce( (previous, current) => (
+        previous[current.committer] = (previous[current.committer] || 0)+1, previous), {} 
+    );
 
-     let state_data: Array<any> =[]
-     Object.keys(stateCounter).forEach((state) => state_data.push(
-         {name:state, value: stateCounter[state]})
-     );
+    let commit_data: Array<any> =[]
+    Object.keys(nameOccurrences).forEach((committer) => commit_data.push(
+        {name:committer, value: nameOccurrences[committer]})
+    );
 
-    const colors = [ "#B5DEFF", "#CAB8FF", "#FCFFA6", "#C1FFD7"]
+    const colors = ["#b593bc", "#ab89b2", "#a17fa8", "#8d6b94", "#83618a", "#795780", "#6f4d76"]
 
     return (
         <div style={{ width: "100%", height: 500}} >
@@ -24,13 +24,13 @@ function IssueChart({cleanedResults}:Props){
                     <Pie
                         dataKey="value"
                         isAnimationActive={true}
-                        data={state_data}
+                        data={commit_data}
                         label
                         cx="50%"
                         cy="50%"
                         outerRadius={"60%"}
                         >
-                        {state_data.map((entry, index) => (
+                        {commit_data.map((entry, index) => (
                             <Cell 
                                 key={`cell-${index}`} 
                                 fill={colors[index % colors.length]}   
@@ -44,4 +44,4 @@ function IssueChart({cleanedResults}:Props){
      );
 }
   
-export default IssueChart;
+export default CommitsChart;

@@ -1,5 +1,5 @@
-import Commits from "../components/Commits";
-import Issues from "../components/Issues";
+import GetCommits from "./GetCommits";
+import GetIssues from "./GetIssues";
 
 
 interface Props {
@@ -9,10 +9,10 @@ interface Props {
 
 function Connect({ accessToken, projectId }: Props) {
     return (
-        <div>
-            <Commits accessToken={accessToken} projectId={projectId} />
-            <Issues accessToken={accessToken} projectId={projectId} />
-        </div>
+        <>
+            <GetCommits accessToken={accessToken} projectId={projectId} />
+            <GetIssues accessToken={accessToken} projectId={projectId} />
+        </>
     );
 }
 export default Connect;

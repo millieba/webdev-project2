@@ -1,7 +1,7 @@
 import { ThemeContext } from "./contexts/ThemeContext"
 import { useContext } from "react";
 import "./App.css";
-import SendLink from "./components/SendLink";
+import UserInput from "./components/UserInput";
 import DarkMode from "./components/DarkMode";
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
     <div className="App"
     style={{color: theme.textcolor, backgroundColor: theme.backgroundColor}}>
       <DarkMode />
-      <SendLink />
+      <UserInput />
     </div>
   );
 }

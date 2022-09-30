@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import IssueChart from "./IssuePieChart";
+import IssuesViews from "../components/IssuesViews";
 
 interface Props {
     accessToken: string;
     projectId: string;
 }
 
-function Issues({ accessToken, projectId }: Props) {
+function GetIssues({ accessToken, projectId }: Props) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [responseData, setResponseData] = useState([]);
@@ -42,18 +42,19 @@ function Issues({ accessToken, projectId }: Props) {
     function cleanUpResponse(res: Array<any>) {
         res.map((result, i) => {
             let title = result?.title;
-            let description = result?.description === null ? "" : result?.description;
+            let description = result?.description === null || result?.description === "" ? "No description" : result?.description;
             let createdAt = new Date(result?.created_at);
-            let state = result?.state;
+            let state = result?.state === "opened" ? "open" : "closed"; // prettier formatting
 
             let assigneeArr = result?.assignees;
-            let assigneeNames = new Array<String>();
-            assigneeArr.length === 0 ? assigneeNames.push("Issue is not assigned to anyone") : (assigneeArr.map((assignee: any, i: number) => {
+            let assigneeNames = new Array<string>();
+            assigneeArr.length === 0 ? assigneeNames.push("Unassigned") : (assigneeArr.map((assignee: any) => {
                 assigneeNames.push(assignee?.name);
             }))
 
 
-            let issueObj = { title: title, description: description.replace(/[\r\n]+/g, ""), createdAt: createdAt.toDateString(), assignees: assigneeNames.toString(), state: state };
+            let issueObj = { title: title, description: description.replace(/[\r\n]+/g, ""), createdAt: createdAt.toDateString(), 
+            assignees: assigneeNames.toString(), state: (state[0].toUpperCase()+state.slice(1)) };
             cleanedResults.push(issueObj);
         })
     }
@@ -71,23 +72,12 @@ function Issues({ accessToken, projectId }: Props) {
         cleanUpResponse(responseData);
 
         return (
-            <div>
+            <>
                 <h3>Issues</h3>
-                <IssueChart cleanedResults={cleanedResults}/>
-                <ul style={{ listStyleType: "none" }}>
-                    {cleanedResults.map((result, i) => (
-                        <li key={i}>
-                            Title: {result.title} ///
-                            Description: {result.description} ///
-                            Assigneed to: {result.assignees} ///
-                            State: {result.state} ///
-                            Created at: {result.createdAt}<br /><br />
-                        </li>
-                    ))}
-                </ul>
-            </div>
+                <IssuesViews cleanedResults={cleanedResults} />
+            </>
         );
     }
 
 }
-export default Issues;
+export default GetIssues;
