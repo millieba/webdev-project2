@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import IssuesOptions from "./IssuesOptions";
+import IssuesOptions from "./IssuesViews";
+import IssuesViews from "./IssuesViews";
 
 interface Props {
     accessToken: string;
@@ -74,7 +75,7 @@ function Issues({ accessToken, projectId }: Props) {
         return (
             <>
                 <h3>Issues</h3>
-                <IssuesOptions cleanedResults={cleanedResults} />
+                <IssuesViews cleanedResults={cleanedResults} />
             </>
         );
     }
