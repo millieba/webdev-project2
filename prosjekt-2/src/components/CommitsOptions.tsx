@@ -16,44 +16,53 @@ interface Props {
 
 
 function CommitsOptions({ cleanedResults }: Props) {
-    const [value, setValue] = useState<Dayjs | null>(null);
+    // const [value, setValue] = useState<Dayjs | null>(null);
     // const [startDate, setStartDate] = useState<Dayjs | null >();
     // const [endDate, setEndDate] = useState<Dayjs | null>();
-    const [personName, setPersonName] = useState<string[]>([]);
-    let filteredResults: {committerName: string; dateOfCommit: string; commitMessage: string; }[] = [];
-    
+    const [selectedNames, setSelectedNames] = useState<string[]>([]);
+    // let filteredResults: {committerName: string; dateOfCommit: string; commitMessage: string; }[] = [];
+    let uniqueNames = new Array<string>();
+
     // handleChange is taken from https://codesandbox.io/s/urnvxd?file=/demo.tsx:1221-1940
-    const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+    const handleChange = (event: SelectChangeEvent<typeof selectedNames>) => {
         const {
           target: { value },
         } = event;
         console.log(value);
         console.log(typeof value);
-        setPersonName(
+        setSelectedNames(
           typeof value === 'string' ? value.split(",") : value,
         );
+
+        filterOnName(selectedNames);
       };
 
-    let names = new Array<string>();
+   
 
     cleanedResults.map((result, i) => {
-        if (!names.includes(result.committer)) {
-            names.push(result.committer);
+        if (!uniqueNames.includes(result.committer)) {
+            uniqueNames.push(result.committer);
         }
     });
 
-    personName.map((committerName, j) => {
-        cleanedResults.map((result, i) => {
-            if (result.committer === committerName) {
-                let committerName = result.committer;
-                let dateOfCommit = result.committedDate;
-                let commitMessage = result.commitMessage;
-                filteredResults.push({ committerName: committerName, dateOfCommit: dateOfCommit, commitMessage: commitMessage });
-            }
-        })
-    })
+    function filterOnName(chosenNames: Array<string>) {
+        if (chosenNames.length === 0) {
+            return cleanedResults;
+        } else {
+            return cleanedResults.filter(result => chosenNames.includes(result.committer));
+        }
+    }
 
-    filteredResults.sort((a, b) => Date.parse(b.dateOfCommit) - Date.parse(a.dateOfCommit));
+
+    // personName.map((committerName) => {
+    //     cleanedResults.map((result) => {
+    //         if (result.committer === committerName) {
+    //             filteredResults.push({ committerName: result.committer, dateOfCommit: result.committedDate, commitMessage: result.commitMessage });
+    //         }
+    //     })
+    // })
+
+    // filteredResults.sort((a, b) => Date.parse(b.dateOfCommit) - Date.parse(a.dateOfCommit));
 
     // Testing av dato konvertering til dayjs
     // if (filteredResultsByDate.length > 0) {
@@ -73,14 +82,14 @@ function CommitsOptions({ cleanedResults }: Props) {
                     labelId="checkbox-dropdown"
                     id="select-multiple-dropdown"
                     multiple
-                    value={personName}
+                    value={selectedNames}
                     onChange={handleChange}
                     input={<OutlinedInput label="Select names" />}
                     renderValue={(selected) => selected.join(', ')}
                     >
-                    {names.map((name) => (
+                    {uniqueNames.map((name) => (
                         <MenuItem key={name} value={name}>
-                        <Checkbox checked={personName.indexOf(name) > -1} />
+                        <Checkbox checked={selectedNames.indexOf(name) > -1} />
                         <ListItemText primary={name} />
                         </MenuItem>
                     ))}
@@ -100,11 +109,11 @@ function CommitsOptions({ cleanedResults }: Props) {
                 />
                 </LocalizationProvider> */}
                
-                {filteredResults.map((res, i) => (
+                {filterOnName(selectedNames).map((res, i) => (
                 <Grid key={i} container direction="column" justifyContent="flex-start" alignItems="center" sx={{ m: '5px', backgroundColor: '#9dbbae', borderRadius: "10px", p: "5px" }}>
-                    <Grid><b>Committer:</b> {res.committerName}</Grid>
+                    <Grid><b>Committer:</b> {res.committer}</Grid>
                     <Grid><b>Commit message:</b> {res.commitMessage}</Grid>
-                    <Grid><b>Committed date:</b> {res.dateOfCommit}</Grid>
+                    <Grid><b>Committed date:</b> {res.committedDate}</Grid>
                 </Grid>
                 ))}
             </div>
