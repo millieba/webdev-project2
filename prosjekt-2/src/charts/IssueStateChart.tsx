@@ -11,8 +11,6 @@ function IssueStateChart({ cleanedResults }: Props) {
     cleanedResults.map((result) => {
         stateCount[stateCount.map(a => a.name).indexOf(result.state)].count += 1
     });
-    console.log(stateCount);
-
 
     const colors = ["#B5DEFF", "#CAB8FF", "#FCFFA6", "#C1FFD7"]
 

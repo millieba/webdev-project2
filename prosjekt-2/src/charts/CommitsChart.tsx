@@ -13,7 +13,6 @@ function CommitsChart({ cleanedResults }: Props) {
             committerCount.push({ name: result.committer, count: 1 }) // if never counted
             : committerCount[committerCount.map(a => a.name).indexOf(result.committer)].count += 1 // if counted previously
     });
-    console.log(committerCount);
 
 
     const colors = ["#b593bc", "#ab89b2", "#a17fa8", "#8d6b94", "#83618a", "#795780", "#6f4d76"]
