@@ -108,7 +108,7 @@ function UserInput() {
       <Box>
         <TextField
           id="send-link-field"
-          variant='outlined'
+          variant='filled'
           label="GitLab repo project id"
           size="small"
           onChange={(e) => {
@@ -130,7 +130,7 @@ function UserInput() {
 
         <TextField
           id="access-token-field"
-          variant='outlined'
+          variant='filled'
           label="Access token"
           size="small"
           onChange={(e) => {
