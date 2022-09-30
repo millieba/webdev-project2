@@ -5,8 +5,8 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useState } from 'react';
 import { Checkbox, Grid, ListItemText, OutlinedInput, TextField } from '@mui/material';
 import { Dayjs } from 'dayjs';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 
 interface Props {
@@ -30,7 +30,6 @@ function CommitsOptions({ cleanedResults }: Props) {
         console.log(value);
         console.log(typeof value);
         setPersonName(
-          // On autofill we get a stringified value.
           typeof value === 'string' ? value.split(",") : value,
         );
       };
@@ -56,6 +55,7 @@ function CommitsOptions({ cleanedResults }: Props) {
 
     filteredResults.sort((a, b) => Date.parse(b.dateOfCommit) - Date.parse(a.dateOfCommit));
 
+    // Testing av dato konvertering til dayjs
     // if (filteredResultsByDate.length > 0) {
     //     setStartDate(dayjs(filteredResultsByDate[1].dateOfCommit));
     //     setEndDate(dayjs(filteredResultsByDate[filteredResultsByDate.length-1].dateOfCommit));
@@ -87,7 +87,8 @@ function CommitsOptions({ cleanedResults }: Props) {
                     </Select>
                  </FormControl>
 
-                <LocalizationProvider dateAdapter={AdapterDayjs} >
+                 {/* Kalender */}
+                {/* <LocalizationProvider dateAdapter={AdapterDayjs} >
                 <DatePicker
                     label="Start date"
                     value={value}
@@ -97,7 +98,7 @@ function CommitsOptions({ cleanedResults }: Props) {
                     renderInput={(params) => <TextField {...params} 
                     sx={{ m: 1, width: 300 }}/>}
                 />
-                </LocalizationProvider>
+                </LocalizationProvider> */}
                
                 {filteredResults.map((res, i) => (
                 <Grid key={i} container direction="column" justifyContent="flex-start" alignItems="center" sx={{ m: '5px', backgroundColor: '#9dbbae', borderRadius: "10px", p: "5px" }}>
