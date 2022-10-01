@@ -18,6 +18,7 @@ function CommitsFilter({ cleanedResults }: Props) {
     const [selectedNames, setSelectedNames] = useState<string[]>([]);
     let uniqueNames = new Array<string>();
 
+    // Styles each "commit" box of message, committer, and date
     const styleEachCommit = {
         p: '10px', 
         backgroundColor: theme.boxColor2, 
@@ -31,14 +32,6 @@ function CommitsFilter({ cleanedResults }: Props) {
         color: theme.textcolor,
         input: {
             color: theme.textcolor
-        },
-        select : {
-            '&:before': {
-                color: theme.inputTextColor
-            },
-            '&:after': {
-                color: theme.inputTextColor
-            }
         },
     }
 

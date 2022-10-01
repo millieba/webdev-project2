@@ -20,7 +20,7 @@ export const themes = {
         buttonColor: "#8d6b94", 
         darkbutton: "grey",
         boxColor: '#ffffff',
-        boxColor2: '#8d6b94',
+        boxColor2: '#b593bc',
         inputTextColor: "#58517B",
     },
 }

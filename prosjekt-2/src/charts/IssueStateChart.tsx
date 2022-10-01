@@ -15,7 +15,10 @@ function IssueStateChart({ cleanedResults }: Props) {
     const colors = ["#B5DEFF", "#CAB8FF", "#FCFFA6", "#C1FFD7"]
 
     return (
-            <ResponsiveContainer width="100%" height={400}>
+        <>
+            <h3>Distribution of issues on state (open/closed)</h3>
+        
+            <ResponsiveContainer width="95%" height={400}>
                 <PieChart height={400}>
                     <Pie
                         dataKey="count"
@@ -36,6 +39,7 @@ function IssueStateChart({ cleanedResults }: Props) {
                     <Tooltip />
                 </PieChart>
             </ResponsiveContainer>
+        </>
      );
 }
 
