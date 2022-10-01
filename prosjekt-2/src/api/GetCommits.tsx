@@ -51,7 +51,7 @@ function GetCommits({ accessToken, projectId }: Props) {
     }, [accessToken, gitlabRepoLink])
 
     function cleanUpResponse(res: Array<IResponse>) {
-        res.map((result, i) => {
+        res.map((result) => {
             let committer = result?.committer_name;
             let committedDate = new Date(result?.committed_date);
             let commitMessage = result?.title;
@@ -73,7 +73,6 @@ function GetCommits({ accessToken, projectId }: Props) {
 
         return (
             <>
-                <h3>Commits</h3>
                 {cleanedResults.length === 0
                     ? <h4>Sorry, there are no commits in the repository you requested</h4>
                     : <CommitsViews cleanedResults={cleanedResults} />}

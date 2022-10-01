@@ -1,18 +1,28 @@
+import { createTheme, makeStyles } from "@mui/material";
 import { useState, createContext, ReactNode, useEffect } from "react";
 
+// boxColor er den overordnede boksen som inneholder views
+// boxColor2 er de "små" boksene med info om commitene/issuesene
 export const themes = {
     dark: {
-        backgroundColor: "#4e135a", 
+        backgroundColor: "#171520",
         textcolor: "white", 
-        buttonColor: "#430c69",  
-        darkbutton: "white"
+        buttonColor: "#58517B",  
+        darkbutton: "white",
+        boxColor: '#241b2f',
+        boxColor2: '#463465',
+        inputTextColor: "#58517B",
     },
     light: {
-        backgroundColor: "white",
-        textcolor: "grey",
+        backgroundColor: "#e7e0e9",
+        color: "#fcf7ff",
+        textcolor: "black",
         buttonColor: "#8d6b94", 
-        darkbutton: "grey"
-    }, 
+        darkbutton: "grey",
+        boxColor: '#ffffff',
+        boxColor2: '#8d6b94',
+        inputTextColor: "#58517B",
+    },
 }
 
 //Solution inspired by a previous project: https://gitlab.stud.idi.ntnu.no/tdt4140-2022/landsby-3/gruppe_38/matnettside/-/blob/main/feedme/src/contexts/theme.js 

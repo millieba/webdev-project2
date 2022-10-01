@@ -2,17 +2,51 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Checkbox, Grid, ListItemText, OutlinedInput } from '@mui/material';
+import ThemeContext from '../contexts/ThemeContext';
 import { IIssue } from '../api/GetIssues';
 
 interface Props {
     cleanedResults: Array<IIssue>;
 }
 
+// Styles the size of the input filter forms
+export const styleEachForm = {
+    mt: '10px', 
+    width: '40vw', 
+    ml: '10px'
+}
+
 function IssuesFilter({ cleanedResults }: Props) {
+    const [{theme}] = useContext(ThemeContext);
     const [chosenNames, setNames] = useState<string[]>([]); // Names chosen in dropwdown menu
     const [chosenStates, setChosenState] = useState<string[]>([]); // States chosen in dropdown menu
+
+    // Styling of each issue box
+    const styleEachIssue = {
+        p: '10px', 
+        backgroundColor: theme.boxColor2, 
+        m: '10px', 
+        borderRadius: "10px", 
+        borderWidth: "10px" 
+    }
+
+    // Style each option/filter
+    const styleEachOption = {
+        color: theme.textcolor,
+        input: {
+            color: theme.textcolor
+        },
+        select : {
+            '&:before': {
+                borderColor: theme.inputTextColor
+            },
+            '&:after': {
+                borderColor: theme.inputTextColor
+            }
+        },
+    }
 
     let states = ["Open", "Closed"]; // The possible states for the "filter on state" dropwdown menu
 
@@ -65,8 +99,8 @@ function IssuesFilter({ cleanedResults }: Props) {
     return (
         <div>
             {/* Inspiration from https://codesandbox.io/s/urnvxd?file=/demo.tsx:1221-1940 */}
-            <FormControl sx={{ m: 1, width: 300 }}>
-                <InputLabel id="checkbox-dropdown">Select names</InputLabel>
+            <FormControl sx={styleEachForm}>
+                <InputLabel id="checkbox-dropdown" sx={styleEachOption}>Select names</InputLabel>
                 <Select
                     labelId="checkbox-dropdown"
                     id="select-multiple-dropdown"
@@ -75,6 +109,7 @@ function IssuesFilter({ cleanedResults }: Props) {
                     onChange={handleChosenNameChange}
                     input={<OutlinedInput label="Select names" />}
                     renderValue={(selected) => selected.join(', ')}
+                    sx={{ color: theme.inputTextColor }}
                 >
                     {names.map((name) => (
                         <MenuItem key={name} value={name}>
@@ -85,16 +120,17 @@ function IssuesFilter({ cleanedResults }: Props) {
                 </Select>
             </FormControl>
 
-            <FormControl sx={{ m: 1, width: 300 }}>
-                <InputLabel id="checkbox-dropdown">Select states</InputLabel>
+            <FormControl sx={styleEachForm}>
+                <InputLabel id="checkbox-dropdown" sx={styleEachOption}>Select states</InputLabel>
                 <Select
                     labelId="checkbox-dropdown"
                     id="select-multiple-dropdown"
                     multiple
                     value={chosenStates}
                     onChange={handleChosenStatesChange}
-                    input={<OutlinedInput label="Filter on opened/closed" />}
+                    input={<OutlinedInput label="Select states" />}
                     renderValue={(selected) => selected.join(', ')}
+                    sx={{ color: theme.textcolor}}
                 >
                     {states.map((state) => (
                         <MenuItem key={state} value={state}>
@@ -106,8 +142,8 @@ function IssuesFilter({ cleanedResults }: Props) {
             </FormControl>
 
 
-            {filterOnChoices(chosenNames, chosenStates).map((res, i) => (
-                <Grid key={i} container direction="column" justifyContent="flex-start" alignItems="center" sx={{ m: '5px', backgroundColor: '#9dbbae', borderRadius: "10px", p: "5px" }}>
+            {filterOnChoices(chosenNames, chosenStates).map((res,i) => (
+                <Grid key={i} sx={styleEachIssue}>
                     <Grid><b>Title:</b> {res.title}</Grid>
                     <Grid><b>Description:</b> {res.description}</Grid>
                     <Grid><b>Assigned to:</b> {res.assignees}</Grid>

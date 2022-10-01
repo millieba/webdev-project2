@@ -48,7 +48,7 @@ function CommitsBarChart({ cleanedResults }:Props){
                         top: 5,
                         right: 40,
                         left: 20,
-                        bottom: 30,
+                        bottom: 50,
                     }}
                     >
                     <CartesianGrid strokeDasharray="3 3" />
