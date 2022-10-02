@@ -1,49 +1,45 @@
-import {ResponsiveContainer, PieChart, Pie, Cell, Tooltip} from "recharts";
+import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from "recharts";
+import { IIssue } from "../api/GetIssues";
 
-interface Props{
-    cleanedResults: Array<any>
+interface Props {
+    cleanedResults: Array<IIssue>
 }
 
-function IssueAssigneeChart({cleanedResults}:Props){
+function IssueAssigneeChart({ cleanedResults }: Props) {
 
-    // using reduce to loop through the array and sum it into object
-    const countAssignee = cleanedResults.reduce( (previous, current) => (
-        previous[current.assignees] = (previous[current.assignees] || 0)+1, previous), {} 
-    );
-
-    let assigned: Array<any> =[]
-    Object.keys(countAssignee).forEach((assignee) => assigned.push(
-        {name:assignee, value: countAssignee[assignee]})
-    );
+    let assigneeCount: { name: string; count: number }[] = [];
+    cleanedResults.map((result) => {
+        !assigneeCount.some(assignee => assignee.name === result.assignees) ?
+            assigneeCount.push({ name: result.assignees, count: 1 }) // if never counted
+            : assigneeCount[assigneeCount.map(a => a.name).indexOf(result.assignees)].count += 1 // if counted previously
+    });
 
 
     const colors = ["#FFCCF9", "#B5DEFF", "#CAB8FF", "#FCFFA6", "#C1FFD7", "#FFCBC1", "#AFF8DB"]
 
     return (
-        <div style={{ width: "100%", height: 500}} >
-            <ResponsiveContainer>
-                <PieChart width={400} height={400}>
+            <ResponsiveContainer width="100%" height={400}>
+                <PieChart height={400}>
                     <Pie
-                        dataKey="value"
+                        dataKey="count"
                         isAnimationActive={true}
-                        data={assigned}
-                        label
+                        data={assigneeCount}
+                        label={(assignee) => assignee.name}
                         cx="50%"
                         cy="50%"
                         outerRadius={"60%"}
-                        >
-                        {assigned.map((entry, index) => (
-                            <Cell 
-                                key={`cell-${index}`} 
-                                fill={colors[index % colors.length]}   
+                    >
+                        {assigneeCount.map((entry, index) => (
+                            <Cell
+                                key={`cell-${index}`}
+                                fill={colors[index % colors.length]}
                             />))
                         }
                     </Pie>
                     <Tooltip />
                 </PieChart>
             </ResponsiveContainer>
-        </div>
      );
 }
-  
+
 export default IssueAssigneeChart;
