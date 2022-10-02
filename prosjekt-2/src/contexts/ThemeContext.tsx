@@ -1,4 +1,3 @@
-import { createTheme, makeStyles } from "@mui/material";
 import { useState, createContext, ReactNode, useEffect } from "react";
 
 // boxColor er den overordnede boksen som inneholder views
