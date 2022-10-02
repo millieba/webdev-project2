@@ -4,6 +4,7 @@ import CommitsFilter from './CommitsFilter';
 import CommitsChart from '../charts/CommitsChart';
 import ThemeContext from "../contexts/ThemeContext";
 import { ICommit } from "../api/GetCommits";
+import CommitsBarChart from "../charts/CommitBarChart";
 
 interface Props {
     cleanedResults: Array<ICommit>;
@@ -38,11 +39,13 @@ function CommitsViews({ cleanedResults }: Props) {
                 >
                 <MenuItem value={"list"}>List view</MenuItem>
                 <MenuItem value={"pie-chart"}>Pie chart</MenuItem>
+                <MenuItem value={"bar-chart"}>Bar chart</MenuItem>
                 </Select>
             </FormControl>
 
             {view === "list" ? <CommitsFilter cleanedResults={cleanedResults} /> : <></>}
             {view === "pie-chart" ? <CommitsChart cleanedResults={cleanedResults} /> : <></>}
+            {view === "bar-chart" ? <CommitsBarChart cleanedResults ={cleanedResults}/> : <></>}
         </div>
     );
 }
