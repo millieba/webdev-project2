@@ -1,16 +1,29 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import CommitsViews from '../components/CommitsViews';
 
 interface Props {
     accessToken: string;
     projectId: string;
 }
 
-function Commits({ accessToken, projectId }: Props) {
+export interface ICommit {
+    committer: string;
+    committedDate: string;
+    commitMessage: string;
+}
+
+interface IResponse {
+    committer_name: string;
+    committed_date: string;
+    title: string;
+}
+
+function GetCommits({ accessToken, projectId }: Props) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [responseData, setResponseData] = useState([]);
-    let cleanedResults: { committer: string; committedDate: string; commitMessage: string; }[] = [];
+    let cleanedResults = new Array<ICommit>;
 
     const gitlabRepoLink = "https://gitlab.stud.idi.ntnu.no/api/v4/projects/" + projectId + "/repository/commits" + "?pagination=keyset&per_page=1000";
 
@@ -37,8 +50,8 @@ function Commits({ accessToken, projectId }: Props) {
             })
     }, [accessToken, gitlabRepoLink])
 
-    function cleanUpResponse(res: Array<any>) {
-        res.map((result, i) => {
+    function cleanUpResponse(res: Array<IResponse>) {
+        res.map((result) => {
             let committer = result?.committer_name;
             let committedDate = new Date(result?.committed_date);
             let commitMessage = result?.title;
@@ -59,20 +72,13 @@ function Commits({ accessToken, projectId }: Props) {
         cleanUpResponse(responseData);
 
         return (
-            <div>
-                <h3>Commits</h3>
-                {cleanedResults.map((result, i) => (
-                    <div key={i}>
-                        Committer: {result.committer} ///
-                        Date committed: {result.committedDate} ///
-                        Message: {result.commitMessage}
-                        <br />
-                        <br />
-                    </div>
-                ))}
-            </div>
+            <>
+                {cleanedResults.length === 0
+                    ? <h4>Sorry, there are no commits in the repository you requested</h4>
+                    : <CommitsViews cleanedResults={cleanedResults} />}
+            </>
         );
     }
 
 }
-export default Commits;
+export default GetCommits;

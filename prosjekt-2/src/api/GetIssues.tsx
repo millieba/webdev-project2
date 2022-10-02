@@ -1,16 +1,38 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import IssuesViews from "../components/IssuesViews";
 
 interface Props {
     accessToken: string;
     projectId: string;
 }
 
-function Issues({ accessToken, projectId }: Props) {
+export interface IIssue {
+    title: string;
+    description: string;
+    assignees: string;
+    state: string;
+    createdAt: string;
+}
+
+interface IAssignee {
+    name: string;
+}
+
+interface IResponse {
+    assignees: Array<IAssignee>;
+    created_at: string;
+    description: string;
+    state: string;
+    title: string;
+}
+
+
+function GetIssues({ accessToken, projectId }: Props) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [responseData, setResponseData] = useState([]);
-    let cleanedResults: { title: string; description: string; assignees: string; state: string; createdAt: string; }[] = [];
+    let cleanedResults = new Array<IIssue>;
 
     const gitlabRepoLink = "https://gitlab.stud.idi.ntnu.no/api/v4/projects/" + projectId + "/issues" + "?pagination=keyset&per_page=1000";
 
@@ -38,21 +60,24 @@ function Issues({ accessToken, projectId }: Props) {
     }, [accessToken, gitlabRepoLink])
 
 
-    function cleanUpResponse(res: Array<any>) {
+    function cleanUpResponse(res: Array<IResponse>) {
         res.map((result, i) => {
             let title = result?.title;
-            let description = result?.description === null ? "" : result?.description;
+            let description = result?.description === null || result?.description === "" ? "No description" : result?.description;
             let createdAt = new Date(result?.created_at);
-            let state = result?.state;
+            let state = result?.state === "opened" ? "open" : "closed"; // prettier formatting
 
-            let assigneeArr = result?.assignees;
-            let assigneeNames = new Array<String>();
-            assigneeArr.length === 0 ? assigneeNames.push("Issue is not assigned to anyone") : (assigneeArr.map((assignee: any, i: number) => {
+            let assigneeArr: Array<IAssignee> = result?.assignees;
+            let assigneeNames = new Array<string>();
+            assigneeArr.length === 0 ? assigneeNames.push("Unassigned") : (assigneeArr.map((assignee: IAssignee) => {
                 assigneeNames.push(assignee?.name);
             }))
 
 
-            let issueObj = { title: title, description: description.replace(/[\r\n]+/g, ""), createdAt: createdAt.toDateString(), assignees: assigneeNames.toString(), state: state };
+            let issueObj = {
+                title: title, description: description.replace(/[\r\n]+/g, ""), createdAt: createdAt.toDateString(),
+                assignees: assigneeNames.toString(), state: (state[0].toUpperCase() + state.slice(1))
+            };
             cleanedResults.push(issueObj);
         })
     }
@@ -70,22 +95,13 @@ function Issues({ accessToken, projectId }: Props) {
         cleanUpResponse(responseData);
 
         return (
-            <div>
-                <h3>Issues</h3>
-                <ul style={{ listStyleType: "none" }}>
-                    {cleanedResults.map((result, i) => (
-                        <li key={i}>
-                            Title: {result.title} ///
-                            Description: {result.description} ///
-                            Assigneed to: {result.assignees} ///
-                            State: {result.state} ///
-                            Created at: {result.createdAt}<br /><br />
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            <>
+                {cleanedResults.length === 0
+                    ? <h4>Sorry, there are no issues in the repository you requested</h4>
+                    : <IssuesViews cleanedResults={cleanedResults} />}
+            </>
         );
     }
 
 }
-export default Issues;
+export default GetIssues;
