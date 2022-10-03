@@ -3,9 +3,10 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useContext, useState } from 'react';
-import { Checkbox, Grid, ListItemText, OutlinedInput } from '@mui/material';
+import { Box, Checkbox, Grid, ListItemText, OutlinedInput, Pagination } from '@mui/material';
 import ThemeContext from '../contexts/ThemeContext';
 import { IIssue } from '../api/GetIssues';
+import PaginationFunctions from './PaginationFunctions';
 
 interface Props {
     cleanedResults: Array<IIssue>;
@@ -22,6 +23,16 @@ function IssuesFilter({ cleanedResults }: Props) {
     const [{theme}] = useContext(ThemeContext);
     const [chosenNames, setNames] = useState<string[]>([]); // Names chosen in dropwdown menu
     const [chosenStates, setChosenState] = useState<string[]>([]); // States chosen in dropdown menu
+    const [onPage, setOnPage] = useState(1);
+    const elementsPerPage = 5;
+    const numberOfPages = Math.ceil(filterOnChoices(chosenNames, chosenStates).length / elementsPerPage);
+    const dataPage = PaginationFunctions(filterOnChoices(chosenNames, chosenStates), elementsPerPage);
+
+    // CODE FOR PAGINATION
+    const handlePagination = (e: any, p: number) => {
+        dataPage.jump(p);
+        setOnPage(p);
+    }
 
     // Styling of each issue box
     const styleEachIssue = {
@@ -58,7 +69,9 @@ function IssuesFilter({ cleanedResults }: Props) {
         setNames(
             typeof value === 'string' ? value.split(",") : value, // On autofill we get a stringified value.
         );
+
         filterOnChoices(chosenNames, chosenStates);
+        handlePagination(event, 1); // always jump to the first page when selected person changes
     }
 
     const handleChosenStatesChange = (event: SelectChangeEvent<typeof chosenStates>) => {
@@ -69,6 +82,7 @@ function IssuesFilter({ cleanedResults }: Props) {
             typeof value === 'string' ? value.split(",") : value, // On autofill we get a stringified value.
         );
         filterOnChoices(chosenNames, chosenStates);
+        handlePagination(event, 1); // always jump to the first page when selected state changes
     }
 
     function filterOnChoices(chosenNames: Array<string>, chosenStates: Array<string>) {
@@ -134,7 +148,7 @@ function IssuesFilter({ cleanedResults }: Props) {
             </FormControl>
 
 
-            {filterOnChoices(chosenNames, chosenStates).map((res,i) => (
+            {dataPage.dataDisplaying().map((res,i) => (
                 <Grid key={i} sx={styleEachIssue}>
                     <Grid><b>Title:</b> {res.title}</Grid>
                     <Grid><b>Description:</b> {res.description}</Grid>
@@ -143,6 +157,17 @@ function IssuesFilter({ cleanedResults }: Props) {
                     <Grid><b>Created on:</b> {res.createdAt}</Grid>
                 </Grid>
             ))}
+
+            <Box sx={{ p: 2 }}>
+                <Pagination
+                    count={numberOfPages}
+                    size="large"
+                    variant='outlined'
+                    page={onPage}
+                    onChange={handlePagination}
+                    className="pagination"
+                /> 
+            </Box>
         </div>
     );
 }

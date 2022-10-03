@@ -18,15 +18,15 @@ interface Props {
 function CommitsFilter({ cleanedResults }: Props) {
     const [{ theme }] = useContext(ThemeContext);
     const [selectedNames, setSelectedNames] = useState<string[]>([]);
-    const [page, setPage] = useState(1);
-    const PER_PAGE = 5;
-    const count = Math.ceil(filterOnName(selectedNames).length / PER_PAGE);
-    const _DATA = PaginationFunctions(filterOnName(selectedNames), PER_PAGE);
+    const [onPage, setOnPage] = useState(1);
+    const elementsPerPage = 5;
+    const numberOfPages = Math.ceil(filterOnName(selectedNames).length / elementsPerPage);
+    const dataPage = PaginationFunctions(filterOnName(selectedNames), elementsPerPage);
 
     // CODE FOR PAGINATION
     const handlePagination = (e: any, p: number) => {
-        setPage(p);
-        _DATA.jump(p);
+        dataPage.jump(p);
+        setOnPage(p);
     }
 
     // CODE FOR FILTERING
@@ -49,7 +49,7 @@ function CommitsFilter({ cleanedResults }: Props) {
         },
     }
 
-    // handleChange is taken from https://codesandbox.io/s/urnvxd?file=/demo.tsx:1221-1940
+    // handleChange inspired by https://codesandbox.io/s/urnvxd?file=/demo.tsx:1221-1940
     const handleChange = (event: SelectChangeEvent<typeof selectedNames>) => {
         const {
             target: { value },
@@ -106,7 +106,7 @@ function CommitsFilter({ cleanedResults }: Props) {
 
             <Box sx={{ p: 2 }}>
 
-                {_DATA.currentData().map((res: any, i: number) => (
+                {dataPage.dataDisplaying().map((res: any, i: number) => (
                     <Grid key={i} sx={styleEachCommit}>
                         <Grid><b>Committer:</b> {res.committer}</Grid>
                         <Grid><b>Commit message:</b> {res.commitMessage}</Grid>
@@ -114,10 +114,10 @@ function CommitsFilter({ cleanedResults }: Props) {
                     </Grid>
                 ))}
                 <Pagination
-                    count={count}
+                    count={numberOfPages}
                     size="large"
                     variant='outlined'
-                    page={page}
+                    page={onPage}
                     onChange={handlePagination}
                     className="pagination"
                 />

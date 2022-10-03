@@ -1,30 +1,31 @@
 import { useState } from 'react';
 import { ICommit } from '../api/GetCommits';
+import { IIssue } from '../api/GetIssues';
 
-function PaginationFunctions(data: Array<ICommit>, itemsPerPage: number) {
-    const [currentPage, setCurrentPage] = useState(1);
-    const maxPages = Math.ceil(data.length / itemsPerPage);
+function PaginationFunctions(data: Array<any>, elementsPerPage: number) {
+    const [onPage, setOnPage] = useState(1);
+    const numberOfPages = Math.ceil(data.length / elementsPerPage);
 
-    function currentData() {
-        const begin = (currentPage - 1) * itemsPerPage;
-        const end = begin + itemsPerPage;
-        return data.slice(begin, end);
+    function dataDisplaying() {
+        const start = (onPage - 1) * elementsPerPage;
+        const end = start + elementsPerPage;
+        return data.slice(start, end);
     }
 
     function next() {
-        setCurrentPage(currentPage => Math.min(currentPage + 1, maxPages));
+        setOnPage(onPage => Math.min(onPage + 1, numberOfPages));
     }
 
     function prev() {
-        setCurrentPage(currentPage => Math.max(currentPage - 1, 1));
+        setOnPage(onPage => Math.max(onPage - 1, 1));
     }
 
     function jump(page: number) {
         const pageNumber = Math.max(1, page);
-        setCurrentPage(currentPage => Math.min(pageNumber, maxPages));
+        setOnPage(onPage => Math.min(pageNumber, numberOfPages));
     }
 
-    return { next, prev, jump, currentData, currentPage, maxPages };
+    return { next, prev, jump, dataDisplaying: dataDisplaying, onPage: onPage, numberOfPages: numberOfPages };
 }
 
 export default PaginationFunctions;
