@@ -14,9 +14,15 @@ function IssuesViews({ cleanedResults }: Props) {
     const [{theme}] = useContext(ThemeContext);
     const [view, setView] = useState("list");
 
-    // Styling of the input
+    // Styling of the dropdown
     const inputStyling = {
         color: theme.textcolor,
+        '& .MuiOutlinedInput-notchedOutline': {
+            borderColor:  theme.textcolor + " !important",
+        },
+        '& .MuiSvgIcon-root': {
+            color: theme.textcolor + " !important",
+        },
     }
 
     return (
@@ -38,13 +44,10 @@ function IssuesViews({ cleanedResults }: Props) {
             </FormControl>
             {view === "list" ? <IssuesFilter cleanedResults={cleanedResults} /> : <></>}
             {view === "charts" ?
-                <>
-                    <h3>Distribution of issues on state (open/closed)</h3>
+                    <>
                     <IssuesPieChart cleanedResults={cleanedResults} />
-
-                    <h3>Issues per assignee</h3>
                     <IssueAssigneeChart cleanedResults={cleanedResults} />
-                </>
+                    </>
                 : <></>}
         </div>
     );

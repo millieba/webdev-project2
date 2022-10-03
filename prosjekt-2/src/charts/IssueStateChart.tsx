@@ -12,10 +12,15 @@ function IssueStateChart({ cleanedResults }: Props) {
         stateCount[stateCount.map(a => a.name).indexOf(result.state)].count += 1
     });
 
-    const colors = ["#B5DEFF", "#CAB8FF", "#FCFFA6", "#C1FFD7"]
+    const colors = ["#C9A7D0", "#8D6B94", "#AB89B2", "#937499", "#D3B1DA", 
+                    "#97759E", "#65436C", "#88668F", "#B593BC", "#A17FA8", 
+                    "#795780", "#BF9DC6", "#83618A", "#AA88B1", "#A583AC"]
 
     return (
-            <ResponsiveContainer width="100%" height={400}>
+        <>
+            <h3>Distribution of issues on state (open/closed)</h3>
+        
+            <ResponsiveContainer width="95%" height={400}>
                 <PieChart height={400}>
                     <Pie
                         dataKey="count"
@@ -36,6 +41,7 @@ function IssueStateChart({ cleanedResults }: Props) {
                     <Tooltip />
                 </PieChart>
             </ResponsiveContainer>
+        </>
      );
 }
 

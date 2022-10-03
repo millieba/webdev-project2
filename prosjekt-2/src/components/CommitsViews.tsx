@@ -22,6 +22,12 @@ function CommitsViews({ cleanedResults }: Props) {
     // Styling of the input
     const inputStyling = {
         color: theme.textcolor,
+        '& .MuiOutlinedInput-notchedOutline': {
+            borderColor:  theme.textcolor + " !important",
+        },
+        '& .MuiSvgIcon-root': {
+            color: theme.textcolor + " !important",
+        },
     }
 
     return (

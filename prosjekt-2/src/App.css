@@ -2,6 +2,18 @@
   text-align: center;
 }
 
+#headline {
+  padding-left: 2vw;
+  padding-right: 2vw;
+}
+
+@media only screen and (max-width: 600px) {
+  #headline {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+  }
+}
+
 .gridViewItem {
   border-radius: 10px;
 }

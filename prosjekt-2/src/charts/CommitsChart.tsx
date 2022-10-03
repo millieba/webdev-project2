@@ -14,11 +14,14 @@ function CommitsChart({ cleanedResults }: Props) {
             : committerCount[committerCount.map(a => a.name).indexOf(result.committer)].count += 1 // if counted previously
     });
 
-
-    const colors = ["#b593bc", "#ab89b2", "#a17fa8", "#8d6b94", "#83618a", "#795780", "#6f4d76"]
+    const colors = ["#C9A7D0", "#8D6B94", "#AB89B2", "#D3B1DA", "#97759E", 
+                    "#65436C", "#B593BC", "#88668F", "#A17FA8", "#937499",
+                    "#795780", "#BF9DC6", "#83618A", "#AA88B1", "#A583AC"]
 
     return (
-            <ResponsiveContainer width="100%" height={400}>
+        <>
+        <h3>Number of commits per contributor</h3>
+            <ResponsiveContainer width="95%" height={400}>
                 <PieChart height={400}>
                     <Pie
                         dataKey="count"
@@ -39,6 +42,7 @@ function CommitsChart({ cleanedResults }: Props) {
                     <Tooltip />
                 </PieChart>
             </ResponsiveContainer>
+        </>
      );
 }
 
