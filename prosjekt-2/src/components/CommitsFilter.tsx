@@ -16,7 +16,7 @@ interface Props {
 }
 
 function CommitsFilter({ cleanedResults }: Props) {
-    const [{theme}] = useContext(ThemeContext);
+    const [{ theme }] = useContext(ThemeContext);
     const [selectedNames, setSelectedNames] = useState<string[]>([]);
     const [page, setPage] = useState(1);
     const PER_PAGE = 5;
@@ -34,11 +34,11 @@ function CommitsFilter({ cleanedResults }: Props) {
 
     // Styles each "commit" box of message, committer, and date
     const styleEachCommit = {
-        p: '10px', 
-        backgroundColor: theme.boxColor2, 
-        m: '10px', 
-        borderRadius: "10px", 
-        borderWidth: "10px" 
+        p: '10px',
+        backgroundColor: theme.boxColor2,
+        m: '10px',
+        borderRadius: "10px",
+        borderWidth: "10px"
     }
 
     // Styles the name filtering
@@ -52,17 +52,18 @@ function CommitsFilter({ cleanedResults }: Props) {
     // handleChange is taken from https://codesandbox.io/s/urnvxd?file=/demo.tsx:1221-1940
     const handleChange = (event: SelectChangeEvent<typeof selectedNames>) => {
         const {
-          target: { value },
+            target: { value },
         } = event;
-      
+
         setSelectedNames(
-          typeof value === 'string' ? value.split(",") : value,
+            typeof value === 'string' ? value.split(",") : value,
         );
 
         filterOnName(selectedNames);
-      };
+        handlePagination(event, 1); // always jump to the first page when selected person changes
+    };
 
-   
+
     // Find all unique members of a repository
     cleanedResults.map((result, i) => {
         if (!uniqueNames.includes(result.committer)) {
@@ -82,9 +83,9 @@ function CommitsFilter({ cleanedResults }: Props) {
     return (
         <div>
             {/* Inspiration from https://codesandbox.io/s/urnvxd?file=/demo.tsx:1221-1940 */}
-                <FormControl sx={styleEachForm}>
-                    <InputLabel id="checkbox-dropdown" sx={styleEachOption}>Select names</InputLabel>
-                    <Select
+            <FormControl sx={styleEachForm}>
+                <InputLabel id="checkbox-dropdown" sx={styleEachOption}>Select names</InputLabel>
+                <Select
                     labelId="checkbox-dropdown"
                     id="select-multiple-dropdown"
                     multiple
@@ -93,18 +94,18 @@ function CommitsFilter({ cleanedResults }: Props) {
                     input={<OutlinedInput label="Select names" />}
                     renderValue={(selected) => selected.join(', ')}
                     sx={styleEachOption}
-                    >
+                >
                     {uniqueNames.map((name) => (
                         <MenuItem key={name} value={name}>
-                        <Checkbox checked={selectedNames.indexOf(name) > -1} />
-                        <ListItemText primary={name} />
+                            <Checkbox checked={selectedNames.indexOf(name) > -1} />
+                            <ListItemText primary={name} />
                         </MenuItem>
                     ))}
-                    </Select>
-                 </FormControl>
+                </Select>
+            </FormControl>
 
-                <Box sx={{ p: 2 }}>
-                          
+            <Box sx={{ p: 2 }}>
+
                 {_DATA.currentData().map((res: any, i: number) => (
                     <Grid key={i} sx={styleEachCommit}>
                         <Grid><b>Committer:</b> {res.committer}</Grid>
@@ -112,16 +113,16 @@ function CommitsFilter({ cleanedResults }: Props) {
                         <Grid><b>Committed date:</b> {res.committedDate}</Grid>
                     </Grid>
                 ))}
-                <Pagination 
-                        count={count}
-                        size="large"
-                        variant='outlined'
-                        page={page}
-                        onChange={handlePagination}
-                        className="pagination"
-                    />         
-                </Box>
-            </div>
+                <Pagination
+                    count={count}
+                    size="large"
+                    variant='outlined'
+                    page={page}
+                    onChange={handlePagination}
+                    className="pagination"
+                />
+            </Box>
+        </div>
     );
 }
 
