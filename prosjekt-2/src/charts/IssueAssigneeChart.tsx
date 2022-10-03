@@ -14,8 +14,9 @@ function IssueAssigneeChart({ cleanedResults }: Props) {
             : assigneeCount[assigneeCount.map(a => a.name).indexOf(result.assignees)].count += 1 // if counted previously
     });
 
-
-    const colors = ["#FFCCF9", "#B5DEFF", "#CAB8FF", "#FCFFA6", "#C1FFD7", "#FFCBC1", "#AFF8DB"]
+    const colors = ["#C9A7D0", "#8D6B94", "#AB89B2", "#D3B1DA", "#97759E", 
+                    "#65436C", "#B593BC", "#88668F", "#A17FA8", "#937499",
+                    "#795780", "#BF9DC6", "#83618A", "#AA88B1", "#A583AC"]
 
     return (
         <>

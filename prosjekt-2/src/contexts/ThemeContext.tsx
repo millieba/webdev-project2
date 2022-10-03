@@ -1,4 +1,3 @@
-import { createTheme, makeStyles } from "@mui/material";
 import { useState, createContext, ReactNode, useEffect } from "react";
 
 // boxColor er den overordnede boksen som inneholder views
@@ -29,7 +28,7 @@ export const themes = {
 
 //Solution inspired by a previous project: https://gitlab.stud.idi.ntnu.no/tdt4140-2022/landsby-3/gruppe_38/matnettside/-/blob/main/feedme/src/contexts/theme.js 
 
-export const ThemeContext = createContext<any>({} as any); // Bro idk, but no error message at least 
+export const ThemeContext = createContext<any>({} as any); 
 
 type ProviderProps = {
     children: ReactNode; 
