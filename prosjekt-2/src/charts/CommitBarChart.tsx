@@ -37,7 +37,7 @@ function CommitsBarChart({ cleanedResults }:Props){
     dayCount.sort((a , b) => sorter.indexOf(a.name) - sorter.indexOf(b.name));
 
     return (
-        <div style={{ width: "100%", height: 500 }}>
+        <div style={{ width: "95%", height: 500 }}>
             <h3>Number of commits for each day in the week</h3>
             <ResponsiveContainer width="100%" height="100%">
                 <BarChart
