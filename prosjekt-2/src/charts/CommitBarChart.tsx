@@ -1,4 +1,3 @@
-
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import React from 'react';
 import { ICommit } from "../api/GetCommits";
@@ -48,17 +47,17 @@ class CommitsBarChart extends React.Component<Props>{
                         data={this.getChartData()}
                         margin={{
                             top: 5,
-                            right: 40,
-                            left: 20,
+                            right: 15,
+                            left: 5,
                             bottom: 50,
                         }}
                     >
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" />
                         <YAxis />
-                        <Tooltip />
+                        <Tooltip cursor={{ fill: 'rgb(220, 220, 220, 0.4)'}} />
                         <Legend />
-                        <Bar name="commit amount" dataKey="count" fill="#B5DEFF" />
+                        <Bar name="commit amount" dataKey="count" fill="#C9A7D0" />
                     </BarChart>
                 </ResponsiveContainer>
             </div >
