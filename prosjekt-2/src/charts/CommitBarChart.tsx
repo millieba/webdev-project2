@@ -1,5 +1,5 @@
 
-import {ComposedChart, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { ICommit } from "../api/GetCommits";
 
 interface Props{
@@ -20,7 +20,6 @@ function CommitsBarChart({ cleanedResults }:Props){
     let dayCount: { name: string; count: number }[] = [];
     
     cleanedResults.map((result) => {
-
         const date = new Date(result.committedDate);
         const daysNamed = weekday[date.getDay()];
         let data = {name: daysNamed};
@@ -46,8 +45,8 @@ function CommitsBarChart({ cleanedResults }:Props){
                     data={dayCount}
                     margin={{
                         top: 5,
-                        right: 40,
-                        left: 20,
+                        right: 30,
+                        left: 10,
                         bottom: 50,
                     }}
                     >
@@ -56,7 +55,7 @@ function CommitsBarChart({ cleanedResults }:Props){
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Bar name="commit amount" dataKey="count" fill="#B5DEFF" />
+                    <Bar name="commit amount" dataKey="count" fill="#C9A7D0" />
                 </BarChart>
             </ResponsiveContainer>
         </div>

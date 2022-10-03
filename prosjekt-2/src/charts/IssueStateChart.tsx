@@ -12,7 +12,13 @@ function IssueStateChart({ cleanedResults }: Props) {
         stateCount[stateCount.map(a => a.name).indexOf(result.state)].count += 1
     });
 
-    const colors = ["#B5DEFF", "#CAB8FF", "#FCFFA6", "#C1FFD7"]
+    const colors = ["#C9A7D0", "#8D6B94", "#AB89B2", "#937499", "#D3B1DA", 
+                    "#97759E", "#65436C", "#88668F", "#B593BC", "#A17FA8", 
+                    "#795780", "#BF9DC6", "#83618A", "#AA88B1"]
+
+    //const colors = ["#B5DEFF", "#CAB8FF", "#FCFFA6", "#C1FFD7", "#FFCCF9",
+      //              "#AFF8DB", "#ABDEE6", "#C1FFD7", "#FFCBC1", "#AFF8DB",
+        //            "#ABDEE6", "#C0E4F6", "#FFCCB6", "#F3B0C3", "#A2D2FF"]
 
     return (
             <ResponsiveContainer width="100%" height={400}>

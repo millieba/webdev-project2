@@ -14,8 +14,14 @@ function IssueAssigneeChart({ cleanedResults }: Props) {
             : assigneeCount[assigneeCount.map(a => a.name).indexOf(result.assignees)].count += 1 // if counted previously
     });
 
+    const colors = ["#C9A7D0", "#8D6B94", "#AB89B2", "#D3B1DA", "#97759E", 
+                    "#65436C", "#B593BC", "#88668F", "#A17FA8", "#937499",
+                    "#795780", "#BF9DC6", "#83618A", "#AA88B1"]
 
-    const colors = ["#FFCCF9", "#B5DEFF", "#CAB8FF", "#FCFFA6", "#C1FFD7", "#FFCBC1", "#AFF8DB"]
+    //const colors = ["#FFCCF9", "#B5DEFF", "#CAB8FF", "#C1FFD7", "#FFCBC1", 
+                    //"#AFF8DB", "#ABDEE6", "#FFCCB6", "#C0E4F6", "#F3B0C3", 
+                   // "#A2D2FF", "#FF968A", "#FFC8A2", "#CCE2CB", "#97C1A9", 
+                   // "#FEE1E8", "#A2E1DB", "#DEFDE0", "#ECD5E3", "#FCFFA6"]
 
     return (
             <ResponsiveContainer width="100%" height={400}>
