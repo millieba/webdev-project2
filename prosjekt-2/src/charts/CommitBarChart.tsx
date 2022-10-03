@@ -53,7 +53,7 @@ function CommitsBarChart({ cleanedResults }:Props){
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
                     <YAxis />
-                    <Tooltip />
+                    <Tooltip cursor={{fill: 'rgb(220, 220, 220, 0.4)' }}/>
                     <Legend />
                     <Bar name="commit amount" dataKey="count" fill="#C9A7D0" />
                 </BarChart>
