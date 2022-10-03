@@ -15,7 +15,7 @@ interface Props {
 
 // Styles the size of the input filter forms
 export const styleEachForm = {
-    mt: '10px', 
+    mt: '20px', 
     width: '40vw', 
     ml: '10px'
 }
@@ -31,7 +31,7 @@ function IssuesFilter({ cleanedResults }: Props) {
 
     // CODE FOR PAGINATION
     const handlePagination = (e: any, p: number) => {
-        dataPage.jump(p);
+        dataPage.skip(p);
         setOnPage(p);
     }
 
@@ -61,6 +61,16 @@ function IssuesFilter({ cleanedResults }: Props) {
         },
     }
 
+    const inputStyling = {
+        color: theme.textcolor,
+        '& .MuiOutlinedInput-notchedOutline': {
+            borderColor:  theme.textcolor + " !important",
+        },
+        '& .MuiSvgIcon-root': {
+            color: theme.textcolor + " !important",
+        },
+    }
+
     let states = ["Open", "Closed"]; // The possible states for the "filter on state" dropwdown menu
 
     let names = new Array<string>(); // Array for all unique names (assignee names) 
@@ -81,7 +91,7 @@ function IssuesFilter({ cleanedResults }: Props) {
         );
 
         filterOnChoices(chosenNames, chosenStates);
-        handlePagination(event, 1); // always jump to the first page when selected person changes
+        handlePagination(event, 1); // always skip to the first page when selected person changes
     }
 
     const handleChosenStatesChange = (event: SelectChangeEvent<typeof chosenStates>) => {
@@ -92,7 +102,7 @@ function IssuesFilter({ cleanedResults }: Props) {
             typeof value === 'string' ? value.split(",") : value, // On autofill we get a stringified value.
         );
         filterOnChoices(chosenNames, chosenStates);
-        handlePagination(event, 1); // always jump to the first page when selected state changes
+        handlePagination(event, 1); // always skip to the first page when selected state changes
     }
 
     function filterOnChoices(chosenNames: Array<string>, chosenStates: Array<string>) {
@@ -125,7 +135,7 @@ function IssuesFilter({ cleanedResults }: Props) {
                     onChange={handleChosenNameChange}
                     input={<OutlinedInput label="Select names" />}
                     renderValue={(selected) => selected.join(', ')}
-                    sx={{ color: theme.inputTextColor }}
+                    sx={inputStyling}
                 >
                     {names.map((name) => (
                         <MenuItem key={name} value={name}>
@@ -146,7 +156,7 @@ function IssuesFilter({ cleanedResults }: Props) {
                     onChange={handleChosenStatesChange}
                     input={<OutlinedInput label="Select states" />}
                     renderValue={(selected) => selected.join(', ')}
-                    sx={{ color: theme.textcolor}}
+                    sx={inputStyling}
                 >
                     {states.map((state) => (
                         <MenuItem key={state} value={state}>
@@ -173,6 +183,7 @@ function IssuesFilter({ cleanedResults }: Props) {
                     count={numberOfPages}
                     variant='outlined'
                     page={onPage}
+                    size="small"
                     onChange={handlePagination}
                     className="pagination"
                     sx={stylePagination}

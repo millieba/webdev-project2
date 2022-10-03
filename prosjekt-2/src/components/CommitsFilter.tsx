@@ -24,7 +24,7 @@ function CommitsFilter({ cleanedResults }: Props) {
 
     // CODE FOR PAGINATION
     const handlePagination = (e: any, p: number) => {
-        dataPage.jump(p);
+        dataPage.skip(p);
         setOnPage(p);
     }
 
@@ -41,10 +41,13 @@ function CommitsFilter({ cleanedResults }: Props) {
     }
 
     // Styles the name filtering
-    const styleEachOption = {
+    const inputStyling = {
         color: theme.textcolor,
-        input: {
-            color: theme.textcolor
+        '& .MuiOutlinedInput-notchedOutline': {
+            borderColor:  theme.textcolor + " !important",
+        },
+        '& .MuiSvgIcon-root': {
+            color: theme.textcolor + " !important",
         },
     }
 
@@ -69,7 +72,7 @@ function CommitsFilter({ cleanedResults }: Props) {
         );
 
         filterOnName(selectedNames);
-        handlePagination(event, 1); // always jump to the first page when selected person changes
+        handlePagination(event, 1); // always skip to the first page when selected person changes
     };
 
 
@@ -93,7 +96,7 @@ function CommitsFilter({ cleanedResults }: Props) {
         <div>
             {/* Inspiration from https://codesandbox.io/s/urnvxd?file=/demo.tsx:1221-1940 */}
             <FormControl sx={styleEachForm}>
-                <InputLabel id="checkbox-dropdown" sx={styleEachOption}>Select names</InputLabel>
+                <InputLabel id="checkbox-dropdown" sx={inputStyling}>Select names</InputLabel>
                 <Select
                     labelId="checkbox-dropdown"
                     id="select-multiple-dropdown"
@@ -102,7 +105,7 @@ function CommitsFilter({ cleanedResults }: Props) {
                     onChange={handleChange}
                     input={<OutlinedInput label="Select names" />}
                     renderValue={(selected) => selected.join(', ')}
-                    sx={styleEachOption}
+                    sx={inputStyling}
                 >
                     {uniqueNames.map((name) => (
                         <MenuItem key={name} value={name}>
@@ -128,6 +131,7 @@ function CommitsFilter({ cleanedResults }: Props) {
                     count={numberOfPages}
                     variant='outlined'
                     page={onPage}
+                    size="small"
                     onChange={handlePagination}
                     className="pagination"
                     sx={stylePagination}
