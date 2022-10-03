@@ -3,10 +3,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useContext, useState } from 'react';
-import { Box, Checkbox, Grid, ListItemText, OutlinedInput, Pagination } from '@mui/material';
+import { Checkbox, Grid, ListItemText, OutlinedInput, Pagination } from '@mui/material';
 import ThemeContext from '../contexts/ThemeContext';
 import { IIssue } from '../api/GetIssues';
 import PaginationFunctions from './PaginationFunctions';
+import Stack from '@mui/material/Stack';
 
 interface Props {
     cleanedResults: Array<IIssue>;
@@ -40,7 +41,16 @@ function IssuesFilter({ cleanedResults }: Props) {
         backgroundColor: theme.boxColor2, 
         m: '10px', 
         borderRadius: "10px", 
-        borderWidth: "10px" 
+        overflow: "hidden",
+    }
+
+    // Styles the Pagination
+    const stylePagination = {
+        "& .MuiPaginationItem-root": {
+            color: theme.textcolor,
+            backgroundColor: theme.paginationColor,
+            border: 'none',
+        },
     }
 
     // Style each option/filter
@@ -158,16 +168,17 @@ function IssuesFilter({ cleanedResults }: Props) {
                 </Grid>
             ))}
 
-            <Box sx={{ p: 2 }}>
+            <Stack alignItems="center" sx={{ p: 1 }}>
                 <Pagination
                     count={numberOfPages}
-                    size="large"
                     variant='outlined'
                     page={onPage}
                     onChange={handlePagination}
                     className="pagination"
-                /> 
-            </Box>
+                    sx={stylePagination}
+                />
+                <p>Page {onPage} of {numberOfPages}</p>
+            </Stack>
         </div>
     );
 }

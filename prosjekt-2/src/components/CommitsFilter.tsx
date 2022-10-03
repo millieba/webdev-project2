@@ -3,12 +3,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useContext, useState } from 'react';
-import { Checkbox, Grid, ListItemText, OutlinedInput, Pagination } from '@mui/material';
+import { Checkbox, Grid, ListItemText, OutlinedInput, Pagination, Stack } from '@mui/material';
 import ThemeContext from '../contexts/ThemeContext';
 import { styleEachForm } from './IssuesFilter';
 import { ICommit } from '../api/GetCommits';
 import PaginationFunctions from './PaginationFunctions';
-import { Box } from '@mui/system';
 
 
 interface Props {
@@ -38,7 +37,7 @@ function CommitsFilter({ cleanedResults }: Props) {
         backgroundColor: theme.boxColor2,
         m: '10px',
         borderRadius: "10px",
-        borderWidth: "10px"
+        overflow: "hidden",
     }
 
     // Styles the name filtering
@@ -49,7 +48,17 @@ function CommitsFilter({ cleanedResults }: Props) {
         },
     }
 
-    // handleChange inspired by https://codesandbox.io/s/urnvxd?file=/demo.tsx:1221-1940
+    // Styles the Pagination
+    const stylePagination = {
+        "& .MuiPaginationItem-root": {
+            color: theme.textcolor,
+            backgroundColor: theme.paginationColor,
+            border: 'none',
+        },
+    }
+
+
+    // handleChange inspired by https://codesandbox.io/s/urnvxd?file=/demo.tsx:1221-1940 - its for the chose name
     const handleChange = (event: SelectChangeEvent<typeof selectedNames>) => {
         const {
             target: { value },
@@ -104,7 +113,7 @@ function CommitsFilter({ cleanedResults }: Props) {
                 </Select>
             </FormControl>
 
-            <Box sx={{ p: 2 }}>
+            
 
                 {dataPage.dataDisplaying().map((res: any, i: number) => (
                     <Grid key={i} sx={styleEachCommit}>
@@ -113,15 +122,18 @@ function CommitsFilter({ cleanedResults }: Props) {
                         <Grid><b>Committed date:</b> {res.committedDate}</Grid>
                     </Grid>
                 ))}
+
+                <Stack alignItems='center' sx={{ p: 2 }}>
                 <Pagination
                     count={numberOfPages}
-                    size="large"
                     variant='outlined'
                     page={onPage}
                     onChange={handlePagination}
                     className="pagination"
+                    sx={stylePagination}
                 />
-            </Box>
+                <p>Page {onPage} of {numberOfPages}</p>
+            </Stack>
         </div>
     );
 }
