@@ -3,12 +3,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useContext, useState } from 'react';
-import { Checkbox, Grid, ListItemText, OutlinedInput, Pagination } from '@mui/material';
+import { Checkbox, Grid, ListItemText, OutlinedInput, Pagination, Stack } from '@mui/material';
 import ThemeContext from '../contexts/ThemeContext';
 import { styleEachForm } from './IssuesFilter';
 import { ICommit } from '../api/GetCommits';
 import PaginationFunctions from './PaginationFunctions';
-import { Box } from '@mui/system';
 
 
 interface Props {
@@ -18,15 +17,15 @@ interface Props {
 function CommitsFilter({ cleanedResults }: Props) {
     const [{ theme }] = useContext(ThemeContext);
     const [selectedNames, setSelectedNames] = useState<string[]>([]);
-    const [page, setPage] = useState(1);
-    const PER_PAGE = 5;
-    const count = Math.ceil(filterOnName(selectedNames).length / PER_PAGE);
-    const _DATA = PaginationFunctions(filterOnName(selectedNames), PER_PAGE);
+    const [onPage, setOnPage] = useState(1);
+    const elementsPerPage = 5;
+    const numberOfPages = Math.ceil(filterOnName(selectedNames).length / elementsPerPage);
+    const dataPage = PaginationFunctions(filterOnName(selectedNames), elementsPerPage);
 
     // CODE FOR PAGINATION
     const handlePagination = (e: any, p: number) => {
-        setPage(p);
-        _DATA.jump(p);
+        dataPage.skip(p);
+        setOnPage(p);
     }
 
     // CODE FOR FILTERING
@@ -38,18 +37,31 @@ function CommitsFilter({ cleanedResults }: Props) {
         backgroundColor: theme.boxColor2,
         m: '10px',
         borderRadius: "10px",
-        borderWidth: "10px"
+        overflow: "hidden",
     }
 
     // Styles the name filtering
-    const styleEachOption = {
+    const inputStyling = {
         color: theme.textcolor,
-        input: {
-            color: theme.textcolor
+        '& .MuiOutlinedInput-notchedOutline': {
+            borderColor:  theme.textcolor + " !important",
+        },
+        '& .MuiSvgIcon-root': {
+            color: theme.textcolor + " !important",
         },
     }
 
-    // handleChange is taken from https://codesandbox.io/s/urnvxd?file=/demo.tsx:1221-1940
+    // Styles the Pagination
+    const stylePagination = {
+        "& .MuiPaginationItem-root": {
+            color: theme.textcolor,
+            backgroundColor: theme.paginationColor,
+            border: 'none',
+        },
+    }
+
+
+    // handleChange inspired by https://codesandbox.io/s/urnvxd?file=/demo.tsx:1221-1940 - its for the chose name
     const handleChange = (event: SelectChangeEvent<typeof selectedNames>) => {
         const {
             target: { value },
@@ -60,7 +72,7 @@ function CommitsFilter({ cleanedResults }: Props) {
         );
 
         filterOnName(selectedNames);
-        handlePagination(event, 1); // always jump to the first page when selected person changes
+        handlePagination(event, 1); // always skip to the first page when selected person changes
     };
 
 
@@ -84,7 +96,7 @@ function CommitsFilter({ cleanedResults }: Props) {
         <div>
             {/* Inspiration from https://codesandbox.io/s/urnvxd?file=/demo.tsx:1221-1940 */}
             <FormControl sx={styleEachForm}>
-                <InputLabel id="checkbox-dropdown" sx={styleEachOption}>Select names</InputLabel>
+                <InputLabel id="checkbox-dropdown" sx={inputStyling}>Select names</InputLabel>
                 <Select
                     labelId="checkbox-dropdown"
                     id="select-multiple-dropdown"
@@ -93,7 +105,7 @@ function CommitsFilter({ cleanedResults }: Props) {
                     onChange={handleChange}
                     input={<OutlinedInput label="Select names" />}
                     renderValue={(selected) => selected.join(', ')}
-                    sx={styleEachOption}
+                    sx={inputStyling}
                 >
                     {uniqueNames.map((name) => (
                         <MenuItem key={name} value={name}>
@@ -104,24 +116,28 @@ function CommitsFilter({ cleanedResults }: Props) {
                 </Select>
             </FormControl>
 
-            <Box sx={{ p: 2 }}>
+            
 
-                {_DATA.currentData().map((res: any, i: number) => (
+                {dataPage.dataDisplaying().map((res: any, i: number) => (
                     <Grid key={i} sx={styleEachCommit}>
                         <Grid><b>Committer:</b> {res.committer}</Grid>
                         <Grid><b>Commit message:</b> {res.commitMessage}</Grid>
                         <Grid><b>Committed date:</b> {res.committedDate}</Grid>
                     </Grid>
                 ))}
+
+                <Stack alignItems='center' sx={{ p: 2 }}>
                 <Pagination
-                    count={count}
-                    size="large"
+                    count={numberOfPages}
                     variant='outlined'
-                    page={page}
+                    page={onPage}
+                    size="small"
                     onChange={handlePagination}
                     className="pagination"
+                    sx={stylePagination}
                 />
-            </Box>
+                <p>Page {onPage} of {numberOfPages}</p>
+            </Stack>
         </div>
     );
 }

@@ -11,6 +11,7 @@ export const themes = {
         boxColor: '#241b2f',
         boxColor2: '#463465',
         inputTextColor: "#58517B",
+        paginationColor: "#5D4587",
     },
     light: {
         backgroundColor: "#e7e0e9",
@@ -21,6 +22,7 @@ export const themes = {
         boxColor: '#ffffff',
         boxColor2: '#b593bc',
         inputTextColor: "#58517B",
+        paginationColor: '#c5abcb',
     },
 }
 

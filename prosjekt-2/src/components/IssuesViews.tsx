@@ -14,9 +14,15 @@ function IssuesViews({ cleanedResults }: Props) {
     const [{theme}] = useContext(ThemeContext);
     const [view, setView] = useState("list");
 
-    // Styling of the input
+    // Styling of the dropdown
     const inputStyling = {
         color: theme.textcolor,
+        '& .MuiOutlinedInput-notchedOutline': {
+            borderColor:  theme.textcolor + " !important",
+        },
+        '& .MuiSvgIcon-root': {
+            color: theme.textcolor + " !important",
+        },
     }
 
     return (
