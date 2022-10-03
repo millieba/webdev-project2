@@ -18,7 +18,9 @@ function IssueAssigneeChart({ cleanedResults }: Props) {
     const colors = ["#FFCCF9", "#B5DEFF", "#CAB8FF", "#FCFFA6", "#C1FFD7", "#FFCBC1", "#AFF8DB"]
 
     return (
-            <ResponsiveContainer width="100%" height={400}>
+        <>
+            <h3>Issues per assignee</h3>
+            <ResponsiveContainer width="95%" height={400}>
                 <PieChart height={400}>
                     <Pie
                         dataKey="count"
@@ -39,6 +41,7 @@ function IssueAssigneeChart({ cleanedResults }: Props) {
                     <Tooltip />
                 </PieChart>
             </ResponsiveContainer>
+        </>
      );
 }
 

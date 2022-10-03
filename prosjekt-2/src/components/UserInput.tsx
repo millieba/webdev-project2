@@ -25,7 +25,8 @@ const styleModal = {
 
 
 
-const emojis = ["🌹", "🥀", "🌺", "🌸", "🌼", "🌻", "💐", "🏵️", "🌷"];
+const emojis = ["💜", "🔮", "🌌", "🍇", "🎆", "☂️", "🎶", "👾", "🟣", "🪀", "🦄",
+  "💫", "🌠", "🌃", "🍨", "🐇", "🦢", "🐁", "📋", "🤍", "🐘"];
 const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
 
 // Save random emoji to sessionStorage
@@ -50,30 +51,30 @@ function UserInput() {
 
   // Styles the textfields that take in project id and access token
   const styleTextField = {
-    mt: "15px", 
+    mt: "15px",
     width: "250px",
     input: {
       color: theme.textcolor
     },
-    "& label": { 
-        color: theme.inputTextColor 
-      }, 
-    "& label.Mui-focused": { 
-        color: theme.inputTextColor
-      },
-    "&:hover label": { 
-        color: theme.inputTextColor
-      },
+    "& label": {
+      color: theme.inputTextColor
+    },
+    "& label.Mui-focused": {
+      color: theme.inputTextColor
+    },
+    "&:hover label": {
+      color: theme.inputTextColor
+    },
     "& .MuiInput-underline:after": {
-        color: theme.inputTextColor
-      },
+      color: theme.inputTextColor
+    },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
         borderColor: theme.inputTextColor
       },
       "&:hover fieldset": {
-          borderColor: theme.inputTextColor
-        },
+        borderColor: theme.inputTextColor
+      },
       "&.Mui-focused fieldset": {
         borderColor: theme.inputTextColor
       }
@@ -102,7 +103,7 @@ function UserInput() {
     // To adjust the colors on the MUI-components, use theme in index.tsx
     <div>
       {/* // Get saved data from sessionStorage */}
-      <h3 id="headline">Nice to meet you! <br/> Please add a project id and an access token
+      <h3 id="headline">Nice to meet you! <br /> Please add a project id and an access token
         so I can show you some information. {sessionStorage.getItem("emoji")}</h3>
 
       <Box>

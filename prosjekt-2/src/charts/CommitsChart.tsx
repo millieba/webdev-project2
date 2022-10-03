@@ -18,7 +18,9 @@ function CommitsChart({ cleanedResults }: Props) {
     const colors = ["#b593bc", "#ab89b2", "#a17fa8", "#8d6b94", "#83618a", "#795780", "#6f4d76"]
 
     return (
-            <ResponsiveContainer width="100%" height={400}>
+        <>
+        <h3>Number of commits per contributor</h3>
+            <ResponsiveContainer width="95%" height={400}>
                 <PieChart height={400}>
                     <Pie
                         dataKey="count"
@@ -39,6 +41,7 @@ function CommitsChart({ cleanedResults }: Props) {
                     <Tooltip />
                 </PieChart>
             </ResponsiveContainer>
+        </>
      );
 }
 
