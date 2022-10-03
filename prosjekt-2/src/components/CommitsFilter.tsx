@@ -14,7 +14,7 @@ interface Props {
 }
 
 function CommitsFilter({ cleanedResults }: Props) {
-    const [{theme}] = useContext(ThemeContext);
+    const {theme} = useContext(ThemeContext);
     const [selectedNames, setSelectedNames] = useState<string[]>([]);
     let uniqueNames = new Array<string>();
 

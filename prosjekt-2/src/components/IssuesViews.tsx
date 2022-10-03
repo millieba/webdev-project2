@@ -1,9 +1,9 @@
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useContext, useState } from "react";
 import IssuesFilter from './IssuesFilter';
 import IssuesPieChart from '../charts/IssueStateChart';
 import IssueAssigneeChart from '../charts/IssueAssigneeChart';
-import ThemeContext from "../contexts/ThemeContext";
+import {ThemeContext} from "../contexts/ThemeContext";
 import {styleEachView} from "./CommitsViews";
 import { IIssue } from "../api/GetIssues";
 
@@ -11,7 +11,7 @@ interface Props {
     cleanedResults: Array<IIssue>;
 }
 function IssuesViews({ cleanedResults }: Props) {
-    const [{theme}] = useContext(ThemeContext);
+    const {theme} = useContext(ThemeContext);
     const [view, setView] = useState("list");
 
     // Styling of the input

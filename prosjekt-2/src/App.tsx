@@ -6,7 +6,8 @@ import DarkMode from "./components/DarkMode";
 import { GlobalStyles } from "@mui/material";
 
 function App() {
-  const [{theme}] = useContext(ThemeContext); 
+  
+  const {theme} = useContext(ThemeContext); 
 
   return (
     <div className="App"

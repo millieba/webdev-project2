@@ -11,7 +11,7 @@ interface Props {
 }
 
 function Connect({ accessToken, projectId }: Props) {
-    const [{theme}] = useContext(ThemeContext);
+    const {theme} = useContext(ThemeContext);
 
     // Styling for the "Commits" and "Issues" view boxes
     const gridItemStyle = {

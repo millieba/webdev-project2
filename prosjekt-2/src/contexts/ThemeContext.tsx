@@ -1,8 +1,33 @@
 import { useState, createContext, ReactNode, useEffect } from "react";
 
+interface IThemes {
+    dark: {
+        backgroundColor: string, 
+        textcolor: string, 
+        buttonColor: string,   
+        darkbutton: string, 
+        boxColor: string, 
+        boxColor2: string, 
+        inputTextColor: string, 
+    }, 
+    light: {
+        backgroundColor: string, 
+        color: string,
+        textcolor: string, 
+        buttonColor: string,   
+        darkbutton: string, 
+        boxColor: string, 
+        boxColor2: string, 
+        inputTextColor: string, 
+    }, 
+    toggle: () => void; 
+}
+
+
+
 // boxColor er den overordnede boksen som inneholder views
 // boxColor2 er de "små" boksene med info om commitene/issuesene
-export const themes = {
+export const themes: IThemes = {
     dark: {
         backgroundColor: "#171520",
         textcolor: "white", 
@@ -22,11 +47,12 @@ export const themes = {
         boxColor2: '#8d6b94',
         inputTextColor: "#58517B",
     },
+    toggle: () => {},
 }
 
 //Solution inspired by a previous project: https://gitlab.stud.idi.ntnu.no/tdt4140-2022/landsby-3/gruppe_38/matnettside/-/blob/main/feedme/src/contexts/theme.js 
 
-export const ThemeContext = createContext<any>({} as any); // Bro idk, but no error message at least 
+export const ThemeContext = createContext(typeof themes); 
 
 type ProviderProps = {
     children: ReactNode; 
@@ -34,6 +60,7 @@ type ProviderProps = {
 
 export const ThemeProvider = ({children}: ProviderProps) => {   //Provides global theme 
     const [isDarkMode, setIsDarkMode] = useState(false); 
+    
     const theme = isDarkMode ? themes.dark : themes.light; 
 
     const toggle = () => {
@@ -48,7 +75,7 @@ export const ThemeProvider = ({children}: ProviderProps) => {   //Provides globa
 
 
     return ( 
-        <ThemeContext.Provider value={[{theme, isDarkMode}, toggle]}>
+        <ThemeContext.Provider value={[{theme}, toggle]}>  
             {children}
         </ThemeContext.Provider>
     ); 

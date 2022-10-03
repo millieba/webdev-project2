@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useContext, useState } from "react";
 import CommitsFilter from './CommitsFilter';
 import CommitsChart from '../charts/CommitsChart';
@@ -17,7 +17,7 @@ export const styleEachView = {
 
 function CommitsViews({ cleanedResults }: Props) {
     const [view, setView] = useState("list");
-    const [{theme}] = useContext(ThemeContext);
+    const {theme} = useContext(ThemeContext);
 
     // Styling of the input
     const inputStyling = {
