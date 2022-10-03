@@ -38,14 +38,6 @@ function IssuesFilter({ cleanedResults }: Props) {
         input: {
             color: theme.textcolor
         },
-        select : {
-            '&:before': {
-                borderColor: theme.inputTextColor
-            },
-            '&:after': {
-                borderColor: theme.inputTextColor
-            }
-        },
     }
 
     let states = ["Open", "Closed"]; // The possible states for the "filter on state" dropwdown menu
