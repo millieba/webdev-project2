@@ -3,10 +3,12 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useContext, useState } from 'react';
-import { Checkbox, Grid, ListItemText, OutlinedInput } from '@mui/material';
+import { Checkbox, Grid, ListItemText, OutlinedInput, Pagination } from '@mui/material';
 import ThemeContext from '../contexts/ThemeContext';
 import { styleEachForm } from './IssuesFilter';
 import { ICommit } from '../api/GetCommits';
+import PaginationFunctions from './PaginationFunctions';
+import { Box } from '@mui/system';
 
 
 interface Props {
@@ -16,6 +18,18 @@ interface Props {
 function CommitsFilter({ cleanedResults }: Props) {
     const [{theme}] = useContext(ThemeContext);
     const [selectedNames, setSelectedNames] = useState<string[]>([]);
+    const [page, setPage] = useState(1);
+    const PER_PAGE = 5;
+    const count = Math.ceil(filterOnName(selectedNames).length / PER_PAGE);
+    const _DATA = PaginationFunctions(filterOnName(selectedNames), PER_PAGE);
+
+    // CODE FOR PAGINATION
+    const handlePagination = (e: any, p: number) => {
+        setPage(p);
+        _DATA.jump(p);
+    }
+
+    // CODE FOR FILTERING
     let uniqueNames = new Array<string>();
 
     // Styles each "commit" box of message, committer, and date
@@ -88,14 +102,25 @@ function CommitsFilter({ cleanedResults }: Props) {
                     ))}
                     </Select>
                  </FormControl>
-               
-                {filterOnName(selectedNames).map((res,i) => (
+
+                <Box sx={{ p: 2 }}>
+                          
+                {_DATA.currentData().map((res: any, i: number) => (
                     <Grid key={i} sx={styleEachCommit}>
                         <Grid><b>Committer:</b> {res.committer}</Grid>
                         <Grid><b>Commit message:</b> {res.commitMessage}</Grid>
                         <Grid><b>Committed date:</b> {res.committedDate}</Grid>
                     </Grid>
                 ))}
+                <Pagination 
+                        count={count}
+                        size="large"
+                        variant='outlined'
+                        page={page}
+                        onChange={handlePagination}
+                        className="pagination"
+                    />         
+                </Box>
             </div>
     );
 }
