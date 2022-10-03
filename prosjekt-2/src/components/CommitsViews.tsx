@@ -17,7 +17,9 @@ export const styleEachView = {
 
 function CommitsViews({ cleanedResults }: Props) {
     const [view, setView] = useState("list");
-    const {theme} = useContext(ThemeContext);
+    const {themes} = useContext(ThemeContext);
+    const [isDarkMode] = useState(false); 
+    const theme = isDarkMode ? themes.dark : themes.light;
 
     // Styling of the input
     const inputStyling = {

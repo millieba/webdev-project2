@@ -33,9 +33,12 @@ sessionStorage.setItem("emoji", randomEmoji);
 
 
 function UserInput() {
-  const { theme } = useContext(ThemeContext);
+  const { themes } = useContext(ThemeContext);
   const [disableButton, setDisableButton] = useState(true);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false); 
+  const [isDarkMode] = useState(false); 
+  const theme = isDarkMode ? themes.dark : themes.light; 
+  
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

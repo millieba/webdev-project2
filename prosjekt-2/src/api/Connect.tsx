@@ -1,5 +1,5 @@
 import { Box, Grid } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import ThemeContext from "../contexts/ThemeContext";
 import GetCommits from "./GetCommits";
 import GetIssues from "./GetIssues";
@@ -11,7 +11,9 @@ interface Props {
 }
 
 function Connect({ accessToken, projectId }: Props) {
-    const {theme} = useContext(ThemeContext);
+    const {themes} = useContext(ThemeContext);
+    const [isDarkMode] = useState(false); 
+    const theme = isDarkMode ? themes.dark : themes.light;
 
     // Styling for the "Commits" and "Issues" view boxes
     const gridItemStyle = {

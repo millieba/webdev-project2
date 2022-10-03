@@ -4,7 +4,7 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useContext, useState } from 'react';
 import { Checkbox, Grid, ListItemText, OutlinedInput } from '@mui/material';
-import ThemeContext from '../contexts/ThemeContext';
+import {ThemeContext} from '../contexts/ThemeContext';
 import { styleEachForm } from './IssuesFilter';
 import { ICommit } from '../api/GetCommits';
 
@@ -14,9 +14,12 @@ interface Props {
 }
 
 function CommitsFilter({ cleanedResults }: Props) {
-    const {theme} = useContext(ThemeContext);
+    const {themes} = useContext(ThemeContext);
     const [selectedNames, setSelectedNames] = useState<string[]>([]);
     let uniqueNames = new Array<string>();
+    
+    const [isDarkMode] = useState(false); 
+    const theme = isDarkMode ? themes.dark : themes.light;
 
     const styleEachCommit = {
         p: '10px', 
