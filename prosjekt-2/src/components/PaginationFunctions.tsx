@@ -5,17 +5,17 @@ function PaginationFunctions(data: Array<any>, elementsPerPage: number) {
     const [onPage, setOnPage] = useState(1);
     const numberOfPages = Math.ceil(data.length / elementsPerPage);
 
+    // Skips ahed to a page that isnt after or before the current page
+    function skip(page: number) {
+        const pageNumber = Math.max(1, page);
+        setOnPage(Math.min(pageNumber, numberOfPages));
+    }
+
     // Slices the array at the indexes that indicate what will be displayed
     function dataDisplaying() {
         const start = (onPage - 1) * elementsPerPage;
         const end = start + elementsPerPage;
         return data.slice(start, end);
-    }
-
-    // Skips ahed to a page that isnt after or before
-    function skip(page: number) {
-        const pageNumber = Math.max(1, page);
-        setOnPage(Math.min(pageNumber, numberOfPages));
     }
 
     return { skip: skip, dataDisplaying: dataDisplaying, onPage: onPage, numberOfPages: numberOfPages };

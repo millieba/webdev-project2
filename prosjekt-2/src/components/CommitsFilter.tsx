@@ -16,19 +16,19 @@ interface Props {
 
 function CommitsFilter({ cleanedResults }: Props) {
     const [{ theme }] = useContext(ThemeContext);
-    const [selectedNames, setSelectedNames] = useState<string[]>([]);
-    const [onPage, setOnPage] = useState(1);
-    const elementsPerPage = 5;
-    const numberOfPages = Math.ceil(filterOnName(selectedNames).length / elementsPerPage);
-    const dataPage = PaginationFunctions(filterOnName(selectedNames), elementsPerPage);
+    const [selectedNames, setSelectedNames] = useState<string[]>([]); // User selected names
+    const [onPage, setOnPage] = useState(1); // Always start pagination at page 1
+    const elementsPerPage = 5; // How many commits to show on each page in the pagination
+    const numberOfPages = Math.ceil(filterOnName(selectedNames).length / elementsPerPage); // How many pages to display in the pagination bar
+    const dataPage = PaginationFunctions(filterOnName(selectedNames), elementsPerPage); // What data to display in the pagination
 
-    // CODE FOR PAGINATION
+    // Pagination logic
     const handlePagination = (e: any, p: number) => {
         dataPage.skip(p);
         setOnPage(p);
     }
 
-    // CODE FOR FILTERING
+    // Array for unique names found in cleanedResults
     let uniqueNames = new Array<string>();
 
     // Styles each "commit" box of message, committer, and date
@@ -44,7 +44,7 @@ function CommitsFilter({ cleanedResults }: Props) {
     const inputStyling = {
         color: theme.textcolor,
         '& .MuiOutlinedInput-notchedOutline': {
-            borderColor:  theme.textcolor + " !important",
+            borderColor:  theme.textcolor + " !important", 
         },
         '& .MuiSvgIcon-root': {
             color: theme.textcolor + " !important",
@@ -61,7 +61,7 @@ function CommitsFilter({ cleanedResults }: Props) {
     }
 
 
-    // handleChange inspired by https://codesandbox.io/s/urnvxd?file=/demo.tsx:1221-1940 - its for the chose name
+    // handleChange inspired by https://codesandbox.io/s/urnvxd?file=/demo.tsx:1221-1940 - its for selecting names
     const handleChange = (event: SelectChangeEvent<typeof selectedNames>) => {
         const {
             target: { value },
@@ -83,7 +83,7 @@ function CommitsFilter({ cleanedResults }: Props) {
         }
     });
 
-    // Filter based on what user has selected 
+    // Filter based on names the user has selected 
     function filterOnName(chosenNames: Array<string>) {
         if (chosenNames.length === 0) {
             return cleanedResults;
