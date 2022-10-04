@@ -89,14 +89,14 @@ The tests can be found under src /tests . There are three tests in total. App.te
 
 ## Testing of responsive design 
 
-When tested on a laptop, everything works correctly. The website adjusts to the web browser window size. Both themes work correctly, and the correct information is displayed when chosen.
-The website was tested on an iPad. To improve the website appearance on tablets, the issues content box is positioned beneath the commits, and both boxes are adjusted to fit the tablet screen. The select boxes and views function properly and display accurate data in both the bright and dark modes.
-The phone test was executed on an iPhone. All functionality worked correctly. The website layout and both light and dark themes work as they should.
+* When tested on a laptop, everything works correctly. The website adjusts to the web browser window size. Both themes work correctly, and the correct information is displayed when chosen.
+* The website was tested on an iPad. To improve the website appearance on tablets, the issues content box is positioned beneath the commits, and both boxes are adjusted to fit the tablet screen. The select boxes and views function properly and display accurate data in both the bright and dark modes.
+* The phone test was executed on an iPhone. All functionality worked correctly. The website layout and both light and dark themes work as they should.
 
 * __Cross browser testing__: we have tested our project in the browsers Google Chrome, Safari, Mozilla Firefox and Microsoft Edge. The project behaves as expected in all four.
 
 ## Charts 
 
-For the charts in this project, we used the rechart library from recharts.org. This library is among the most used and popular React chart libraries.We chose to use this charts library since it is built on React components and was created specifically for building various types of charts in React applications. The ResponsiveContainer component was used to modify and adjust the chart size based on the application window size. To build the pie charts, we used the PieChart component with the Cell component to give each slice of the pie a unique color. The bar chart was created using the BarChart component, and the bars were displayed using the Bar component. 
+For the charts in this project, we used the rechart library from recharts.org. This library is among the most used and popular React chart libraries. We chose to use this charts library since it is built on React components and was created specifically for building various types of charts in React applications. The ResponsiveContainer component was used to modify and adjust the chart size based on the application window size. To build the pie charts, we used the PieChart component with the Cell component to give each slice of the pie a unique color. The bar chart was created using the BarChart component, and the bars were displayed using the Bar component. 
 
 
