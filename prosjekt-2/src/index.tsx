@@ -9,9 +9,11 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+//ThemeProvider applies darktheme to App and all child components of App 
+
 root.render(
   <React.StrictMode>
-    <ThemeProvider>
+    <ThemeProvider> 
     <App /> 
     </ThemeProvider>
   </React.StrictMode>
