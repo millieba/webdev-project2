@@ -47,13 +47,11 @@ function GetIssues({ accessToken, projectId }: Props) {
         axios.get(gitlabRepoLink, config)
             .then(
                 (result) => {
-                    console.log(result);
                     let data = result.data;
                     setIsLoaded(true);
                     setResponseData(data);
                 })
             .catch((error) => {
-                console.log(error);
                 setIsLoaded(true);
                 setError(error.response.data.message);
             })

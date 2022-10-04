@@ -24,7 +24,7 @@ function IssuesFilter({ cleanedResults }: Props) {
     const [{theme}] = useContext(ThemeContext);
     const [chosenNames, setNames] = useState<string[]>([]); // Names chosen in dropwdown menu
     const [chosenStates, setChosenState] = useState<string[]>([]); // States chosen in dropdown menu
-    const [onPage, setOnPage] = useState(1);
+    const [onPage, setOnPage] = useState(1); // Always start pagination at page 1
     const elementsPerPage = 5;
     const numberOfPages = Math.ceil(filterOnChoices(chosenNames, chosenStates).length / elementsPerPage);
     const dataPage = PaginationFunctions(filterOnChoices(chosenNames, chosenStates), elementsPerPage);

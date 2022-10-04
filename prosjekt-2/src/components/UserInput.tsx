@@ -7,9 +7,9 @@ import ProjectIdImage from '../images/project-id.png';
 import CloseIcon from '@mui/icons-material/Close';
 import Connect from '../api/Connect';
 import ThemeContext from '../contexts/ThemeContext';
+import Headline from './Headline';
 
-
-
+// Styling of the popup modal
 const styleModal = {
   top: '50%',
   left: '50%',
@@ -23,8 +23,6 @@ const styleModal = {
   overflow: 'auto',
 };
 
-
-
 const emojis = ["💜", "🔮", "🌌", "🍇", "🎆", "☂️", "🎶", "👾", "🟣", "🪀", "🦄",
   "💫", "🌠", "🌃", "🍨", "🐇", "🦢", "🐁", "📋", "🤍", "🐘"];
 const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
@@ -35,9 +33,10 @@ sessionStorage.setItem("emoji", randomEmoji);
 
 function UserInput() {
   const [{ theme }] = useContext(ThemeContext);
-  const [disableButton, setDisableButton] = useState(true);
-  const [open, setOpen] = useState(false);
+  const [disableButton, setDisableButton] = useState(true); // Always disable the button if user has not typed in something into the input fields
+  const [open, setOpen] = useState(false); // Indicates whether the modal is open or not
 
+  // Functions for the information modal
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -82,6 +81,7 @@ function UserInput() {
 
   }
 
+  // Check everytime tempAccessToken or tempProjectId changes - if user has typed in something in both input fields to enable button
   useEffect(() => {
     if (tempAccessToken && tempProjectId && validateInputFields(tempAccessToken, tempProjectId)) {
       setDisableButton(false);
@@ -90,6 +90,7 @@ function UserInput() {
     }
   }, [tempAccessToken, tempProjectId]);
 
+  // Ensure that the user does not give invalid input
   function validateInputFields(accessToken: string, projectId: string) {
     if (projectId === undefined || !projectId.match(/\d+/))
       return false;
@@ -100,13 +101,11 @@ function UserInput() {
   }
 
   return (
-    // To adjust the colors on the MUI-components, use theme in index.tsx
     <div>
-      {/* // Get saved data from sessionStorage */}
-      <h3 id="headline">Nice to meet you! <br /> Please add a project id and an access token
-        so I can show you some information. {sessionStorage.getItem("emoji")}</h3>
+      <Headline />
 
       <Box>
+        {/* Input fields */}
         <TextField
           id="send-link-field"
           variant='filled'
@@ -141,6 +140,7 @@ function UserInput() {
 
         <br />
 
+          {/* Submit button */}
         <Button
           style={{ backgroundColor: theme.buttonColor }}
           id="access-token"
@@ -160,6 +160,7 @@ function UserInput() {
         <Connect accessToken={accessToken} projectId={projectId} /> :
         <></>}
 
+        {/* Modal that popups when user clicks on "?"-button */}
       <Modal
         open={open}
         onClose={handleClose}>
