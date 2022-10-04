@@ -8,7 +8,7 @@ Link to website: http://it2810-43.idi.ntnu.no/project2/
 
 Arrows indicate that the component is being rendered in the above component, the dashed lines indicates imports such as functions and theme.
 
- <img src="components connected.png">
+ <img src="prosjekt-2/src/images/components connected.png">
 
 ## Folder structure 
 
@@ -93,7 +93,7 @@ The tests can be found under src /tests . There are three tests in total. App.te
 * The website was tested on an iPad. To improve the website appearance on tablets, the issues content box is positioned beneath the commits, and both boxes are adjusted to fit the tablet screen. The select boxes and views function properly and display accurate data in both the bright and dark modes.
 * The phone test was executed on an iPhone. All functionality worked correctly. The website layout and both light and dark themes work as they should.
 
-* __Cross browser testing__: we have tested our project in the browsers Google Chrome, Safari, Mozilla Firefox and Microsoft Edge. The project behaves as expected in all four.
+* Cross browser testing: we have tested our project in the browsers Google Chrome, Safari, Mozilla Firefox and Microsoft Edge. The project behaves as expected in all four.
 
 ## Charts 
 
