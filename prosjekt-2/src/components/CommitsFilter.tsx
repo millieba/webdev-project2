@@ -14,11 +14,11 @@ interface Props {
 }
 
 function CommitsFilter({ cleanedResults }: Props) {
-    const {themes} = useContext(ThemeContext);
+    const [{themes}, isDarkMode] = useContext(ThemeContext);
     const [selectedNames, setSelectedNames] = useState<string[]>([]);
     let uniqueNames = new Array<string>();
     
-    const [isDarkMode] = useState(false); 
+    //const [isDarkMode] = useState(false); 
     const theme = isDarkMode ? themes.dark : themes.light;
 
     const styleEachCommit = {

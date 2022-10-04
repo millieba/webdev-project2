@@ -6,15 +6,15 @@ import DarkMode from "./components/DarkMode";
 import { GlobalStyles } from "@mui/material";
 
 function App() {
-  const { themes } = useContext(ThemeContext);
-  const [isDarkMode] = useState(false);
+  const [{ themes }, isDarkMode] = useContext(ThemeContext);
+  //const [isDarkMode] = useState(false);
   
   const theme = isDarkMode ? themes.dark : themes.light;
 
   return (
     <div
       className="App"
-      style={{ color: theme.textcolor, backgroundColor: theme.backgroundColor }}>
+      style={{ color: theme.textcolor, backgroundColor: theme.backgroundColor,  }}>
       <GlobalStyles
         styles={{ body: { backgroundColor: theme.backgroundColor } }}/>
       <DarkMode />

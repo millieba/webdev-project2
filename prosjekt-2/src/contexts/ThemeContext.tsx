@@ -10,8 +10,7 @@ export const themes = {
     darkbutton: "white",
     boxColor: "#241b2f",
     boxColor2: "#463465",
-    inputTextColor: "#58517B",
-    toggleDarkmode: () => {}, 
+    inputTextColor: "#58517B", 
   },
   light: {
     backgroundColor: "#e7e0e9",
@@ -22,13 +21,13 @@ export const themes = {
     boxColor: "#ffffff",
     boxColor2: "#8d6b94",
     inputTextColor: "#58517B",
-    toggleDarkmode: () => {},
   },
+  toggleDarkMode: () => {}, 
 };
 
 //Solution inspired by a previous project: https://gitlab.stud.idi.ntnu.no/tdt4140-2022/landsby-3/gruppe_38/matnettside/-/blob/main/feedme/src/contexts/theme.js
 
-export const ThemeContext = createContext({ themes });
+export const ThemeContext = createContext([{ themes }]);
 
 type ProviderProps = {
   children: ReactNode;
@@ -51,8 +50,8 @@ export const ThemeProvider = ({ children }: ProviderProps) => {
   }, []); 
 
   return (
-    <ThemeContext.Provider value={{ themes }}>
-        {children}
+    <ThemeContext.Provider value={[{ themes }]}>
+        {children} 
     </ThemeContext.Provider>
   );
 };

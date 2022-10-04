@@ -11,7 +11,7 @@ interface Props {
 }
 
 function Connect({ accessToken, projectId }: Props) {
-    const {themes} = useContext(ThemeContext);
+    const [{themes}] = useContext(ThemeContext);
     const [isDarkMode] = useState(false); 
     const theme = isDarkMode ? themes.dark : themes.light;
 

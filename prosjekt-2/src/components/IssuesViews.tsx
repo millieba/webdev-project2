@@ -11,9 +11,9 @@ interface Props {
     cleanedResults: Array<IIssue>;
 }
 function IssuesViews({ cleanedResults }: Props) {
-    const {themes} = useContext(ThemeContext);
+    const [{themes}, isDarkMode] = useContext(ThemeContext);
     const [view, setView] = useState("list");
-    const [isDarkMode] = useState(false); 
+    //const [isDarkMode] = useState(false); 
     const theme = isDarkMode ? themes.dark : themes.light;
 
     // Styling of the input

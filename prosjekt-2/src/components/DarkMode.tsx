@@ -4,7 +4,7 @@ import { IconButton } from "@mui/material";
 import { Brightness4, Brightness7 } from "@mui/icons-material";
 
 export default function DarkMode() {
-  const { themes } = useContext(ThemeContext);
+  const [{ themes }] = useContext(ThemeContext);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const theme = isDarkMode ? themes.dark : themes.light;

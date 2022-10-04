@@ -19,7 +19,7 @@ export const styleEachForm = {
 }
 
 function IssuesFilter({ cleanedResults }: Props) {
-    const { themes } = useContext(ThemeContext);
+    const [{ themes }] = useContext(ThemeContext);
     const [chosenNames, setNames] = useState<string[]>([]); // Names chosen in dropwdown menu
     const [chosenStates, setChosenState] = useState<string[]>([]); // States chosen in dropdown menu
     const [isDarkMode] = useState(false); 
